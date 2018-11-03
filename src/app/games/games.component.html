@@ -6,7 +6,7 @@
       <input matInput placeholder="Enter Game Code">
     </mat-form-field>
 
-    <button mat-flat-button id="join" (click)="joinGame()">
+    <button mat-flat-button id="join" (click)="joinGame()" color="primary">
       Join Game!
     </button>
   </form>
@@ -17,7 +17,7 @@
   <li *ngFor="let game of games">
     {{ game.name }}
     <img src={{game.image_path}}>
-    
+
   </li>
 </ul>
 </div>
