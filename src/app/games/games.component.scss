@@ -40,7 +40,7 @@ mat-form-field-infix {
 }
 
 ::ng-deep .mat-input-underline {
-  background-color: #ffffff !important;    /* replace this color with your accent color hex code */
+  background-color: #ffffff !important;   
 }
 
 #start {
@@ -49,7 +49,7 @@ mat-form-field-infix {
   color: white;
 }
 
-#join {
+.join {
   margin-bottom: 6%;
   color: white;
 }
