@@ -1,10 +1,27 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {NhieComponent} from './games/nhie/nhie.component';
+import { NhieComponent } from './games/nhie/nhie.component';
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import {GamesComponent} from './games/games.component';
 import {LobbyComponent} from './party/lobby/lobby.component';
 
-const routes: Routes = [{path: 'nhie', component: NhieComponent},
-  {path: 'lobby', component: LobbyComponent}];
+const routes: Routes = [
+  {
+    path: '',
+    component: GamesComponent
+  },
+  {
+    path: 'nhie',
+    component: NhieComponent
+  },
+  {
+    path: 'lobby',
+    component: LobbyComponent},
+  {
+    path: '**',
+    component: PageNotFoundComponent,
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

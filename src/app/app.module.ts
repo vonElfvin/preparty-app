@@ -15,17 +15,17 @@ import {PartyModule} from './party/party.module';
     AppComponent
   ],
   imports: [
-    // Angular Imports
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-
     // Custom
+    AdminModule,
     CoreModule,
     SharedModule,
-    AdminModule,
     GamesModule,
-    PartyModule
+    PartyModule,
+    AppRoutingModule,
+
+    // Angular Imports
+    BrowserModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
