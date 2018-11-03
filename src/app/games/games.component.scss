@@ -53,3 +53,21 @@ mat-form-field-infix {
   margin-bottom: 6%;
   color: white;
 }
+
+#small {
+  width: 60%;
+  height: 60%;
+}
+
+#games {
+  list-style-type: none;
+  display: inline-block;
+}
+
+li {
+  float: left;
+}
+
+li img:hover {
+  background-color: #ffffff;
+}
