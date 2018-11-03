@@ -14,16 +14,16 @@ import { GamesModule } from './games/games.module';
     AppComponent
   ],
   imports: [
-    // Angular Imports
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-
     // Custom
+    AdminModule,
     CoreModule,
     SharedModule,
-    AdminModule,
     GamesModule,
+    AppRoutingModule,
+
+    // Angular Imports
+    BrowserModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
