@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NhieService} from './shared/nhie.service';
+import {NhieGameInstanceService} from './shared/nhieGameInstance.service';
 import {ActivatedRoute} from '@angular/router';
 import {NhieGameInstance} from './shared/nhie-game-instance';
 
@@ -18,7 +18,7 @@ export class NhieComponent implements OnInit {
   currentPlayer: string;
   currentQuestion: string;
 
-  constructor(private nhieService: NhieService, private route: ActivatedRoute) { }
+  constructor(private nhieService: NhieGameInstanceService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     const joinCode = this.route.snapshot.params['id'];

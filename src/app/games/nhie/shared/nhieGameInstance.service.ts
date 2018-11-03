@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class NhieService {
+export class NhieGameInstanceService {
 
   private readonly gameId = 'nhie';
   private readonly path = 'GameInstance';
@@ -41,7 +41,6 @@ export class NhieService {
 
   getGameInstanceByJoinCode(joinCode: string): Observable<NhieGameInstance> {
     return <Observable<NhieGameInstance>>this.gameInstanceService.getGameInstanceByJoinCode(joinCode);
-    
   }
 
 }
