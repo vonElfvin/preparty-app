@@ -8,8 +8,13 @@ export class NhieService {
   constructor() { }
 
   getGameInstanceQuestions(): string[] {
-    return [' Jag har aldrig ätit mat', 'Jag har aldrig fångat fisk', 'Jag har aldrig kastat sten', 'Jag har aldrig varit skön',
-    'Jag har aldrig krökat'];
+    return ['ätit mat', 'fångat fisk', 'kastat sten', 'varit skön',
+    'krökat'];
+  }
+
+
+  addQuestionToGame(gameInstanceId: string, question: string) {
+    console.log(`gameinstance: ${gameInstanceId} question:${question}`);
   }
 
 }

@@ -14,11 +14,17 @@ export class NhieCardComponent implements OnInit {
   @Input()
   playerName: string;
 
+  @Input()
+  gameInstanceId: string;
+
+
+  showForm = false;
+
+  newQuestion: string;
 
   @Output() answer = new EventEmitter<boolean>();
 
-
-  constructor() { }
+  constructor(private nhieService: NhieService) { }
 
   ngOnInit() {
   }
@@ -26,4 +32,12 @@ export class NhieCardComponent implements OnInit {
   answeredQuestion(iHave: boolean) {
     this.answer.emit(iHave);
   }
+
+  addQuestionToGame(question: string) {
+    this.showForm = !this.showForm;
+    this.nhieService.addQuestionToGame(this.gameInstanceId, question);
+
+  }
+
+
 }
