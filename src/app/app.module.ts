@@ -10,6 +10,9 @@ import { AdminModule } from './admin/admin.module';
 import { GamesModule } from './games/games.module';
 import {PartyModule} from './party/party.module';
 
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { GestureConfig } from '@angular/material';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -27,7 +30,7 @@ import {PartyModule} from './party/party.module';
     BrowserModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

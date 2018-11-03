@@ -4,6 +4,8 @@ export const enum FeedbackMessage {
   Login = 'Du är nu inloggad.',
   ErrorLogin = 'Kunde inte logga in, vänligen försök igen.',
   Admin = 'Enbart admin har tillgång till den sidan.',
+  QuestionSuccess = 'Fråga skapad.',
+  QuestionError = 'Något gick fel vid skapandet av fråga.',
 }
 
 export const enum FeedbackType {
