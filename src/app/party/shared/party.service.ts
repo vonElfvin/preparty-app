@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {FirestoreService} from '../../core/firebase/firestore/firestore.service';
 import {Party} from './party';
 import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,11 @@ export class PartyService {
 
   getPartyById(id: string): Observable<Party> {
     return this.firestoreService.get(this.path, id);
+  }
+
+  getPartyByJoinCode(joinCode: string): Observable<Party>  {
+    return this.firestoreService.getItems(this.path, ref => ref.where('joinCode', '==', joinCode)).
+    pipe(map(parties => parties[0]));
   }
 
 }

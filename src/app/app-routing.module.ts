@@ -11,9 +11,16 @@ const routes: Routes = [
     component: GamesComponent
   },
   {
+    path: 'nhie/:id',
+    component: NhieComponent
+  },
+  {
     path: 'nhie',
     component: NhieComponent
   },
+  {
+    path: 'lobby/:id',
+    component: LobbyComponent},
   {
     path: 'lobby',
     component: LobbyComponent},
