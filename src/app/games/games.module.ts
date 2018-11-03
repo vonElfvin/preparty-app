@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NhieModule } from './nhie/nhie.module';
 import { GamesComponent } from './games.component';
-import { MatFormField, MatFormFieldModule, MatButton, MatButtonModule, MatInputModule, MatDividerModule } from '@angular/material';
+import { MatFormFieldModule, MatButtonModule, MatInputModule, MatDividerModule } from '@angular/material';
 import { FireauthService } from '../core/firebase/fireauth/fireauth.service';
 import { FormsModule } from '@angular/forms';
+import { AliasComponent } from './alias/alias.component';
 
 
 @NgModule({
-  declarations: [GamesComponent],
+  declarations: [GamesComponent, AliasComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,

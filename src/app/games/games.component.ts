@@ -14,7 +14,7 @@ export const TEMP_GAMES: Game[] = [{name: "King's Cup" , image_path: '../../asse
 export class GamesComponent implements OnInit {
 
   games: Game[] = TEMP_GAMES;
-  gameCode: number;
+  gameCode: string;
 
   constructor(private fireAuthenticationService: FireauthService,
               private router: Router) { }
