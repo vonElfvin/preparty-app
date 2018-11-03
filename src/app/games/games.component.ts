@@ -26,7 +26,7 @@ export class GamesComponent implements OnInit {
     //Check if code is valid
     //this.fireauth.checkCode(gameCode)
     console.log(this.gameCode);
-    this.fireAuthenticationService.loginAnonymous();
+    this.fireAuthenticationService.loginAnonymously();
     // if (this.fireauth.checkCode(gameCode)) {
     // retrieve game info
     //    this.router.navigate("/gameName/GameCode")
