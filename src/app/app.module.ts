@@ -8,22 +8,24 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { AdminModule } from './admin/admin.module';
 import { GamesModule } from './games/games.module';
+import {PartyModule} from './party/party.module';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    // Angular Imports
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-
     // Custom
+    AdminModule,
     CoreModule,
     SharedModule,
-    AdminModule,
     GamesModule,
+    PartyModule,
+    AppRoutingModule,
+
+    // Angular Imports
+    BrowserModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
