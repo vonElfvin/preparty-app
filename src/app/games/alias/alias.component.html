@@ -1,0 +1,17 @@
+<div class="content">
+
+  <form class="game-code-form">
+    <mat-form-field class="game-code">
+      <input matInput placeholder="What's your name?" [(ngModel)]="alias" name="alias">
+    </mat-form-field>
+
+    <button mat-flat-button class="join" (click)="chooseAlias()">
+      Start!
+    </button>
+  </form>
+    <mat-divider class="divider"></mat-divider>
+    <p>
+      A game code will be generated <br>
+      when you start the game
+    </p>
+</div>
