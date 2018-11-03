@@ -40,7 +40,8 @@ export class NhieService {
 
 
   getGameInstanceByJoinCode(joinCode: string): Observable<NhieGameInstance> {
-    return this.gameInstanceService.getGameInstanceByJoinCode(joinCode);
+    return <Observable<NhieGameInstance>>this.gameInstanceService.getGameInstanceByJoinCode(joinCode);
+    
   }
 
 }

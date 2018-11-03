@@ -21,8 +21,7 @@ import {GameInstanceService} from './shared/game-instance.service';
     NhieModule,
   ],
   providers: [
-    FireauthService
-  ],
-  providers: [GameInstanceService]
+    GameInstanceService,
+    FireauthService]
 })
 export class GamesModule { }
