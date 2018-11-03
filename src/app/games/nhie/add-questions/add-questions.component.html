@@ -1,3 +1,25 @@
-<p>
-  add-questions works!
-</p>
+<div class="center">
+  <mat-card>
+    <form (ngSubmit)="addQuestion()">
+
+      <!--Question-->
+      <mat-form-field id="questions">
+        <textarea rows="10" matInput placeholder="Jag har aldrig... (en fråga per rad)" name="questions"
+                  [(ngModel)]="questions"></textarea>
+      </mat-form-field>
+
+      <!--Level-->
+      <mat-form-field id="levels">
+        <textarea  rows="10" matInput placeholder="Nivå" name="levels"
+                   [(ngModel)]="levels" type="number" min="1" max="4"></textarea>
+      </mat-form-field>
+
+      <!--Submit-->
+      <button
+        mat-raised-button
+        color="primary">
+        Lägg till
+      </button>
+    </form>
+  </mat-card>
+</div>

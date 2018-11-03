@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NhieService } from './nhie.service';
+import { NhieGameInstanceService } from './nhieGameInstance.service';
 
-describe('NhieService', () => {
+describe('NhieGameInstanceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: NhieService = TestBed.get(NhieService);
+    const service: NhieGameInstanceService = TestBed.get(NhieGameInstanceService);
     expect(service).toBeTruthy();
   });
 });
