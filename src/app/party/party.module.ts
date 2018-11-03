@@ -8,6 +8,8 @@ import {PartyService} from './shared/party.service';
   declarations: [LobbyComponent],
   imports: [
     CommonModule,
+
+    // Material
     MatButtonModule,
     MatCardModule,
     MatInputModule

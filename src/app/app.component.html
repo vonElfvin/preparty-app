@@ -1,4 +1,6 @@
-
 <router-outlet></router-outlet>
 
-<button mat-raised-button color="primary" (click)="feedback()">Test feedback</button>
+User:
+<pre>
+  {{user | async | json}}
+</pre>

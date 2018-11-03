@@ -16,6 +16,10 @@ export class FirestoreService<Item> {
     return this.col(path).add(item);
   }
 
+  upsert(path: string, id: string, data: any) {
+    return this.doc(path, id).set(data, {merge: true});
+  }
+
   update(path: string, id: string, item: Item): Promise<void> {
     return this.doc(path, id).update(item);
   }

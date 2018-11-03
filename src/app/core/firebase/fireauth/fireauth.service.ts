@@ -22,8 +22,8 @@ export class FireauthService {
     return this.afAuth.authState;
   }
 
-  loginAnonymous() {
-    return this.auth.signInAnonymouslyAndRetrieveData();
+  loginAnonymously() {
+    return this.auth.signInAnonymously();
   }
 
   loginEmailAndPassword(email, password) {
@@ -31,6 +31,8 @@ export class FireauthService {
   }
 
   logout() {
-    return this.auth.signOut();
+    return this.auth.signOut().then(() => {
+      console.log('logged out');
+    });
   }
 }

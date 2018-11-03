@@ -5,9 +5,11 @@ import { NhieService } from './shared/nhie.service';
 import {MatButtonModule, MatCardModule, MatInputModule} from '@angular/material';
 import { NhieCardComponent } from './nhie-card/nhie-card.component';
 import {FormsModule} from '@angular/forms';
+import { AddQuestionsComponent } from './add-questions/add-questions.component';
 
 @NgModule({
-  declarations: [NhieComponent, NhieCardComponent],
+  declarations: [NhieComponent, NhieCardComponent, AddQuestionsComponent],
+  exports: [AddQuestionsComponent],
   providers: [NhieService],
   imports: [
     FormsModule,
