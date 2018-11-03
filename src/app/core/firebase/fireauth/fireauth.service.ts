@@ -23,7 +23,7 @@ export class FireauthService {
   }
 
   loginAnonymously() {
-    return this.auth.signInAnonymouslyAndRetrieveData();
+    return this.auth.signInAnonymously();
   }
 
   loginEmailAndPassword(email, password) {

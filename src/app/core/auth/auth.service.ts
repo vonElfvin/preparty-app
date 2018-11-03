@@ -19,7 +19,7 @@ export class AuthService {
   constructor(
     private fireauthService: FireauthService,
     private feedbackService: FeedbackService,
-    private firestoreService: FirestoreService,
+    private firestoreService: FirestoreService<User>,
     private router: Router,
   ) {
     this.setUser();
@@ -52,7 +52,8 @@ export class AuthService {
 
   loginAnonymously() {
     this.fireauthService.loginAnonymously().then((res) => {
-      console.log('Logged in anonymously:', res);
+      const id = res.user.uid;
+      this.firestoreService.upsert(this.path, id, {id: id});
     }).catch((err) => {
       console.log('Error in logging in anonymously:', err);
     });

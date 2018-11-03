@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FeedbackService } from './core/feedback/feedback.service';
 import { AuthService } from './core/auth/auth.service';
-import { FireauthService } from './core/firebase/fireauth/fireauth.service';
+import { Observable } from 'rxjs';
+import { User } from './core/auth/user.model';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +11,15 @@ import { FireauthService } from './core/firebase/fireauth/fireauth.service';
 })
 export class AppComponent implements OnInit {
 
+  private user: Observable<User>;
+
   constructor(
     private feedbackService: FeedbackService,
     private authService: AuthService,
-    private fireauthService: FireauthService,
   ) { }
 
   ngOnInit() {
     this.authService.loginAnonymously();
+    this.user = this.authService.user;
   }
 }
