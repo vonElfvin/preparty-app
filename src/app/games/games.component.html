@@ -1,3 +1,20 @@
-<p>
-  games works!
-</p>
+<div class="content">
+  <img src="../../assets/illustrations/logo_with_text.svg" class="logo">
+
+  <form class="game-code-form">
+    <mat-form-field class="game-code">
+      <input matInput placeholder="Enter Game Code">
+    </mat-form-field>
+
+    <button mat-flat-button id="join" (click)="joinGame()">
+      Join Game!
+    </button>
+  </form>
+  <mat-divider class="divider"></mat-divider>
+
+  <h1 id="start"> START GAME </h1>
+    <p *ngFor="let game of games">
+      {{ game }}
+    </p>
+
+</div>
