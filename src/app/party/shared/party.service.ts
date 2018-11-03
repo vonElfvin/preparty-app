@@ -7,11 +7,9 @@ import {Party} from './party';
 })
 export class PartyService {
 
-  constructor(private firestoreService: FirestoreService) { }
+  constructor(private firestoreService: FirestoreService<Party>) { }
 
   addParty(party: Party) {
-    this.firestoreService.
-
   }
 
 }
