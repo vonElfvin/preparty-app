@@ -1,0 +1,14 @@
+<mat-card style="max-width: 450px; margin: 10px auto">
+  <mat-card-header>
+    <mat-card-title>Question to: {{playerName}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div>
+      {{question}}
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="answeredQuestion(true)">Jag har</button>
+    <button mat-button (click)="answeredQuestion(true)">Jag har inte</button>
+  </mat-card-actions>
+</mat-card>
