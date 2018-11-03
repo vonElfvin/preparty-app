@@ -8,7 +8,6 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { AdminModule } from './admin/admin.module';
 import { GamesModule } from './games/games.module';
-import { MatButtonModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,6 @@ import { MatButtonModule } from '@angular/material';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatButtonModule,
 
     // Custom
     CoreModule,
