@@ -47,3 +47,30 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .errorSnackbar {
   background-color: mat-color($warn) !important;
 }
+
+.center-div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.left-div {
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+}
+
+/*Div to create perfect squares*/
+/*Make objects inside 'position: absolute' to fill square*/
+.div-square {
+  position: relative;
+  padding-bottom: 100%;
+  overflow: hidden;
+}
+
+
+.fill-remaining-space {
+  /*This fills the remaining space, by using flexbox.
+ Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
