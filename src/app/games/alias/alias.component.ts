@@ -11,10 +11,15 @@ export class AliasComponent implements OnInit {
   alias: string;
   gameName: string;
   joinCode: string;
+  admin: boolean = true;
 
   constructor(private router : Router) { }
 
   ngOnInit() {
+  }
+
+  switch() {
+    this.admin = !this.admin;
   }
 
   chooseAlias() {

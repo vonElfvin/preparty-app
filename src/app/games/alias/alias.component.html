@@ -1,5 +1,12 @@
 <div class="content">
 
+  <ng-container *ngIf="admin">
+    <p>Game Code: {{gameCode}}</p>
+  </ng-container>
+  <button (click)="switch()">
+    byt
+  </button>
+
   <form class="game-code-form">
     <mat-form-field class="game-code">
       <input matInput placeholder="What's your name?" [(ngModel)]="alias" name="alias">
@@ -9,9 +16,13 @@
       Start!
     </button>
   </form>
+  <ng-container *ngIf="!admin">
+
     <mat-divider class="divider"></mat-divider>
     <p>
       A game code will be generated <br>
       when you start the game
     </p>
+  </ng-container>
+
 </div>
