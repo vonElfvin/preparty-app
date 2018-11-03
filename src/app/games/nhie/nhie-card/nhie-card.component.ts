@@ -35,7 +35,7 @@ export class NhieCardComponent implements OnInit {
 
   addQuestionToGame(question: string) {
     this.showForm = !this.showForm;
-    this.nhieService.addQuestionToGame(this.gameInstanceId, question);
+    this.nhieService.addQuestionToGameInstance(this.gameInstanceId, question);
 
   }
 

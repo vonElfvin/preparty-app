@@ -16,9 +16,16 @@ const routes: Routes = [
     component: AliasComponent
   },
   {
+    path: 'nhie/:id',
+    component: NhieComponent
+  },
+  {
     path: 'nhie',
     component: NhieComponent
   },
+  {
+    path: 'lobby/:id',
+    component: LobbyComponent},
   {
     path: 'lobby',
     component: LobbyComponent},

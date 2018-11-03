@@ -28,6 +28,10 @@ export class FirestoreService<Item> {
     return this.doc(path, id).valueChanges();
   }
 
+  getItems(path: string, queryFn?: QueryFn): Observable<Item[]> {
+    return this.colWithIds(path, queryFn);
+  }
+
   list(path: string, queryFn?: QueryFn): Observable<Item[]> {
     return this.colWithIds(path, queryFn);
   }
