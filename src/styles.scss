@@ -26,14 +26,34 @@ $preparty-app-theme: mat-light-theme($preparty-app-primary, $preparty-app-accent
 // that you are using.
 @include angular-material-theme($preparty-app-theme);
 
-$custom-typography: mat-typography-config(
-  $font-family: 'Raleway'
-);
-
-@include angular-material-typography($custom-typography);
-
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Raleway, Roboto, "Helvetica Neue", sans-serif; background-color: lightblue;}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: lightblue;}
 
+.center-div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.left-div {
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+}
+
+/*Div to create perfect squares*/
+/*Make objects inside 'position: absolute' to fill square*/
+.div-square {
+  position: relative;
+  padding-bottom: 100%;
+  overflow: hidden;
+}
+
+
+.fill-remaining-space {
+  /*This fills the remaining space, by using flexbox.
+ Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
