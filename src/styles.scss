@@ -48,13 +48,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: mat-color($warn) !important;
 }
 
-.center-div {
+.center {
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 
-.left-div {
+.left {
   display: flex;
   align-items: left;
   flex-direction: column;

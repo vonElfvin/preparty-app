@@ -22,7 +22,7 @@ export class FireauthService {
     return this.afAuth.authState;
   }
 
-  loginAnonymous() {
+  loginAnonymously() {
     return this.auth.signInAnonymouslyAndRetrieveData();
   }
 
@@ -31,6 +31,8 @@ export class FireauthService {
   }
 
   logout() {
-    return this.auth.signOut();
+    return this.auth.signOut().then(() => {
+      console.log('logged out');
+    });
   }
 }

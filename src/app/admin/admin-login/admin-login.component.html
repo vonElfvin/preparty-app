@@ -1,1 +1,34 @@
-admin-login works!
+<div class="center">
+  <mat-card>
+    <form (ngSubmit)="login()" [formGroup]="form">
+
+      <!--Email-->
+      <mat-form-field>
+        <input matInput placeholder="E-mail" formControlName="email">
+        <mat-error *ngIf="email.touched && email.hasError('required')">
+          E-mail krävs.
+        </mat-error>
+        <mat-error *ngIf="email.touched && !email.hasError('required') && email.hasError('email')">
+          Ogiltig E-mailadress.
+        </mat-error>
+      </mat-form-field>
+
+      <!--Password-->
+      <mat-form-field>
+        <input matInput placeholder="Lösenord" type="password" formControlName="password">
+        <mat-error *ngIf="password.touched && password.hasError('required')">
+          Lösenord krävs.
+        </mat-error>
+      </mat-form-field>
+
+      <!--Submit-->
+      <div class="login-button-div">
+        <button
+          mat-raised-button
+          color="primary">
+          Logga in
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>
