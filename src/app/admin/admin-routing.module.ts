@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { AdminGuard } from '../core/auth/guards/admin.guard';
+import { AddQuestionsComponent } from '../games/nhie/add-questions/add-questions.component';
 
 const routes: Routes = [
   {
@@ -12,6 +14,11 @@ const routes: Routes = [
         path: 'login',
         component: AdminLoginComponent,
       },
+      {
+        path: 'nhie-questions',
+        component: AddQuestionsComponent,
+        canActivate: [AdminGuard]
+      }
     ]
   }
 ];
