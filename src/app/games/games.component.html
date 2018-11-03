@@ -3,7 +3,7 @@
 
   <form class="game-code-form">
     <mat-form-field class="game-code">
-      <input matInput placeholder="Enter Game Code">
+      <input matInput placeholder="Enter Game Code" [(ngModel)] = "gameCode" name="gameCode">
     </mat-form-field>
 
     <button mat-flat-button id="join" (click)="joinGame()">
@@ -13,11 +13,10 @@
   <mat-divider class="divider"></mat-divider>
 
   <h1 id="start"> START GAME </h1>
-  <ul>
-  <li *ngFor="let game of games">
-    {{ game.name }}
-    <img src={{game.image_path}}>
-    
-  </li>
-</ul>
+  <ul id="games">
+    <li *ngFor="let game of games">
+      {{ game.name }}
+      <img src={{game.image_path}} alt="game logo" id="small">
+    </li>
+  </ul>
 </div>
