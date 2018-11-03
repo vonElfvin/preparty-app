@@ -20,3 +20,9 @@ const routes: Routes = [
     component: PageNotFoundComponent,
   }
 ];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

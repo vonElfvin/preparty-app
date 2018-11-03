@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-export const GAMES = ["King's Cup", "Never Have I Ever"];
+import { Game } from './shared/game.model';
 
 @Component({
   selector: 'app-games',
@@ -9,7 +8,7 @@ export const GAMES = ["King's Cup", "Never Have I Ever"];
 })
 export class GamesComponent implements OnInit {
 
-  games: String[] = GAMES;
+  games: Game[];
 
   constructor() { }
 
@@ -18,5 +17,4 @@ export class GamesComponent implements OnInit {
 
   joinGame() {
   }
-
 }

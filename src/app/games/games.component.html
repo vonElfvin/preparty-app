@@ -13,8 +13,11 @@
   <mat-divider class="divider"></mat-divider>
 
   <h1 id="start"> START GAME </h1>
-    <p *ngFor="let game of games">
-      {{ game }}
-    </p>
-
+  <ul>
+  <li *ngFor="let game of games">
+    {{ game.name }}
+    <img src={{game.image_path}}>
+    
+  </li>
+</ul>
 </div>
