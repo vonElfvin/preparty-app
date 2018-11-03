@@ -8,6 +8,7 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { AdminModule } from './admin/admin.module';
 import { GamesModule } from './games/games.module';
+import {PartyModule} from './party/party.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { GamesModule } from './games/games.module';
     SharedModule,
     AdminModule,
     GamesModule,
+    PartyModule
   ],
   providers: [],
   bootstrap: [AppComponent]

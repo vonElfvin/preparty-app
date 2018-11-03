@@ -1,3 +1,9 @@
-<p>
-  lobby works!
-</p>
+<mat-card style="margin: 10px auto; max-width: 400px;">
+  <div>Välkommen til lobbyn</div>
+  <div *ngIf="party" style="margin-bottom:10px">{{party?.users.length}} players</div>
+  <div style="margin:auto;" *ngFor="let user of party?.users">{{user}}</div>
+  <button mat-raised-button color="primary" (click)="createParty()">Create Party</button>
+  <button mat-raised-button color="primary" (click)="loadParty()">Load Party</button>
+</mat-card>
+
+

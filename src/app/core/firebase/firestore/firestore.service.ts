@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, QueryFn } from '@angular/fire/firestore';
+import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, QueryFn} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 
@@ -16,11 +16,11 @@ export class FirestoreService<Item> {
     return this.col(path).add(item);
   }
 
-  update(path: string, id: string, item: Item) {
+  update(path: string, id: string, item: Item): Promise<void> {
     return this.doc(path, id).update(item);
   }
 
-  get(path: string, id: string) {
+  get(path: string, id: string): Observable<Item> {
     return this.doc(path, id).valueChanges();
   }
 
@@ -28,11 +28,11 @@ export class FirestoreService<Item> {
     return this.colWithIds(path, queryFn);
   }
 
-  delete(path: string, id: string) {
+  delete(path: string, id: string): Promise<void> {
     return this.doc(path, id).delete();
   }
 
-  doc(path: string, id: string) {
+  doc(path: string, id: string): AngularFirestoreDocument<Item> {
     return this.afs.doc(`${path}/${id}`);
   }
 
