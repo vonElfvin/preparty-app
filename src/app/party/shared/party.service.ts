@@ -53,11 +53,12 @@ export class PartyService {
   getAliasesOfParty(party: Party): Observable<string[]> {
 
     let aliases: Observable<string>[] = [];
-
-    party.users.forEach((user) => {
-      aliases.push(this.authService.userAliasByUid(user));
-    });
-
+    console.log(party);
+    if (typeof party !== 'undefined') {
+      party.users.forEach((user) => {
+        aliases.push(this.authService.userAliasByUid(user));
+      });
+    }
     let wholeAlias: Observable<string[]> = combineLatest(aliases);
 
     return wholeAlias;
