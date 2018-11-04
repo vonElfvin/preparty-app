@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {PartyService} from '../shared/party.service';
 
 @Component({
   selector: 'app-alias',
@@ -13,9 +14,13 @@ export class AliasComponent implements OnInit {
   joinCode: string;
   admin = true;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private route: ActivatedRoute, private partyService: PartyService) { }
 
   ngOnInit() {
+    this.joinCode = this.route.snapshot.params['joinCode'];
+    this.partyService.getPartyByJoinCode(this.joinCode).subscribe(party => {
+    })
+
   }
 
   setAlias() {
