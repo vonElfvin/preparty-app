@@ -22,7 +22,7 @@ export class LobbyComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.joinCode = this.route.snapshot.params['joinCode'];
+    this.joinCode = this.route.snapshot.params['id'];
     if (this.joinCode) {
       this.partyService.getPartyByJoinCode(this.joinCode).subscribe(res => {
         this.party = res;
@@ -31,12 +31,12 @@ export class LobbyComponent implements OnInit {
     }
   }
 
-  // Mockup functions
+  // Mockup fnctions
   createParty() {
     const users = ['Bengt', 'Agneta', 'Lisa', 'Jan'];
     const  part = <Party>{
       users: users,
-      leader: 'Jan',
+      admin: 'Jan',
       selectedGame: 'nhie',
       joinCode: Math.random().toString(36).substring(7)
     };

@@ -13,7 +13,10 @@ export class PartyService {
 
   private readonly path = 'party';
 
-  constructor(private firestoreService: FirestoreService<Party>, private authService: AuthService) { }
+  constructor(
+    private firestoreService: FirestoreService<Party>,
+    private authService: AuthService
+  ) { }
 
   createParty(party: Party): Promise<Party> {
     return this.firestoreService.insert(this.path, party);
@@ -31,8 +34,8 @@ export class PartyService {
     return this.firestoreService.list(this.path,
         ref => ref.where('joinCode', '==', joinCode)
     ).
-    pipe(map(
-      parties => parties[0])
+    pipe(
+      map(parties => parties[0])
     );
   }
 
@@ -52,6 +55,14 @@ export class PartyService {
 
   checkPartyExists(joinCode: string) {
     return this.firestoreService.check(this.path, 'joinCode', joinCode);
+  }
+
+  addUserToParty(party: Party) {
+    const userId = this.authService.uid;
+    if (party.users.indexOf(userId) === -1) {
+      party.users.push(this.authService.uid);
+      this.updateParty(party.id, party);
+    }
   }
 
 }

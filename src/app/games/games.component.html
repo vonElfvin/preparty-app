@@ -4,15 +4,16 @@
 
     <form (ngSubmit)="joinGame()">
       <mat-form-field appearance="fill">
-        <mat-label>Enter join code:</mat-label>
+        <mat-label>Game code:</mat-label>
         <input matInput [(ngModel)] = "joinCode" name="joinCode">
       </mat-form-field>
       <button mat-flat-button color="primary">
-        Join game!
+        Join game
+        <mat-icon>chevron_right</mat-icon>
       </button>
     </form>
 
-    <h1 id="start">START A GAME</h1>
+    <h1 id="start">SELECT GAME</h1>
 
     <mat-grid-list [cols]="2" rowHeight="1:1" gutterSize="10">
       <mat-grid-tile *ngFor="let game of games | async">

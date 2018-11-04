@@ -19,11 +19,12 @@ export class GamesComponent implements OnInit {
 
   joinCode: string;
 
-  constructor(private fireauthService: FireauthService,
-              private gameService: GameService,
-              private router: Router,
-              private partyService: PartyService,
-              private feedbackService: FeedbackService) { }
+  constructor(
+    private gameService: GameService,
+    private router: Router,
+    private partyService: PartyService,
+    private feedbackService: FeedbackService
+  ) { }
 
   ngOnInit() {
     this.games = this.gameService.getGames();
@@ -32,9 +33,8 @@ export class GamesComponent implements OnInit {
   joinGame() {
     this.partyService.checkPartyExists(this.joinCode).subscribe(partyExists => {
       if (partyExists) {
-        this.fireauthService.loginAnonymously().then(() => {
-          this.router.navigate([`alias/${this.joinCode}`]);
-        });
+        this.feedbackService.message(FeedbackMessage.JoinCodeSuccess, FeedbackType.Primary);
+        this.router.navigate([`alias/${this.joinCode}`]);
       } else {
         this.feedbackService.message(FeedbackMessage.JoinCodeError, FeedbackType.Error);
       }

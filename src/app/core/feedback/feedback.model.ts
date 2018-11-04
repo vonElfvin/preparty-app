@@ -6,7 +6,8 @@ export const enum FeedbackMessage {
   Admin = 'Enbart admin har tillgång till den sidan.',
   QuestionSuccess = 'Fråga skapad.',
   QuestionError = 'Något gick fel vid skapandet av fråga.',
-  JoinCodeError = 'Finns inget spel igång med denna kod.'
+  JoinCodeError = 'Finns inget spel igång med denna kod.',
+  JoinCodeSuccess = 'Anslutit till spel.'
 }
 
 export const enum FeedbackType {
