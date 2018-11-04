@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NhieModule } from './nhie/nhie.module';
 import { GamesComponent } from './games.component';
-import { MatFormFieldModule, MatButtonModule, MatInputModule, MatDividerModule, MatCardModule, MatGridListModule } from '@angular/material';
+import {
+  MatFormFieldModule, MatButtonModule, MatInputModule, MatDividerModule, MatCardModule, MatGridListModule,
+  MatIconModule
+} from '@angular/material';
 import { FireauthService } from '../core/firebase/fireauth/fireauth.service';
 import { FormsModule } from '@angular/forms';
 
@@ -22,6 +25,7 @@ import { GameService } from './shared/game.service';
     MatDividerModule,
     MatCardModule,
     MatGridListModule,
+    MatIconModule,
 
     // Game Modules
     NhieModule,

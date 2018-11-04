@@ -30,6 +30,7 @@ export class LobbyComponent implements OnInit {
 
   ngOnInit() {
     this.joinCode = this.route.snapshot.params['joinCode'];
+    console.log(this.joinCode);
     if (this.joinCode) {
       this.partyService.getPartyByJoinCode(this.joinCode).subscribe(party => {
         this.party = party;
@@ -43,7 +44,6 @@ export class LobbyComponent implements OnInit {
     }
   }
 
-  // Check if game is already created
   checkGameInstance() {
     if (!this.joinCode) {
       this.joinCode = this.party.joinCode;

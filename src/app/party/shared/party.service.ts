@@ -13,7 +13,10 @@ export class PartyService {
 
   private readonly path = 'party';
 
-  constructor(private firestoreService: FirestoreService<Party>, private authService: AuthService) { }
+  constructor(
+    private firestoreService: FirestoreService<Party>,
+    private authService: AuthService
+  ) { }
 
   createParty(party: Party): Promise<Party> {
     return this.firestoreService.insert(this.path, party);
@@ -23,17 +26,12 @@ export class PartyService {
     return this.firestoreService.update(this.path, partyId, party);
   }
 
-  getPartyById(id: string): Observable<Party> {
-    return this.firestoreService.get(this.path, id);
-  }
-
   getPartyByJoinCode(joinCode: string): Observable<Party> {
-    return this.firestoreService.getItems(this.path,
+    return this.firestoreService.list(this.path,
       ref => ref.where('joinCode', '==', joinCode)
-    ).
-      pipe(map(
-        parties => parties[0])
-      );
+    ).pipe(
+      map(parties => parties[0])
+    );
   }
 
   createNewPartyFromGame(game: Game): Promise<Party> {
@@ -50,6 +48,18 @@ export class PartyService {
     });
   }
 
+  checkPartyExists(joinCode: string) {
+    return this.firestoreService.check(this.path, 'joinCode', joinCode);
+  }
+
+  addUserToParty(party: Party) {
+    const userId = this.authService.uid;
+    if (party.users.indexOf(userId) === -1) {
+      party.users.push(this.authService.uid);
+      this.updateParty(party.id, party);
+    }
+  }
+
   isGameLeader(party: Party): boolean {
     return this.authService.uid === party.leader;
   }
@@ -57,11 +67,12 @@ export class PartyService {
   getAliasesOfParty(party: Party): Observable<string[]> {
 
     const aliases: Observable<string>[] = [];
-
-    party.users.forEach((user) => {
-      aliases.push(this.authService.userAliasByUid(user));
-    });
-
+    console.log(party);
+    if (typeof party !== 'undefined') {
+      party.users.forEach((user) => {
+        aliases.push(this.authService.userAliasByUid(user));
+      });
+    }
     const wholeAlias: Observable<string[]> = combineLatest(aliases);
 
     return wholeAlias;

@@ -22,7 +22,7 @@ export class GameInstanceService {
   }
 
   getGameInstanceByJoinCode(joinCode: string): Observable<GameInstance> {
-    return this.firestoreService.getItems(this.path, ref => ref.where('joinCode', '==', joinCode)).
+    return this.firestoreService.list(this.path, ref => ref.where('joinCode', '==', joinCode)).
     pipe(map(games => games [0]));
   }
 

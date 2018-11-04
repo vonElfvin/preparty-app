@@ -6,6 +6,8 @@ export const enum FeedbackMessage {
   Admin = 'Only admin has access to this page',
   QuestionSuccess = 'Question added!',
   QuestionError = 'Something went wrong when adding the question',
+  JoinCodeError = 'No game exists with that join code.',
+  JoinCodeSuccess = 'Joined game.'
 }
 
 export const enum FeedbackType {

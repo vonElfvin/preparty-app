@@ -28,7 +28,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 .snackbar {
   color: white;
-  margin-bottom: 24px!important;
+  margin-bottom: 8px!important;
 }
 
 .primarySnackbar {
@@ -72,3 +72,8 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: mat-color($accent);}
+
+.material-icons {
+  vertical-align: middle!important;
+  margin-top: -2px;
+}
