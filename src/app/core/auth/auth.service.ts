@@ -4,7 +4,7 @@ import { FeedbackService } from '../feedback/feedback.service';
 import { FeedbackMessage, FeedbackType } from '../feedback/feedback.model';
 import { FirestoreService } from '../firebase/firestore/firestore.service';
 import { Observable, of } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import {switchMap, map, take} from 'rxjs/operators';
 import { Role, User } from './user.model';
 import { Router } from '@angular/router';
 
@@ -50,10 +50,12 @@ export class AuthService {
     });
   }
 
-  loginAnonymously() {
-    this.fireauthService.loginAnonymously().then((res) => {
+  loginAnonymously(): Promise<User> {
+    return this.fireauthService.loginAnonymously().then((res) => {
       const id = res.user.uid;
-      this.firestoreService.upsert(this.path, id, {id: id});
+      return this.firestoreService.upsert(this.path, id, {id: id}).then(() => {
+        return this.userObservable.pipe(take(1)).toPromise();
+      });
     }).catch((err) => {
       console.log('Error in logging in anonymously:', err);
     });

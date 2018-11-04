@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import {FirestoreService} from '../../core/firebase/firestore/firestore.service';
 import {Party} from './party';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {map, take} from 'rxjs/operators';
+import {Game} from '../../games/shared/game.model';
+import {AuthService} from '../../core/auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,7 @@ export class PartyService {
 
   private readonly path = 'party';
 
-  constructor(private firestoreService: FirestoreService<Party>) { }
+  constructor(private firestoreService: FirestoreService<Party>, private authService: AuthService) { }
 
   createParty(party: Party): Promise<Party> {
     return this.firestoreService.insert(this.path, party);
@@ -28,6 +30,19 @@ export class PartyService {
   getPartyByJoinCode(joinCode: string): Observable<Party>  {
     return this.firestoreService.getItems(this.path, ref => ref.where('joinCode', '==', joinCode)).
     pipe(map(parties => parties[0]));
+  }
+
+  createNewPartyFromGame(game: Game): Promise<Party> {
+    return this.authService.loginAnonymously().then( user => {
+      console.log(user);
+      const  party = <Party>{
+        users: [user.id],
+        admin: user.id,
+        selectedGame: game.id,
+        joinCode: Math.random().toString(36).substring(7)
+      };
+      return this.createParty(party);
+    });
   }
 
 }
