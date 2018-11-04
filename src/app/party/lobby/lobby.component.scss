@@ -1,0 +1,36 @@
+.logo{
+  margin-top: 10vh;
+  margin-bottom: 20vh;
+  width: 40vh;
+}
+
+.bottom-logo{
+  width: 20vh;
+  bottom: 0;
+  position: absolute;
+}
+
+.game-code{
+  position: absolute;
+  top: 0vh;
+  right: 1vh;
+  text-align: center;
+  color: white;
+}
+
+.help-button{
+  position: absolute;
+  top: 2vh;
+  left: 2vh;
+  color: white;
+}
+
+.game-code p{
+  font-size: 2vh;
+  margin-bottom: 3px;
+}
+
+.game-code b{
+  font-size: 4vh;
+  color: white;
+}
