@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NhieGameInstanceService} from './shared/nhieGameInstance.service';
 import {ActivatedRoute} from '@angular/router';
 import {NhieGameInstance} from './shared/nhie-game-instance';
+import {PartyService} from '../../party/shared/party.service';
 
 @Component({
   selector: 'app-nhie',
@@ -25,9 +26,18 @@ export class NhieComponent implements OnInit {
     const joinCode = this.route.snapshot.params['id'];
     if (joinCode) {
       this.nhieService.getGameInstanceByJoinCode(joinCode).subscribe(res => {
-        this.gameInstance = res;
-        this.currentQuestion = res.currentQuestion;
         console.log(res);
+        if (res) {
+          this.gameInstance = res;
+          this.currentQuestion = res.currentQuestion;
+          console.log(res);
+        } else {
+          this.nhieService.generateNewGameInstanceFromCode(joinCode).then( res2 => {
+            console.log(res2);
+          });
+
+        }
+
       });
     }
   }

@@ -50,4 +50,8 @@ export class PartyService {
     });
   }
 
+  isGameLeader(party: Party): boolean {
+    return this.authService.uid === party.leader;
+  }
+
 }
