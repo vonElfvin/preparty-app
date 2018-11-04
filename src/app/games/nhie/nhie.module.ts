@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NhieComponent } from './nhie.component';
 import { NhieGameInstanceService } from './shared/nhieGameInstance.service';
-import {MatButtonModule, MatCardModule, MatInputModule, MatSliderModule} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatSliderModule} from '@angular/material';
 import { NhieCardComponent } from './nhie-card/nhie-card.component';
 import {FormsModule} from '@angular/forms';
 import { AddQuestionsComponent } from './add-questions/add-questions.component';
@@ -23,6 +23,7 @@ import { AddManualQuestionComponent } from './add-manual-question/add-manual-que
     MatButtonModule,
     MatButtonModule,
     MatInputModule,
+    MatIconModule,
     FlexLayoutModule
   ]
 })

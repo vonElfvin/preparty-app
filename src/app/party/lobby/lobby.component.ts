@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {Party} from '../shared/party';
-import {PartyService} from '../shared/party.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {GameInstanceService} from '../../games/shared/game-instance.service';
-import {NhieGameInstanceService} from '../../games/nhie/shared/nhieGameInstance.service';
+import { Party } from '../shared/party';
+import { PartyService } from '../shared/party.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GameInstanceService } from '../../games/shared/game-instance.service';
+import { NhieGameInstanceService } from '../../games/nhie/shared/nhieGameInstance.service';
+import { Observable } from 'rxjs';
 import {GameService} from '../../games/shared/game.service';
 import {Game} from '../../games/shared/game.model';
+
 
 @Component({
   selector: 'app-lobby',
@@ -14,8 +16,8 @@ import {Game} from '../../games/shared/game.model';
 })
 export class LobbyComponent implements OnInit {
 
-
   party: Party;
+  aliases: Observable<string[]>;
   game: Game;
 
   isLeader = false;
@@ -23,8 +25,8 @@ export class LobbyComponent implements OnInit {
   joinCode: string;
 
   constructor(private partyService: PartyService, private router: Router,
-              private gameInstanceService: GameInstanceService, private nhieService: NhieGameInstanceService,
-              private route: ActivatedRoute, private gameService: GameService) { }
+    private gameInstanceService: GameInstanceService, private nhieService: NhieGameInstanceService,
+    private route: ActivatedRoute, private gameService: GameService) { }
 
   ngOnInit() {
     this.joinCode = this.route.snapshot.params['joinCode'];
@@ -32,6 +34,7 @@ export class LobbyComponent implements OnInit {
       this.partyService.getPartyByJoinCode(this.joinCode).subscribe(party => {
         this.party = party;
         this.isLeader = this.partyService.isGameLeader(party);
+        this.aliases = this.getAliases();
         this.gameService.getGame(party.selectedGame).subscribe(game => {
           this.game = game;
         });
@@ -56,5 +59,9 @@ export class LobbyComponent implements OnInit {
 
   startGame() {
     this.router.navigate([this.game.urlPath + '/' + this.party.joinCode]);
+  }
+
+  getAliases() {
+    return this.partyService.getAliasesOfParty(this.party);
   }
 }

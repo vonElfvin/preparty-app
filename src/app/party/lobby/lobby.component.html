@@ -8,5 +8,6 @@
   </div>
   <img *ngIf="game" [src]="game?.image_path" class="logo">
   <button *ngIf="isLeader" mat-raised-button color="primary" (click)="startGame()">Start Game</button>
+  <div style="margin:auto;">{{aliases | async}}</div>
   <img src="../../assets/illustrations/logo.png" class="bottom-logo">
 </div>
