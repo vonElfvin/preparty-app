@@ -6,9 +6,10 @@ import {MatButtonModule, MatCardModule, MatInputModule, MatSliderModule} from '@
 import { NhieCardComponent } from './nhie-card/nhie-card.component';
 import {FormsModule} from '@angular/forms';
 import { AddQuestionsComponent } from './add-questions/add-questions.component';
+import { AddQuestionButtonComponent } from './add-question-button/add-question-button.component';
 
 @NgModule({
-  declarations: [NhieComponent, NhieCardComponent, AddQuestionsComponent],
+  declarations: [NhieComponent, NhieCardComponent, AddQuestionsComponent, AddQuestionButtonComponent],
   exports: [AddQuestionsComponent],
   providers: [NhieGameInstanceService],
   imports: [

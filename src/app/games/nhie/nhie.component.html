@@ -1,5 +1,10 @@
 <div class="center">
   <img src="../../assets/illustrations/never_have_I_ever_logo_text.png" class="logo">
-  <app-nhie-card (answer)="onAnswer($event)" [question]="currentQuestion" [playerName]="currentPlayer"></app-nhie-card>
+  <div class="question">
+    <app-nhie-card (answer)="onAnswer($event)" [question]="currentQuestion" [playerName]="currentPlayer"></app-nhie-card>
+  </div>
+  <div class="add-question-button">
+    <app-add-question-button></app-add-question-button>
+  </div>
   <img src="../../assets/illustrations/logo.png" class="bottom-logo">
 </div>
