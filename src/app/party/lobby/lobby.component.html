@@ -1,7 +1,8 @@
 <mat-card style="margin: 10px auto; max-width: 400px;">
   <div>Välkommen til lobbyn {{party?.joinCode}}</div>
   <div *ngIf="party" style="margin-bottom:10px">{{party?.users.length}} players</div>
-  <div style="margin:auto;" *ngFor="let user of party?.users">{{user}}</div>
+  <!--<div style="margin:auto;" *ngFor="let user of party?.users">{{user}}</div> -->
+  <div style="margin:auto;">{{aliases | async}}</div>
   <button mat-raised-button color="primary" (click)="createParty()">Create Party</button>
 
   <button *ngIf="party" mat-raised-button color="accent" (click)="startGame()">Start Game</button>
