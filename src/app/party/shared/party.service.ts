@@ -26,10 +26,6 @@ export class PartyService {
     return this.firestoreService.update(this.path, partyId, party);
   }
 
-  getPartyById(id: string): Observable<Party> {
-    return this.firestoreService.get(this.path, id);
-  }
-
   getPartyByJoinCode(joinCode: string): Observable<Party> {
     return this.firestoreService.list(this.path,
       ref => ref.where('joinCode', '==', joinCode)

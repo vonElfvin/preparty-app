@@ -29,7 +29,8 @@ export class LobbyComponent implements OnInit {
     private route: ActivatedRoute, private gameService: GameService) { }
 
   ngOnInit() {
-    this.joinCode = this.route.snapshot.params['id'];
+    this.joinCode = this.route.snapshot.params['joinCode'];
+    console.log(this.joinCode);
     if (this.joinCode) {
       this.partyService.getPartyByJoinCode(this.joinCode).subscribe(party => {
         this.party = party;
