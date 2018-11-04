@@ -18,6 +18,10 @@ export class FireauthService {
     return !!this.auth.currentUser;
   }
 
+  get uid() {
+    return this.auth.currentUser.uid;
+  }
+
   get authUser() {
     return this.afAuth.authState;
   }

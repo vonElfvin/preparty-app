@@ -28,20 +28,23 @@ export class PartyService {
   }
 
   getPartyByJoinCode(joinCode: string): Observable<Party>  {
-    return this.firestoreService.getItems(this.path, ref => ref.where('joinCode', '==', joinCode)).
-    pipe(map(parties => parties[0]));
+    return this.firestoreService.getItems(this.path,
+        ref => ref.where('joinCode', '==', joinCode)
+    ).
+    pipe(map(
+      parties => parties[0])
+    );
   }
 
   createNewPartyFromGame(game: Game): Promise<Party> {
     return this.authService.loginAnonymously().then( user => {
-      console.log(user);
       const  party = <Party>{
         users: [user.id],
-        admin: user.id,
+        leader: user.id,
         selectedGame: game.id,
         joinCode: Math.random().toString(36).substring(7)
       };
-      return this.createParty(party).then(res => {
+      return this.createParty(party).then(() => {
         return party;
       });
     });

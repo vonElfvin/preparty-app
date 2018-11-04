@@ -31,9 +31,8 @@ export class GamesComponent implements OnInit {
   }
 
   startGame(game: Game) {
-    this.partyService.createNewPartyFromGame(game).then(res => {
-      console.log(res);
-      this.router.navigate([`alias/${res.joinCode}`]);
+    this.partyService.createNewPartyFromGame(game).then(party => {
+      this.router.navigate([`alias/${party.joinCode}`]);
     });
   }
 }
