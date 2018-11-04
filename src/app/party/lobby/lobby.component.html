@@ -1,11 +1,13 @@
-<mat-card style="margin: 10px auto; max-width: 400px;">
-  <div>Välkommen til lobbyn {{party?.joinCode}}</div>
-  <div *ngIf="party" style="margin-bottom:10px">{{party?.users.length}} players</div>
-  <div style="margin:auto;" *ngFor="let user of party?.users">{{user}}</div>
-  <button mat-raised-button color="primary" (click)="createParty()">Create Party</button>
-
-  <button *ngIf="party" mat-raised-button color="accent" (click)="startGame()">Start Game</button>
-
-</mat-card>
-
-
+<div class="center">
+  <div class="game-code">
+    <p>Game code</p>
+    <b>{{party?.joinCode}}</b>
+  </div>
+  <div class="help-button">
+    <mat-icon style="font-size: 5vh">help</mat-icon>
+  </div>
+  <img src="../../assets/illustrations/never_have_I_ever_logo_text.png" class="logo">
+  <div>
+  </div>
+  <img src="../../assets/illustrations/logo.png" class="bottom-logo">
+</div>

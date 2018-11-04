@@ -16,4 +16,8 @@ export class GameService {
   getGames() {
     return this.firestoreService.list(this.path);
   }
+
+  getGame(id) {
+    return this.firestoreService.get(this.path, id);
+  }
 }
