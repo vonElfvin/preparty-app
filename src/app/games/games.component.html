@@ -1,21 +1,25 @@
-<div class="content">
-  <img src="../../assets/illustrations/logo_with_text.svg" class="logo">
+<div class="center">
+  <div class="content">
+    <img src="../../assets/illustrations/logo_with_text.png">
 
-  <form class="game-code-form">
-    <mat-form-field class="game-code">
-      <input matInput placeholder="Enter Game Code" [(ngModel)] = "gameCode" name="gameCode">
-    </mat-form-field>
-    <button mat-flat-button class="join" (click)="joinGame()" color="primary">
-      Join Game!
-    </button>
-  </form>
-  <mat-divider class="divider"></mat-divider>
+    <form (ngSubmit)="joinGame()">
+      <mat-form-field class="join-code" appearance="fill">
+        <mat-label>Enter join code:</mat-label>
+        <input matInput [(ngModel)] = "joinCode" name="joinCode">
+      </mat-form-field>
+      <button mat-flat-button color="primary">
+        Join game!
+      </button>
+    </form>
 
-  <h1 id="start"> START GAME </h1>
-  <ul id="games">
-    <li *ngFor="let game of games">
-      {{ game.name }}
-      <img src={{game.image_path}} alt="game logo" id="small">
-    </li>
-  </ul>
+    <h1 id="start">START A GAME</h1>
+
+    <mat-grid-list [cols]="2" rowHeight="1:1">
+      <mat-grid-tile *ngFor="let game of games | async">
+        <mat-card>
+          <img src="{{game.image_path}}">
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
 </div>

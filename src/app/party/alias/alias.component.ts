@@ -11,9 +11,9 @@ export class AliasComponent implements OnInit {
   alias: string;
   gameName: string;
   joinCode: string;
-  admin: boolean = true;
+  admin = true;
 
-  constructor(private router : Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -23,8 +23,8 @@ export class AliasComponent implements OnInit {
   }
 
   chooseAlias() {
-    //User.name = this.alias
+    // User.name = this.alias
     console.log(this.alias);
-    //this.router.navigateByUrl('/' + this.gameName + '/' + this.joinCode);
+    // this.router.navigateByUrl('/' + this.gameName + '/' + this.joinCode);
   }
 }
