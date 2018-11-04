@@ -1,10 +1,21 @@
 <div class="center">
   <img src="../../assets/illustrations/never_have_I_ever_logo_text.png" class="logo">
-  <div class="question">
-    <app-nhie-card (answer)="onAnswer($event)" [question]="currentQuestion" [playerName]="currentPlayer"></app-nhie-card>
+  <div class="center" *ngIf="!showAddquestion">
+    <div class="question">
+      <app-nhie-card (answer)="onAnswer($event)" [question]="currentQuestion" [playerName]="currentPlayer"></app-nhie-card>
+    </div>
+    <div class="add-question-button" fxLayout="row" fxLayoutGap="20px">
+      <button mat-raised-button color="primary" (click)="addManualQuestion()">Add question</button>
+      <button color="primary" mat-button (click)="setNextQuestion()">Next Question</button>
+    </div>
   </div>
-  <div class="add-question-button">
-    <app-add-question-button></app-add-question-button>
+
+  <div *ngIf="showAddquestion">
+    <mat-form-field class="example-full-width">
+      <textarea name="manualquestion" [(ngModel)]="newManualQuestion" matInput placeholder="Write a new Question"></textarea>
+    </mat-form-field>
+    <button color="primary" mat-button (click)="showAddquestion=!showAddquestion">navigate back</button>
   </div>
+
   <img src="../../assets/illustrations/logo.png" class="bottom-logo">
 </div>
