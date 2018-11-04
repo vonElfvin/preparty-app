@@ -20,6 +20,10 @@ const routes: Routes = [
     component: AliasComponent
   },
   {
+    path: 'nhie/:id',
+    component: NhieComponent
+  },
+  {
     path: 'nhie',
     component: NhieComponent
   },
