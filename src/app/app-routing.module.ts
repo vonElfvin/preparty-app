@@ -24,11 +24,13 @@ const routes: Routes = [
     component: NhieComponent
   },
   {
-    path: 'lobby/:id',
-    component: LobbyComponent},
+    path: 'lobby/:joinCode',
+    component: LobbyComponent
+  },
   {
     path: 'lobby',
-    component: LobbyComponent},
+    component: LobbyComponent
+  },
   {
     path: '**',
     component: PageNotFoundComponent,

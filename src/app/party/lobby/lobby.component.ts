@@ -22,7 +22,7 @@ export class LobbyComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.joinCode = this.route.snapshot.params['id'];
+    this.joinCode = this.route.snapshot.params['joinCode'];
     if (this.joinCode) {
       this.partyService.getPartyByJoinCode(this.joinCode).subscribe(res => {
         this.party = res;
@@ -31,7 +31,7 @@ export class LobbyComponent implements OnInit {
     }
   }
 
-  // Mockup fnctions
+  // Mockup functions
   createParty() {
     const users = ['Bengt', 'Agneta', 'Lisa', 'Jan'];
     const  part = <Party>{

@@ -14,7 +14,7 @@
 
     <h1 id="start">START A GAME</h1>
 
-    <mat-grid-list [cols]="2" rowHeight="1:1">
+    <mat-grid-list [cols]="2" rowHeight="1:1" gutterSize="10">
       <mat-grid-tile *ngFor="let game of games | async">
         <mat-card>
           <img src="{{game.image_path}}">
