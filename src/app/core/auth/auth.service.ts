@@ -4,7 +4,7 @@ import { FeedbackService } from '../feedback/feedback.service';
 import { FeedbackMessage, FeedbackType } from '../feedback/feedback.model';
 import { FirestoreService } from '../firebase/firestore/firestore.service';
 import { Observable, of } from 'rxjs';
-import {switchMap, map, take} from 'rxjs/operators';
+import { switchMap, map, take } from 'rxjs/operators';
 import { Role, User } from './user.model';
 import { Router } from '@angular/router';
 
@@ -57,12 +57,24 @@ export class AuthService {
   loginAnonymously(): Promise<User> {
     return this.fireauthService.loginAnonymously().then((res) => {
       const id = res.user.uid;
-      return this.firestoreService.upsert(this.path, id, {id: id}).then(() => {
+      return this.firestoreService.upsert(this.path, id, { id: id }).then(() => {
         return this.userObservable.pipe(take(1)).toPromise();
       });
     }).catch((err) => {
       console.log('Error in logging in anonymously:', err);
     });
+  }
+
+  userAliasByUid(userID: string): Observable<string> {
+
+    return this.firestoreService.get(this.path, userID).pipe(
+      map(user => {
+        if (typeof user === 'undefined' || typeof user.alias === 'undefined') {
+          return "User Alias Not Found";
+        }
+        return user.alias;
+      })
+    );
   }
 
   setUser() {
@@ -78,6 +90,6 @@ export class AuthService {
   }
 
   upsertUserAlias(alias: string) {
-    this.firestoreService.upsert(this.path, this.uid, {alias: alias});
+    this.firestoreService.upsert(this.path, this.uid, { alias: alias });
   }
 }
