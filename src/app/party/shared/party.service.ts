@@ -41,7 +41,9 @@ export class PartyService {
         selectedGame: game.id,
         joinCode: Math.random().toString(36).substring(7)
       };
-      return this.createParty(party);
+      return this.createParty(party).then(res => {
+        return party;
+      });
     });
   }
 
