@@ -1,6 +1,8 @@
 <div class="center">
-  <div class="back-button">
-    <mat-icon style="font-size: 5vh">keyboard_arrow_left</mat-icon>
+  <div class="back-button" *ngIf="showAddquestion">
+    <button mat-icon-button (click)="showAddquestion=!showAddquestion">
+      <mat-icon style="font-size: 5vh" aria-label="Example icon-button with a heart icon">keyboard_arrow_left</mat-icon>
+    </button>
   </div>
   <img src="../../assets/illustrations/never_have_I_ever_logo_text.png" class="logo">
   <div class="center" *ngIf="!showAddquestion">
@@ -15,7 +17,6 @@
 
   <div class="add-question-div" *ngIf="showAddquestion">
     <app-add-manual-question
-      (navigateBack)="showAddquestion=!showAddquestion"
       (submitNewQuestion)="submitNewManualQuestion($event)">
     </app-add-manual-question>
   </div>

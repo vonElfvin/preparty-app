@@ -9,7 +9,6 @@ export class AddManualQuestionComponent implements OnInit {
 
   newManualQuestion: string;
 
-  @Output() navigateBack = new EventEmitter();
   @Output() submitNewQuestion = new EventEmitter<string>();
 
   constructor() { }
@@ -19,10 +18,6 @@ export class AddManualQuestionComponent implements OnInit {
 
   submitNewManualQuestionClick() {
     this.submitNewQuestion.emit(this.newManualQuestion);
-  }
-
-  navigateBackClick() {
-    this.navigateBack.emit(true);
   }
 
 }
