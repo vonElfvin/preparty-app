@@ -38,6 +38,10 @@ export class NhieGameInstanceService {
     return this.gameInstanceService.createNewGameInstance(gameInstance);
   }
 
+  updateGameInstance(gameInstance: NhieGameInstance): Promise<any> {
+    return this.gameInstanceService.updateGameInstance(gameInstance);
+  }
+
 
   getGameInstanceByJoinCode(joinCode: string): Observable<NhieGameInstance> {
     return <Observable<NhieGameInstance>>this.gameInstanceService.getGameInstanceByJoinCode(joinCode);

@@ -12,8 +12,9 @@ export class NhieComponent implements OnInit {
 
 
   gameInstance: NhieGameInstance;
-  gameQuestions: string[];
-  players = ['Jan', 'Anita', 'Bengt'];
+
+  showAddquestion = false;
+
 
   currentPlayer: string;
   currentQuestion: string;
@@ -25,26 +26,35 @@ export class NhieComponent implements OnInit {
     if (joinCode) {
       this.nhieService.getGameInstanceByJoinCode(joinCode).subscribe(res => {
         this.gameInstance = res;
+        this.currentQuestion = res.currentQuestion;
+        console.log(res);
       });
     }
-    this.gameQuestions = this.nhieService.getGameInstanceQuestions();
-
-    this.rotatePlayerQueue();
-    this.setNextQuestion();
-  }
-
-
-  rotatePlayerQueue() {
-    this.currentPlayer = this.players.shift();
-    this.players.push(this.currentPlayer);
   }
 
   setNextQuestion() {
-    this.currentQuestion = this.gameQuestions.pop();
+    // Select manual question with 70% probability
+    if (this.gameInstance.manualQuestions.length > 0 && Math.floor(Math.random() * Math.floor(100)) <= 70) {
+      this.gameInstance.currentQuestion = this.gameInstance.manualQuestions.shift();
+    } else {
+      this.gameInstance.currentQuestion = this.gameInstance.genericQuestions.shift();
+    }
+    // Add more generic if empty
+    if (this.gameInstance.genericQuestions.length === 0) {
+      this.gameInstance.genericQuestions = this.gameInstance.genericQuestions.concat(this.nhieService.getGameInstanceQuestions());
+    }
+    // Update the game instance in DB
+    this.nhieService.updateGameInstance(this.gameInstance).then(res => {
+
+    });
   }
 
-  onAnswer($event: boolean) {
-    this.setNextQuestion();
-    this.rotatePlayerQueue();
+
+  submitNewManualQuestion(newManualQuestion: string) {
+    this.gameInstance.manualQuestions.push(newManualQuestion);
+    this.nhieService.updateGameInstance(this.gameInstance).then(() => {
+    });
+    this.showAddquestion = false;
+
   }
 }

@@ -7,9 +7,11 @@ import { NhieCardComponent } from './nhie-card/nhie-card.component';
 import {FormsModule} from '@angular/forms';
 import { AddQuestionsComponent } from './add-questions/add-questions.component';
 import { AddQuestionButtonComponent } from './add-question-button/add-question-button.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import { AddManualQuestionComponent } from './add-manual-question/add-manual-question.component';
 
 @NgModule({
-  declarations: [NhieComponent, NhieCardComponent, AddQuestionsComponent, AddQuestionButtonComponent],
+  declarations: [NhieComponent, NhieCardComponent, AddQuestionsComponent, AddQuestionButtonComponent, AddManualQuestionComponent],
   exports: [AddQuestionsComponent],
   providers: [NhieGameInstanceService],
   imports: [
@@ -21,6 +23,7 @@ import { AddQuestionButtonComponent } from './add-question-button/add-question-b
     MatButtonModule,
     MatButtonModule,
     MatInputModule,
+    FlexLayoutModule
   ]
 })
 export class NhieModule { }

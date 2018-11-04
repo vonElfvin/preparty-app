@@ -26,5 +26,9 @@ export class GameInstanceService {
     pipe(map(games => games [0]));
   }
 
+  updateGameInstance(gameInstance: GameInstance): Promise<any> {
+    return this.firestoreService.update(this.path, gameInstance.id, gameInstance);
+  }
+
 
 }
