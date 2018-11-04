@@ -28,7 +28,7 @@ export class PartyService {
   }
 
   getPartyByJoinCode(joinCode: string): Observable<Party>  {
-    return this.firestoreService.getItems(this.path,
+    return this.firestoreService.list(this.path,
         ref => ref.where('joinCode', '==', joinCode)
     ).
     pipe(map(
@@ -48,6 +48,10 @@ export class PartyService {
         return party;
       });
     });
+  }
+
+  checkPartyExists(joinCode: string) {
+    return this.firestoreService.check(this.path, 'joinCode', joinCode);
   }
 
 }

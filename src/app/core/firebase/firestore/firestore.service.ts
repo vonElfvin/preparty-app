@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, QueryFn} from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/internal/operators';
+import { Observable, of } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,12 +28,18 @@ export class FirestoreService<Item> {
     return this.doc(path, id).valueChanges();
   }
 
-  getItems(path: string, queryFn?: QueryFn): Observable<Item[]> {
+  list(path: string, queryFn?: QueryFn): Observable<Item[]> {
     return this.colWithIds(path, queryFn);
   }
 
-  list(path: string, queryFn?: QueryFn): Observable<Item[]> {
-    return this.colWithIds(path, queryFn);
+  check(path: string, key: string, value: string) {
+    if (!value) {
+      return of(false);
+    }
+    return this.col(path, ref => ref.where(key, '==', value)).snapshotChanges().pipe(
+      take(1),
+      map(items => items.length > 0)
+    );
   }
 
   delete(path: string, id: string): Promise<void> {

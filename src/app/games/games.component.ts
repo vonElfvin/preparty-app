@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { GameService } from './shared/game.service';
 import { Observable } from 'rxjs';
 import {PartyService} from '../party/shared/party.service';
+import { FeedbackService } from '../core/feedback/feedback.service';
+import { FeedbackMessage, FeedbackType } from '../core/feedback/feedback.model';
 
 @Component({
   selector: 'app-games',
@@ -20,14 +22,23 @@ export class GamesComponent implements OnInit {
   constructor(private fireauthService: FireauthService,
               private gameService: GameService,
               private router: Router,
-              private partyService: PartyService) { }
+              private partyService: PartyService,
+              private feedbackService: FeedbackService) { }
 
   ngOnInit() {
     this.games = this.gameService.getGames();
   }
 
   joinGame() {
-    this.fireauthService.loginAnonymously();
+    this.partyService.checkPartyExists(this.joinCode).subscribe(partyExists => {
+      if (partyExists) {
+        this.fireauthService.loginAnonymously().then(() => {
+          this.router.navigate([`alias/${this.joinCode}`]);
+        });
+      } else {
+        this.feedbackService.message(FeedbackMessage.JoinCodeError, FeedbackType.Error);
+      }
+    });
   }
 
   startGame(game: Game) {
