@@ -36,7 +36,7 @@ export class LobbyComponent implements OnInit {
     const users = ['Bengt', 'Agneta', 'Lisa', 'Jan'];
     const  part = <Party>{
       users: users,
-      admin: 'Jan',
+      leader: 'Jan',
       selectedGame: 'nhie',
       joinCode: Math.random().toString(36).substring(7)
     };

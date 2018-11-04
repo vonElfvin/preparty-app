@@ -1,7 +1,7 @@
 export interface Party {
   id?: string;
   users: string[];
-  admin: string;
+  leader: string;
   selectedGame: string;
   joinCode: string;
 }

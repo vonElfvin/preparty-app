@@ -29,6 +29,10 @@ export class AuthService {
     return this.userObservable;
   }
 
+  get uid() {
+    return this.fireauthService.uid;
+  }
+
   get isAdmin(): Observable<boolean> {
     return this.user.pipe(
       map(user => user && user.role === Role.admin)
@@ -71,5 +75,9 @@ export class AuthService {
         }
       })
     );
+  }
+
+  upsertUserAlias(alias: string) {
+    this.firestoreService.upsert(this.path, this.uid, {alias: alias});
   }
 }

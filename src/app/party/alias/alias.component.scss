@@ -4,6 +4,10 @@
   width: 100%;
 }
 
+/deep/ .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: white;
+}
+
 img {
   width: 100%;
 }
