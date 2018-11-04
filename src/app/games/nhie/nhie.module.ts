@@ -9,6 +9,7 @@ import { AddQuestionsComponent } from './add-questions/add-questions.component';
 import { AddQuestionButtonComponent } from './add-question-button/add-question-button.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { AddManualQuestionComponent } from './add-manual-question/add-manual-question.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [NhieComponent, NhieCardComponent, AddQuestionsComponent, AddQuestionButtonComponent, AddManualQuestionComponent],
@@ -24,6 +25,7 @@ import { AddManualQuestionComponent } from './add-manual-question/add-manual-que
     MatButtonModule,
     MatInputModule,
     MatIconModule,
+    RouterModule,
     FlexLayoutModule
   ]
 })
