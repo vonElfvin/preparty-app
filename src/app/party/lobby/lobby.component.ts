@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {Party} from '../shared/party';
-import {PartyService} from '../shared/party.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {GameInstanceService} from '../../games/shared/game-instance.service';
-import {NhieGameInstanceService} from '../../games/nhie/shared/nhieGameInstance.service';
+import { Party } from '../shared/party';
+import { PartyService } from '../shared/party.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GameInstanceService } from '../../games/shared/game-instance.service';
+import { NhieGameInstanceService } from '../../games/nhie/shared/nhieGameInstance.service';
+import { Observable } from 'rxjs';
+import {GameService} from '../../games/shared/game.service';
+import {Game} from '../../games/shared/game.model';
+
 
 @Component({
   selector: 'app-lobby',
@@ -12,40 +16,32 @@ import {NhieGameInstanceService} from '../../games/nhie/shared/nhieGameInstance.
 })
 export class LobbyComponent implements OnInit {
 
-
   party: Party;
+  aliases: Observable<string[]>;
+  game: Game;
+
+  isLeader = false;
 
   joinCode: string;
 
   constructor(private partyService: PartyService, private router: Router,
-              private gameInstanceService: GameInstanceService, private nhieService: NhieGameInstanceService,
-              private route: ActivatedRoute) { }
+    private gameInstanceService: GameInstanceService, private nhieService: NhieGameInstanceService,
+    private route: ActivatedRoute, private gameService: GameService) { }
 
   ngOnInit() {
     this.joinCode = this.route.snapshot.params['id'];
     if (this.joinCode) {
-      this.partyService.getPartyByJoinCode(this.joinCode).subscribe(res => {
-        this.party = res;
+      this.partyService.getPartyByJoinCode(this.joinCode).subscribe(party => {
+        this.party = party;
+        this.isLeader = this.partyService.isGameLeader(party);
+        this.aliases = this.getAliases();
+        this.gameService.getGame(party.selectedGame).subscribe(game => {
+          this.game = game;
+        });
       });
       this.checkGameInstance();
     }
   }
-
-  // Mockup fnctions
-  createParty() {
-    const users = ['Bengt', 'Agneta', 'Lisa', 'Jan'];
-    const  part = <Party>{
-      users: users,
-      admin: 'Jan',
-      selectedGame: 'nhie',
-      joinCode: Math.random().toString(36).substring(7)
-    };
-    this.partyService.createParty(part).then(res => {
-      this.party = part;
-      this.party.id = res.id;
-    });
-  }
-
 
   checkGameInstance() {
     if (!this.joinCode) {
@@ -61,14 +57,10 @@ export class LobbyComponent implements OnInit {
   }
 
   startGame() {
-    if (this.party.selectedGame === 'nhie') {
-      console.log(this.party);
-      this.nhieService.generateNewGameInstance(this.party).then(() => {
-        console.log('hej');
-        this.checkGameInstance();
-      });
-    } else {
-      this.nhieService.generateNewGameInstance(this.party);
-    }
+    this.router.navigate([this.game.urlPath + '/' + this.party.joinCode]);
+  }
+
+  getAliases() {
+    return this.partyService.getAliasesOfParty(this.party);
   }
 }

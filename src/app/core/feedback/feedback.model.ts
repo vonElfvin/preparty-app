@@ -1,13 +1,13 @@
 export const enum FeedbackMessage {
   Custom,
-  DefaultError = 'Något gick fel.',
-  Login = 'Du är nu inloggad.',
-  ErrorLogin = 'Kunde inte logga in, vänligen försök igen.',
-  Admin = 'Enbart admin har tillgång till den sidan.',
-  QuestionSuccess = 'Fråga skapad.',
-  QuestionError = 'Något gick fel vid skapandet av fråga.',
-  JoinCodeError = 'Finns inget spel igång med denna kod.',
-  JoinCodeSuccess = 'Anslutit till spel.'
+  DefaultError = 'Something went wrong',
+  Login = 'You\'re logged in',
+  ErrorLogin = 'Coundn\'t log in, please try again',
+  Admin = 'Only admin has access to this page',
+  QuestionSuccess = 'Question added!',
+  QuestionError = 'Something went wrong when adding the question',
+  JoinCodeError = 'No game exists with that join code.',
+  JoinCodeSuccess = 'Joined game.'
 }
 
 export const enum FeedbackType {
