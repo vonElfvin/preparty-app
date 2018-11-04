@@ -10,12 +10,7 @@
     </div>
   </div>
 
-  <div *ngIf="showAddquestion">
-    <!--<mat-form-field class="example-full-width" appearance="fill">
-      <textarea name="manualquestion" [(ngModel)]="newManualQuestion" matInput placeholder="Write a new Question"></textarea>
-    </mat-form-field>
-    <button mat-button (click)="showAddquestion=!showAddquestion">navigate back</button>
-    <button mat-button (click)="submitNewManualQuestion()">Add Question</button>-->
+  <div class="add-question-div" *ngIf="showAddquestion">
     <app-add-manual-question
       (navigateBack)="showAddquestion=!showAddquestion"
       (submitNewQuestion)="submitNewManualQuestion($event)">

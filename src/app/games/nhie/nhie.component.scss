@@ -1,7 +1,10 @@
 .logo {
   margin-top: 10vh;
-  margin-bottom: 20vh;
   width: 40vh;
+}
+
+.question{
+  margin-top: 20vh;
 }
 
 .bottom-logo {
@@ -13,6 +16,11 @@
 .add-question-button{
   position: absolute;
   bottom: 15vh;
+}
+
+.add-question-div{
+  margin-top: 3vh;
+  width: 40vh;
 }
 
 /deep/ .mat-form-field-appearance-fill .mat-form-field-flex {
