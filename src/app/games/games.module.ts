@@ -5,13 +5,12 @@ import { GamesComponent } from './games.component';
 import { MatFormFieldModule, MatButtonModule, MatInputModule, MatDividerModule, MatCardModule, MatGridListModule } from '@angular/material';
 import { FireauthService } from '../core/firebase/fireauth/fireauth.service';
 import { FormsModule } from '@angular/forms';
-import { AliasComponent } from './alias/alias.component';
 
 import { GameInstanceService } from './shared/game-instance.service';
 import { GameService } from './shared/game.service';
 
 @NgModule({
-  declarations: [GamesComponent, AliasComponent],
+  declarations: [GamesComponent],
   imports: [
     CommonModule,
     FormsModule,
