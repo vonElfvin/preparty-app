@@ -16,6 +16,10 @@ const routes: Routes = [
     component: AliasComponent
   },
   {
+    path: 'alias/:joinCode',
+    component: AliasComponent
+  },
+  {
     path: 'nhie/:id',
     component: NhieComponent
   },
