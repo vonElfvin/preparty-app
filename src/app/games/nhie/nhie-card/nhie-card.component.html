@@ -1,12 +1,5 @@
-<div class="content">
+<div>
   <div class="question">
     <b>...{{question}}</b>
   </div>
-  <form *ngIf="showForm">
-    <mat-form-field class="full-width">
-      <textarea name="question" matInput placeholder="Write question" [(ngModel)]="newQuestion"></textarea>
-    </mat-form-field>
-  </form>
-  <button mat-raised-button color="primary" (click)="showForm=!showForm">Add question</button>
-  <button *ngIf="showForm" mat-raised-button color="accent" (click)="addQuestionToGame(newQuestion)">Submit</button>
 </div>

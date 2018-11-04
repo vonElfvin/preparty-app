@@ -1,5 +1,6 @@
 .logo {
-  margin: 10% 10%;
+  margin-top: 10vh;
+  margin-bottom: 20vh;
   width: 40vh;
 }
 
@@ -7,5 +8,9 @@
   width: 20vh;
   bottom: 0;
   position: absolute;
-  margin: auto;
+}
+
+.add-question-button{
+  position: absolute;
+  bottom: 15vh;
 }
