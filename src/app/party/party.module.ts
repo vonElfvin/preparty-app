@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LobbyComponent } from './lobby/lobby.component';
-import {MatButtonModule, MatCardModule, MatDividerModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatDividerModule, MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
 import {PartyService} from './shared/party.service';
 import { AliasComponent } from './alias/alias.component';
 import {FormsModule} from '@angular/forms';
@@ -17,7 +17,8 @@ import {FormsModule} from '@angular/forms';
     MatCardModule,
     MatInputModule,
     MatFormFieldModule,
-    MatDividerModule
+    MatDividerModule,
+    MatIconModule
   ],
   providers: [PartyService],
   exports: [LobbyComponent]

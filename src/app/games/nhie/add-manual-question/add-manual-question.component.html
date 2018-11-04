@@ -1,0 +1,11 @@
+<div class="center">
+  <mat-form-field style="margin-bottom: -16px; width: 40vh;" class="example-full-width" appearance="fill">
+    <textarea name="manualquestion" [(ngModel)]="newManualQuestion" matInput placeholder="... been to the Australian continent"></textarea>
+  </mat-form-field>
+  <div style="width: 100%">
+    <button style="width: 100%" mat-raised-button color="primary" (click)="submitNewManualQuestionClick()">Add question</button>
+  </div>
+  <div style="margin-top: 5px; width: 100%">
+    <button style="width: 100%" mat-raised-button color="basic" (click)="navigateBackClick()">Go back</button>
+  </div>
+</div>
