@@ -5,6 +5,7 @@ import {MatButtonModule, MatCardModule, MatDividerModule, MatFormFieldModule, Ma
 import {PartyService} from './shared/party.service';
 import { AliasComponent } from './alias/alias.component';
 import {FormsModule} from '@angular/forms';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [LobbyComponent, AliasComponent],
@@ -18,7 +19,8 @@ import {FormsModule} from '@angular/forms';
     MatInputModule,
     MatFormFieldModule,
     MatDividerModule,
-    MatIconModule
+    MatIconModule,
+    RouterModule
   ],
   providers: [PartyService],
   exports: [LobbyComponent]

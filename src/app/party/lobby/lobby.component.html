@@ -9,5 +9,7 @@
   <img src="../../assets/illustrations/never_have_I_ever_logo_text.png" class="logo">
   <button *ngIf="isLeader" mat-raised-button color="primary" (click)="startGame()">Start Game</button>
   <div style="margin:auto;" *ngFor="let alias of aliases | async">{{alias}}</div>
-  <img src="../../assets/illustrations/logo.png" class="bottom-logo">
+  <a [routerLink]="['/']" class="bottom-logo">
+    <img src="../../assets/illustrations/logo.png" class="bottom-logo">
+  </a>
 </div>
