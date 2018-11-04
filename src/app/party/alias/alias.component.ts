@@ -18,11 +18,7 @@ export class AliasComponent implements OnInit {
   ngOnInit() {
   }
 
-  switch() {
-    this.admin = !this.admin;
-  }
-
-  chooseAlias() {
+  setAlias() {
     // User.name = this.alias
     console.log(this.alias);
     // this.router.navigateByUrl('/' + this.gameName + '/' + this.joinCode);

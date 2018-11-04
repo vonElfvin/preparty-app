@@ -1,28 +1,13 @@
-<div class="content">
-
-  <ng-container *ngIf="admin">
-    <p>Game Code: {{gameCode}}</p>
-  </ng-container>
-  <button (click)="switch()">
-    byt
-  </button>
-
-  <form class="game-code-form">
-    <mat-form-field class="game-code">
-      <input matInput placeholder="What's your name?" [(ngModel)]="alias" name="alias">
-    </mat-form-field>
-
-    <button mat-flat-button class="join" (click)="chooseAlias()">
-      Start!
-    </button>
-  </form>
-  <ng-container *ngIf="!admin">
-
-    <mat-divider class="divider"></mat-divider>
-    <p>
-      A game code will be generated <br>
-      when you start the game
-    </p>
-  </ng-container>
-
+<div class="center">
+  <mat-card class="content">
+    <form (ngSubmit)="setAlias()">
+      <mat-form-field>
+        <mat-label>Ange användarnamn:</mat-label>
+        <input matInput [(ngModel)] = "alias" name="alias">
+      </mat-form-field>
+      <button mat-flat-button color="primary">
+        Join game!
+      </button>
+    </form>
+  </mat-card>
 </div>

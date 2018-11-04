@@ -9,7 +9,6 @@ import {map} from 'rxjs/operators';
 })
 export class PartyService {
 
-
   private readonly path = 'party';
 
   constructor(private firestoreService: FirestoreService<Party>) { }
