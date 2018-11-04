@@ -10,13 +10,16 @@ import { User } from './core/auth/user.model';
 })
 export class AppComponent implements OnInit {
 
-  private user: Observable<User>;
+  userObservable: Observable<User>;
 
   constructor(
     private authService: AuthService,
   ) { }
 
   ngOnInit() {
-    this.user = this.authService.user;
+    this.userObservable = this.authService.user;
+    this.userObservable.subscribe(user => {
+      console.log(user);
+    });
   }
 }
