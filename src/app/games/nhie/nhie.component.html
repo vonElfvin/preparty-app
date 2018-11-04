@@ -5,16 +5,21 @@
       <app-nhie-card (answer)="onAnswer($event)" [question]="currentQuestion" [playerName]="currentPlayer"></app-nhie-card>
     </div>
     <div class="add-question-button" fxLayout="row" fxLayoutGap="20px">
-      <button mat-raised-button color="primary" (click)="addManualQuestion()">Add question</button>
+      <button mat-raised-button color="primary" (click)="showAddquestion=!showAddquestion">Add question</button>
       <button color="primary" mat-button (click)="setNextQuestion()">Next Question</button>
     </div>
   </div>
 
   <div *ngIf="showAddquestion">
-    <mat-form-field class="example-full-width">
+    <!--<mat-form-field class="example-full-width" appearance="fill">
       <textarea name="manualquestion" [(ngModel)]="newManualQuestion" matInput placeholder="Write a new Question"></textarea>
     </mat-form-field>
-    <button color="primary" mat-button (click)="showAddquestion=!showAddquestion">navigate back</button>
+    <button mat-button (click)="showAddquestion=!showAddquestion">navigate back</button>
+    <button mat-button (click)="submitNewManualQuestion()">Add Question</button>-->
+    <app-add-manual-question
+      (navigateBack)="showAddquestion=!showAddquestion"
+      (submitNewQuestion)="submitNewManualQuestion($event)">
+    </app-add-manual-question>
   </div>
 
   <img src="../../assets/illustrations/logo.png" class="bottom-logo">

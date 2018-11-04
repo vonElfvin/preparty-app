@@ -15,7 +15,6 @@ export class NhieComponent implements OnInit {
 
   showAddquestion = false;
 
-  newManualQuestion: string;
 
   currentPlayer: string;
   currentQuestion: string;
@@ -50,12 +49,12 @@ export class NhieComponent implements OnInit {
     });
   }
 
-  addManualQuestion() {
-    this.showAddquestion = true;
 
-  }
+  submitNewManualQuestion(newManualQuestion: string) {
+    this.gameInstance.manualQuestions.push(newManualQuestion);
+    this.nhieService.updateGameInstance(this.gameInstance).then(() => {
+    });
+    this.showAddquestion = false;
 
-  onAnswer($event: boolean) {
-    this.setNextQuestion();
   }
 }

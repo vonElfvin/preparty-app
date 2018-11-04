@@ -1,3 +1,5 @@
-<p>
-  add-manual-question works!
-</p>
+<mat-form-field class="example-full-width" appearance="fill">
+  <textarea name="manualquestion" [(ngModel)]="newManualQuestion" matInput placeholder="Write a new Question"></textarea>
+</mat-form-field>
+<button mat-button (click)="navigateBackClick()">navigate back</button>
+<button mat-button (click)="submitNewManualQuestionClick()">SubmitQuestion</button>

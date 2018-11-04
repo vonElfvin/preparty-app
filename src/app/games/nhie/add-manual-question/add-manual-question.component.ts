@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-add-manual-question',
@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddManualQuestionComponent implements OnInit {
 
+  newManualQuestion: string;
+
+  @Output() navigateBack = new EventEmitter();
+  @Output() submitNewQuestion = new EventEmitter<string>();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  submitNewManualQuestionClick() {
+    this.submitNewQuestion.emit(this.newManualQuestion);
+  }
+
+  navigateBackClick() {
+    this.navigateBack.emit(true);
   }
 
 }
