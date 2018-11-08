@@ -7,6 +7,7 @@ import { AliasComponent } from './alias/alias.component';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [LobbyComponent, AliasComponent],
@@ -22,7 +23,8 @@ import { SharedModule } from '../shared/shared.module';
     MatFormFieldModule,
     MatDividerModule,
     MatIconModule,
-    RouterModule
+    RouterModule,
+    FlexLayoutModule
   ],
   providers: [PartyService],
   exports: [LobbyComponent]
