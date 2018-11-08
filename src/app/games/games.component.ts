@@ -31,6 +31,7 @@ export class GamesComponent implements OnInit {
   }
 
   joinGame() {
+    console.log(this.joinCode);
     this.partyService.checkPartyExists(this.joinCode).subscribe(partyExists => {
       if (partyExists) {
         this.feedbackService.message(FeedbackMessage.JoinCodeSuccess, FeedbackType.Primary);

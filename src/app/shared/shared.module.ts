@@ -1,23 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DefaultSizeButtonComponent } from './default-size-button/default-size-button.component';
 import { MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { FooterImageComponent } from './footer-image/footer-image.component';
 import { RouterModule } from '@angular/router';
 import { BackButtonComponent } from './back-button/back-button.component';
+import { InputFieldComponent } from './input-field/input-field.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     PageNotFoundComponent,
     DefaultSizeButtonComponent,
+    FooterImageComponent,
+    BackButtonComponent,
+    InputFieldComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    FooterImageComponent,
-    BackButtonComponent,
+    FormsModule,
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -26,6 +29,8 @@ import { BackButtonComponent } from './back-button/back-button.component';
   exports: [
     FooterImageComponent,
     BackButtonComponent,
-    DefaultSizeButtonComponent]
+    DefaultSizeButtonComponent,
+    InputFieldComponent
+  ]
 })
 export class SharedModule { }
