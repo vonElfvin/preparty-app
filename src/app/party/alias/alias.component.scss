@@ -2,14 +2,11 @@
   max-width: 300px;
   width: 100%;
 }
-.game-code{
-  position: absolute;
-  top: 0vh;
-  right: 1vh;
-  text-align: center;
+.descriprion-text{
+  font-size: 2.5vh;
   color: white;
+  text-align: center;
 }
-
 /deep/ .mat-form-field-appearance-fill .mat-form-field-flex {
   background-color: white;
 }
