@@ -6,10 +6,7 @@
         <mat-label>Set alias:</mat-label>
         <input matInput [(ngModel)] = "alias" name="alias">
       </mat-form-field>
-      <button mat-flat-button color="primary">
-        Join game!
-        <mat-icon>chevron_right</mat-icon>
-      </button>
+      <app-default-size-button [text]="'Join Game'" [matIconName]="'chevron_right'"></app-default-size-button>
     </form>
   </div>
 </div>
