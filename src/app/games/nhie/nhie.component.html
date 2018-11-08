@@ -4,7 +4,7 @@
       <mat-icon style="font-size: 5vh" aria-label="Example icon-button with a heart icon">keyboard_arrow_left</mat-icon>
     </button>
   </div>
-  <img src="../../assets/illustrations/never_have_I_ever_logo_text.png" class="logo">
+  <img [src]="game?.image_path" class="logo">
   <div class="center" *ngIf="!showAddquestion">
     <div class="question">
       <app-nhie-card (answer)="onAnswer($event)" [question]="currentQuestion" [playerName]="currentPlayer"></app-nhie-card>
@@ -21,7 +21,5 @@
     </app-add-manual-question>
   </div>
 
-  <a [routerLink]="['/']" class="bottom-logo">
-    <img src="../../assets/illustrations/logo.png" class="bottom-logo">
-  </a>
+  <app-footer-image></app-footer-image>
 </div>

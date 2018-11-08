@@ -1,15 +1,20 @@
 <div *ngIf="gameObservable | async as game" class="center">
+  <app-back-button [routerLink]="'/'"></app-back-button>
+  <app-game-code [gameCode]="gameCodeText" [notGameCode]="isLeader"></app-game-code>
   <div class="content">
-    <img src="{{game.image_path}}">
+    <div class="center">
+      <img [src]="game?.image_path" class="logo">
+    </div>
     <form (ngSubmit)="setAlias()">
       <mat-form-field appearance="fill">
-        <mat-label>Set alias:</mat-label>
+        <mat-label>Enter Nickname</mat-label>
         <input matInput [(ngModel)] = "alias" name="alias">
       </mat-form-field>
       <button mat-flat-button color="primary">
-        Join game!
+        {{startButtonText}}
         <mat-icon>chevron_right</mat-icon>
       </button>
     </form>
   </div>
+  <app-footer-image></app-footer-image>
 </div>

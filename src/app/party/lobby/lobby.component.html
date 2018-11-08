@@ -1,15 +1,12 @@
 <div class="center">
-  <div class="game-code">
-    <p>Game code</p>
-    <b>{{party?.joinCode}}</b>
-  </div>
+  <app-game-code [gameCode]="party?.joinCode"></app-game-code>
   <div class="help-button">
     <mat-icon style="font-size: 5vh">help</mat-icon>
   </div>
-  <img src="../../assets/illustrations/never_have_I_ever_logo_text.png" class="logo">
+  <div class="logo-wrapper">
+    <img *ngIf="game" [src]="game?.image_path" class="logo">
+  </div>
   <button *ngIf="isLeader" mat-raised-button color="primary" (click)="startGame()">Start Game</button>
   <div style="margin:auto;" *ngFor="let alias of aliases | async">{{alias}}</div>
-  <a [routerLink]="['/']" class="bottom-logo">
-    <img src="../../assets/illustrations/logo.png" class="bottom-logo">
-  </a>
+  <app-footer-image></app-footer-image>
 </div>
