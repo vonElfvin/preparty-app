@@ -6,14 +6,17 @@ import {PartyService} from './shared/party.service';
 import { AliasComponent } from './alias/alias.component';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
+import { GameCodeComponent } from './shared/game-code/game-code.component';
 import { SharedModule } from '../shared/shared.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
-  declarations: [LobbyComponent, AliasComponent],
+  declarations: [LobbyComponent, AliasComponent, GameCodeComponent],
   imports: [
     CommonModule,
     FormsModule,
+
+    // Own module
     SharedModule,
 
     // Material

@@ -9,9 +9,9 @@
     <div class="question">
       <app-nhie-card (answer)="onAnswer($event)" [question]="currentQuestion" [playerName]="currentPlayer"></app-nhie-card>
     </div>
-    <div class="add-question-button" fxLayout="row" fxLayoutGap="20px">
-      <button mat-raised-button color="primary" (click)="showAddquestion=!showAddquestion">Add question</button>
-      <button color="primary" mat-button (click)="setNextQuestion()">Next Question</button>
+    <div class="add-question-button" fxLayout="column" fxLayoutGap="12px">
+        <app-default-size-button [text]="'Add Question'" [matIconName]="''" (click)="showAddquestion=!showAddquestion"></app-default-size-button>
+        <app-default-size-button [text]="'Next Question'" [matIconName]="'chevron_right'" (click)="setNextQuestion()"></app-default-size-button>
     </div>
   </div>
 
@@ -21,7 +21,5 @@
     </app-add-manual-question>
   </div>
 
-  <a [routerLink]="['/']" class="bottom-logo">
-    <img src="../../assets/illustrations/logo.png" class="bottom-logo">
-  </a>
+  <app-footer-image></app-footer-image>
 </div>

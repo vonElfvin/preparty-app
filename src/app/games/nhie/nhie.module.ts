@@ -10,6 +10,7 @@ import { AddQuestionButtonComponent } from './add-question-button/add-question-b
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { AddManualQuestionComponent } from './add-manual-question/add-manual-question.component';
 import {RouterModule} from '@angular/router';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [NhieComponent, NhieCardComponent, AddQuestionsComponent, AddQuestionButtonComponent, AddManualQuestionComponent],
@@ -18,6 +19,10 @@ import {RouterModule} from '@angular/router';
   imports: [
     FormsModule,
     CommonModule,
+    SharedModule,
+
+    // Own Modules
+    SharedModule,
 
     // Material
     MatCardModule,

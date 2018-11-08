@@ -19,6 +19,9 @@ export class AliasComponent implements OnInit {
   joinCode: string;
   gameObservable: Observable<Game>;
   party: Party;
+  gameCodeText: string;
+  startButtonText = 'Join Game';
+  isLeader = false;
 
   constructor(
     private router: Router,
@@ -33,6 +36,7 @@ export class AliasComponent implements OnInit {
     this.joinCode = this.route.snapshot.params['joinCode'];
     this.partyService.getPartyByJoinCode(this.joinCode).subscribe(party => {
       this.party = party;
+      this.setGameCodeText();
       this.gameObservable = this.gameService.getGame(this.party.selectedGame);
     });
   }
@@ -43,5 +47,21 @@ export class AliasComponent implements OnInit {
       this.partyService.addUserToParty(this.party);
       this.router.navigate([`lobby/${this.joinCode}`]);
     });
+  }
+
+  setGameCodeText() {
+    if (this.partyService.isGameLeader(this.party)) {
+      this.isLeader = true;
+      this.gameCodeText = 'Game code will be generated';
+      this.startButtonText = 'Start Game';
+    } else {
+      this.isLeader = false;
+      this.gameCodeText = this.party.joinCode;
+      this.startButtonText = 'Join Game';
+
+    }
+
+
+
   }
 }

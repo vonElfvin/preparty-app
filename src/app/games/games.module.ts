@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NhieModule } from './nhie/nhie.module';
 import { GamesComponent } from './games.component';
 import {
-  MatFormFieldModule, MatButtonModule, MatInputModule, MatDividerModule, MatCardModule, MatGridListModule,
-  MatIconModule
+  MatFormFieldModule, MatInputModule, MatDividerModule, MatCardModule, MatGridListModule
 } from '@angular/material';
 import { FireauthService } from '../core/firebase/fireauth/fireauth.service';
 import { FormsModule } from '@angular/forms';
@@ -23,12 +22,10 @@ import { SharedModule } from '../shared/shared.module';
 
     // Material
     MatFormFieldModule,
-    MatButtonModule,
     MatInputModule,
     MatDividerModule,
     MatCardModule,
     MatGridListModule,
-    MatIconModule,
 
     // Util Modules
     SharedModule,

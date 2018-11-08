@@ -3,18 +3,22 @@
     <img src="../../assets/illustrations/logo_with_text.png">
 
     <form (ngSubmit)="joinGame()">
+      <!--<app-input-field name="joinCode"></app-input-field> -->
+      
       <mat-form-field appearance="fill">
-        <mat-label>Game code:</mat-label>
+        <mat-label>Game code</mat-label>
         <input matInput [(ngModel)] = "joinCode" name="joinCode">
       </mat-form-field>
+      
       <app-default-size-button [text]="'Join Game'" [matIconName]="'chevron_right'"></app-default-size-button>
     </form>
 
     <h1 id="start">SELECT GAME</h1>
+    <mat-divider class="game-divider"></mat-divider>
 
     <mat-grid-list [cols]="2" rowHeight="1:1" gutterSize="10">
       <mat-grid-tile *ngFor="let game of games | async">
-        <img src="{{game.image_path}}" (click)="startGame(game)" class="game-image">
+        <img src="{{game.menuImagePath}}" (click)="startGame(game)" class="game-image">
       </mat-grid-tile>
     </mat-grid-list>
   </div>

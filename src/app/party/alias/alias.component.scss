@@ -1,16 +1,20 @@
 .content {
-  margin-top: 24px;
   max-width: 300px;
   width: 100%;
 }
-
+.descriprion-text{
+  font-size: 2.5vh;
+  color: white;
+  text-align: center;
+}
 /deep/ .mat-form-field-appearance-fill .mat-form-field-flex {
   background-color: white;
 }
 
-img {
-  width: 100%;
-  margin-bottom: 16px;
+.logo{
+  margin-top: 10vh;
+  margin-bottom: 5vh;
+  width: 40vh;
 }
 
 mat-form-field {
