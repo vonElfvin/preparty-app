@@ -1,16 +1,23 @@
 .content {
-  margin-top: 24px;
   max-width: 300px;
   width: 100%;
+}
+.game-code{
+  position: absolute;
+  top: 0vh;
+  right: 1vh;
+  text-align: center;
+  color: white;
 }
 
 /deep/ .mat-form-field-appearance-fill .mat-form-field-flex {
   background-color: white;
 }
 
-img {
-  width: 100%;
-  margin-bottom: 16px;
+.logo{
+  margin-top: 10vh;
+  margin-bottom: 5vh;
+  width: 40vh;
 }
 
 mat-form-field {

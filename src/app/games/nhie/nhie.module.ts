@@ -21,6 +21,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     SharedModule,
 
+    // Own Modules
+    SharedModule,
+
     // Material
     MatCardModule,
     MatButtonModule,
