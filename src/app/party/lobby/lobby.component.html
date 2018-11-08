@@ -6,7 +6,9 @@
   <div class="logo-wrapper">
     <img *ngIf="game" [src]="game?.image_path" class="logo">
   </div>
-  <button *ngIf="isLeader" mat-raised-button color="primary" (click)="startGame()">Start Game</button>
+</div>
+<app-default-size-button *ngIf="isLeader" (click)="startGame()" [text]="'Start Game!'"></app-default-size-button>
+<div class="center">
   <div style="margin:auto;" *ngFor="let alias of aliases | async">{{alias}}</div>
   <app-footer-image></app-footer-image>
 </div>

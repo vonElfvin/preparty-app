@@ -11,9 +11,12 @@ import { FormsModule } from '@angular/forms';
 
 import { GameInstanceService } from './shared/game-instance.service';
 import { GameService } from './shared/game.service';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [GamesComponent],
+  declarations: [
+    GamesComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -27,6 +30,8 @@ import { GameService } from './shared/game.service';
     MatGridListModule,
     MatIconModule,
 
+    // Util Modules
+    SharedModule,
     // Game Modules
     NhieModule,
   ],
