@@ -34,6 +34,10 @@ export class PartyService {
     );
   }
 
+  getPartyById(id: string): Observable<Party> {
+    return this.firestoreService.get(this.path, id);
+  }
+
   createNewPartyFromGame(game: Game): Promise<Party> {
     return this.authService.loginAnonymously().then(user => {
       const party = <Party>{
@@ -63,6 +67,13 @@ export class PartyService {
   isGameLeader(party: Party): boolean {
     return !!this.authService.uid && this.authService.uid === party.leader;
   }
+
+  isGameLeaderObservable(partyId: string): Observable<boolean> {
+    return this.getPartyById(partyId).pipe(map(party => {
+      return this.isGameLeader(party);
+    }));
+  }
+
 
   getAliasesOfParty(party: Party): Observable<string[]> {
 

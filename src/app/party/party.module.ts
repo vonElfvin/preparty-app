@@ -30,6 +30,6 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     FlexLayoutModule
   ],
   providers: [PartyService],
-  exports: [LobbyComponent]
+  exports: [LobbyComponent, GameCodeComponent]
 })
 export class PartyModule { }

@@ -11,6 +11,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { AddManualQuestionComponent } from './add-manual-question/add-manual-question.component';
 import {RouterModule} from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
+import {PartyModule} from '../../party/party.module';
 
 @NgModule({
   declarations: [NhieComponent, NhieCardComponent, AddQuestionsComponent, AddQuestionButtonComponent, AddManualQuestionComponent],
@@ -23,6 +24,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
     // Own Modules
     SharedModule,
+    PartyModule,
 
     // Material
     MatCardModule,
