@@ -61,7 +61,7 @@ export class PartyService {
   }
 
   isGameLeader(party: Party): boolean {
-    return this.authService.uid === party.leader;
+    return !!this.authService.uid && this.authService.uid === party.leader;
   }
 
   getAliasesOfParty(party: Party): Observable<string[]> {

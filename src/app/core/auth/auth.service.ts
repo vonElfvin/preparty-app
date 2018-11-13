@@ -30,7 +30,10 @@ export class AuthService {
   }
 
   get uid() {
-    return this.fireauthService.uid;
+    if (this.isLoggedIn()) {
+      return this.fireauthService.uid;
+    }
+    return null;
   }
 
   get isAdmin(): Observable<boolean> {
@@ -39,10 +42,14 @@ export class AuthService {
     );
   }
 
-  get isLoggedIn(): Observable<boolean> {
+  get isLoggedInObservable(): Observable<boolean> {
     return this.user.pipe(
       map(user => !!user)
     );
+  }
+
+  isLoggedIn(): boolean {
+    return this.fireauthService.isLoggedIn;
   }
 
   loginEmailAndPassword(email, password) {
@@ -70,7 +77,7 @@ export class AuthService {
     return this.firestoreService.get(this.path, userID).pipe(
       map(user => {
         if (typeof user === 'undefined' || typeof user.alias === 'undefined') {
-          return "User Alias Not Found";
+          return 'User Alias Not Found';
         }
         return user.alias;
       })
