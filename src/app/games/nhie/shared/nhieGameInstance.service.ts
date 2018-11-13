@@ -6,6 +6,7 @@ import {GameInstanceService} from '../../shared/game-instance.service';
 import {Observable} from 'rxjs';
 import {PartyService} from '../../../party/shared/party.service';
 import {switchMap, take} from 'rxjs/operators';
+import {GameInstance} from '../../shared/game-instance';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,7 @@ export class NhieGameInstanceService {
         partyId: party.id,
         gameId: party.selectedGame,
         joinCode: party.joinCode,
+        gameLeader: party.leader,
         genericQuestions: this.getGameInstanceQuestions(),
         manualQuestions: [],
         currentQuestion: this.getGameInstanceQuestions().pop()
