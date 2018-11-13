@@ -12,7 +12,7 @@ import { take } from 'rxjs/internal/operators';
 })
 export class NhieQuestionService {
 
-  private readonly path = 'nhie_question';
+  private readonly path = 'nhie-questions';
 
   constructor(
     private firestoreService: FirestoreService<NhieQuestion>,
@@ -28,7 +28,9 @@ export class NhieQuestionService {
   }
 
   getQuestions(startAt: number): Observable<string[]> {
-    return this.firestoreService.list(this.path).pipe(
+    return this.firestoreService.list(this.path, ref =>
+      ref.where('level', '<=', 2)
+    ).pipe(
       map(questions => questions.map(question => question.question)),
       take(1),
     );
