@@ -43,6 +43,7 @@ export class LobbyComponent implements OnInit {
         this.aliases = this.getAliases();
         this.gameService.getGame(party.selectedGame).subscribe(game => {
           this.game = game;
+          console.log(game);
         });
       });
       this.checkGameInstance();
@@ -68,5 +69,13 @@ export class LobbyComponent implements OnInit {
 
   getAliases() {
     return this.partyService.getAliasesOfParty(this.party);
+  }
+
+  onGameInfoClick() {
+    this.router.navigate(['game-info/' + this.game.urlPath]);
+  }
+
+  onLeaveClick() {
+
   }
 }
