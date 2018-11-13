@@ -13,7 +13,7 @@ import {User} from '../../core/auth/user.model';
 export class GameInstanceService {
 
 
-  private readonly path = 'gameInstance';
+  private readonly path = 'game-instances';
 
 
   constructor(private firestoreService: FirestoreService<GameInstance>, private authService: AuthService) { }

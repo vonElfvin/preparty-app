@@ -3,13 +3,16 @@ import { FirestoreService } from '../../../core/firebase/firestore/firestore.ser
 import { NhieQuestion } from './nhie';
 import { FeedbackService } from '../../../core/feedback/feedback.service';
 import { FeedbackMessage, FeedbackType } from '../../../core/feedback/feedback.model';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/internal/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NhieQuestionService {
 
-  private readonly path = 'nhie_question';
+  private readonly path = 'nhie-questions';
 
   constructor(
     private firestoreService: FirestoreService<NhieQuestion>,
@@ -22,5 +25,14 @@ export class NhieQuestionService {
     }).catch(err => {
       this.feedbackService.message(FeedbackMessage.QuestionError, FeedbackType.Error);
     });
+  }
+
+  getQuestions(startAt: number): Observable<string[]> {
+    return this.firestoreService.list(this.path, ref =>
+      ref.where('level', '<=', 2)
+    ).pipe(
+      map(questions => questions.map(question => question.question)),
+      take(1),
+    );
   }
 }

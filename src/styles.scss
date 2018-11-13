@@ -77,3 +77,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
   vertical-align: middle!important;
   margin-top: -2px;
 }
+
+mat-form-field {
+  width: 100%;
+  text-align: center !important;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: white !important;
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 0;
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+.mat-form-field-underline {
+  bottom: 0 !important;
+}

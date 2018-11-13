@@ -6,7 +6,7 @@ import {MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatM
 import { FooterImageComponent } from './footer-image/footer-image.component';
 import { RouterModule } from '@angular/router';
 import { BackButtonComponent } from './back-button/back-button.component';
-import { InputFieldComponent } from './input-field/input-field.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MenuButtonComponent } from './menu-button/menu-button.component';
 
@@ -15,9 +15,8 @@ import { MenuButtonComponent } from './menu-button/menu-button.component';
     PageNotFoundComponent,
     DefaultSizeButtonComponent,
     FooterImageComponent,
-    BackButtonComponent,
-    InputFieldComponent,
     MenuButtonComponent,
+    BackButtonComponent
   ],
   imports: [
     CommonModule,
@@ -26,14 +25,14 @@ import { MenuButtonComponent } from './menu-button/menu-button.component';
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatMenuModule,
     MatInputModule,
-    MatMenuModule
+    ReactiveFormsModule
   ],
   exports: [
     FooterImageComponent,
     BackButtonComponent,
     DefaultSizeButtonComponent,
-    InputFieldComponent,
     MenuButtonComponent
   ]
 })

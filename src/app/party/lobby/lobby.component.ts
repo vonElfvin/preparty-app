@@ -3,7 +3,7 @@ import { Party } from '../shared/party';
 import { PartyService } from '../shared/party.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GameInstanceService } from '../../games/shared/game-instance.service';
-import { NhieGameInstanceService } from '../../games/nhie/shared/nhieGameInstance.service';
+import { NhieGameInstanceService } from '../../games/nhie/shared/nhie-game-instance.service';
 import { Observable } from 'rxjs';
 import {GameService} from '../../games/shared/game.service';
 import {Game} from '../../games/shared/game.model';
