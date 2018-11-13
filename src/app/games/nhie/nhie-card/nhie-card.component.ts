@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {NhieGameInstanceService} from '../shared/nhieGameInstance.service';
+import {NhieGameInstanceService} from '../shared/nhie-game-instance.service';
 
 @Component({
   selector: 'app-nhie-card',
@@ -24,7 +24,9 @@ export class NhieCardComponent implements OnInit {
 
   @Output() answer = new EventEmitter<boolean>();
 
-  constructor(private nhieService: NhieGameInstanceService) { }
+  constructor(
+    private nhieService: NhieGameInstanceService
+  ) { }
 
   ngOnInit() {
   }
@@ -36,8 +38,6 @@ export class NhieCardComponent implements OnInit {
   addQuestionToGame(question: string) {
     this.showForm = !this.showForm;
     this.nhieService.addQuestionToGameInstance(this.gameInstanceId, question);
-
   }
-
 
 }

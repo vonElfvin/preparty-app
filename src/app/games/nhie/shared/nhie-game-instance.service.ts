@@ -19,8 +19,7 @@ export class NhieGameInstanceService {
               private gameInstanceService: GameInstanceService, private partyService: PartyService) { }
 
   getGameInstanceQuestions(): string[] {
-    return ['ätit mat', 'fångat fisk', 'kastat sten', 'varit skön',
-    'krökat'];
+    return ['ätit mat', 'fångat fisk', 'kastat sten', 'varit skön', 'krökat'];
   }
 
 
@@ -40,7 +39,9 @@ export class NhieGameInstanceService {
   }
 
   generateNewGameInstanceFromCode(joinCode: string): Promise<void> {
-    return this.partyService.getPartyByJoinCode(joinCode).pipe(take(1), switchMap((party: Party) => {
+    return this.partyService.getPartyByJoinCode(joinCode).pipe(
+      take(1),
+      switchMap((party: Party) => {
       const gameInstance = <NhieGameInstance>{
         partyId: party.id,
         gameId: party.selectedGame,

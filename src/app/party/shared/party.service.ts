@@ -36,7 +36,7 @@ export class PartyService {
 
   createNewPartyFromGame(game: Game): Promise<Party> {
     return this.authService.loginAnonymously().then(user => {
-      const party = <Party>{
+      const party: Party = {
         users: [user.id],
         leader: user.id,
         selectedGame: game.id,
