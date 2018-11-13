@@ -7,6 +7,7 @@ import { NhieGameInstanceService } from '../../games/nhie/shared/nhie-game-insta
 import { Observable } from 'rxjs';
 import {GameService} from '../../games/shared/game.service';
 import {Game} from '../../games/shared/game.model';
+import {AuthService} from '../../core/auth/auth.service';
 
 
 @Component({
@@ -19,6 +20,8 @@ export class LobbyComponent implements OnInit {
   party: Party;
   aliases: Observable<string[]>;
   game: Game;
+  waitingMessage = 'Waiting for Game Leader <br> to start the game...';
+  isLoggedIn: Observable<boolean>;
 
   isLeader = false;
 
@@ -26,9 +29,11 @@ export class LobbyComponent implements OnInit {
 
   constructor(private partyService: PartyService, private router: Router,
     private gameInstanceService: GameInstanceService, private nhieService: NhieGameInstanceService,
-    private route: ActivatedRoute, private gameService: GameService) { }
+    private route: ActivatedRoute, private gameService: GameService,
+              private authService: AuthService) { }
 
   ngOnInit() {
+    this.isLoggedIn = this.authService.isLoggedInObservable;
     this.joinCode = this.route.snapshot.params['joinCode'];
     console.log(this.joinCode);
     if (this.joinCode) {

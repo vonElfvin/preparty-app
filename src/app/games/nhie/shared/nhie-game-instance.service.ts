@@ -30,6 +30,7 @@ export class NhieGameInstanceService {
         const gameInstance = <NhieGameInstance>{
           partyId: party.id,
           gameId: party.selectedGame,
+          gameLeader: party.leader,
           joinCode: party.joinCode,
           genericQuestions: questions,
           manualQuestions: [],

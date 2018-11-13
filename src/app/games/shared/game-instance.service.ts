@@ -4,6 +4,8 @@ import {Party} from '../../party/shared/party';
 import {GameInstance} from './game-instance';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {AuthService} from '../../core/auth/auth.service';
+import {User} from '../../core/auth/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ export class GameInstanceService {
   private readonly path = 'game-instances';
 
 
-  constructor(private firestoreService: FirestoreService<GameInstance>) { }
+  constructor(private firestoreService: FirestoreService<GameInstance>, private authService: AuthService) { }
 
 
   createNewGameInstance(gameInstance: GameInstance): Promise<void> {

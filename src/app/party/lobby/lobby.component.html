@@ -11,11 +11,13 @@
   <div style="margin-bottom: 10px">
     <b>Players</b>
   </div>
-  <div fxLayout="row wrap" fxLayoutGap="5px" fxLayoutAlign="space-between start">
-    <div style="padding-bottom: 2vh" fxFlex="0 1 calc(29% - 5px)" *ngFor="let alias of aliases | async">{{alias}}</div>
+  <div fxLayout="row wrap">
+    <div style="padding-bottom: 2vh" fxFlex="33" *ngFor="let alias of aliases | async">{{alias}}</div>
   </div>
 </div>
-<app-default-size-button *ngIf="isLeader" (click)="startGame()" [text]="'Start Game!'"></app-default-size-button>
+<app-default-size-button class="bottom-button" *ngIf="isLeader" (click)="startGame()" [text]="'Start Game!'">
+</app-default-size-button>
+<div class="bottom-text center" *ngIf="!isLeader && isLoggedIn | async" [innerHtml]="waitingMessage"></div>
 <div class="center">
   <app-footer-image></app-footer-image>
 </div>

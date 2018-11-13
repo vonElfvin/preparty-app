@@ -6,16 +6,14 @@ import { MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule } fr
 import { FooterImageComponent } from './footer-image/footer-image.component';
 import { RouterModule } from '@angular/router';
 import { BackButtonComponent } from './back-button/back-button.component';
-import { InputFieldComponent } from './input-field/input-field.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     PageNotFoundComponent,
     DefaultSizeButtonComponent,
     FooterImageComponent,
-    BackButtonComponent,
-    InputFieldComponent
+    BackButtonComponent
   ],
   imports: [
     CommonModule,
@@ -24,13 +22,13 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    ReactiveFormsModule
   ],
   exports: [
     FooterImageComponent,
     BackButtonComponent,
-    DefaultSizeButtonComponent,
-    InputFieldComponent
+    DefaultSizeButtonComponent
   ]
 })
 export class SharedModule { }
