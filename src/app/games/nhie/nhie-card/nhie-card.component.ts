@@ -6,7 +6,7 @@ import {NhieGameInstanceService} from '../shared/nhie-game-instance.service';
   templateUrl: './nhie-card.component.html',
   styleUrls: ['./nhie-card.component.scss']
 })
-export class NhieCardComponent implements OnInit {
+export class NhieCardComponent {
 
   @Input()
   question: string;
@@ -20,24 +20,8 @@ export class NhieCardComponent implements OnInit {
 
   showForm = false;
 
-  newQuestion: string;
-
   @Output() answer = new EventEmitter<boolean>();
 
-  constructor(
-    private nhieService: NhieGameInstanceService
-  ) { }
-
-  ngOnInit() {
-  }
-
-  answeredQuestion(iHave: boolean) {
-    this.answer.emit(iHave);
-  }
-
-  addQuestionToGame(question: string) {
-    this.showForm = !this.showForm;
-    this.nhieService.addQuestionToGameInstance(this.gameInstanceId, question);
-  }
+  constructor() {}
 
 }

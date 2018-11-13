@@ -13,7 +13,7 @@ export class PartyService {
 
   private readonly path = 'party';
 
-  constructor(
+  constructor (
     private firestoreService: FirestoreService<Party>,
     private authService: AuthService
   ) { }
