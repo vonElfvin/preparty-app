@@ -7,7 +7,6 @@ import { FooterImageComponent } from './footer-image/footer-image.component';
 import { RouterModule } from '@angular/router';
 import { BackButtonComponent } from './back-button/back-button.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
 import { MenuButtonComponent } from './menu-button/menu-button.component';
 
 @NgModule({
