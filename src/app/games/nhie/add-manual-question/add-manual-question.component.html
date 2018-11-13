@@ -2,7 +2,9 @@
   <mat-form-field style="margin-bottom: -16px; width: 40vh;" class="example-full-width" appearance="fill">
     <textarea matInput name="manualquestion" [(ngModel)]="newManualQuestion"  placeholder="... been to the Australian continent"></textarea>
   </mat-form-field>
+  <div style="height: 36px"></div>
   <div style="width: 100%">
-    <button style="width: 100%" mat-raised-button color="primary" (click)="submitNewManualQuestionClick()">Add question</button>
+    <app-default-size-button [text]="'Add Question'" [matIconName]="''" (click)="submitNewManualQuestionClick()"></app-default-size-button>
   </div>
+  
 </div>
