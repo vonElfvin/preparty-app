@@ -2,12 +2,10 @@
   <div class="content">
     <img src="../../assets/illustrations/logo_with_text.png">
 
-    <form (ngSubmit)="joinGame()">
-      <!--<app-input-field name="joinCode"></app-input-field> -->
-      
+    <form (ngSubmit)="joinGame()">      
       <mat-form-field appearance="fill">
         <mat-label>Game code</mat-label>
-        <input matInput [(ngModel)] = "joinCode" name="joinCode">
+        <input matInput class="default-input" [(ngModel)] = "joinCode" name="joinCode">
       </mat-form-field>
       
       <app-default-size-button [text]="'Join Game'" [matIconName]="'chevron_right'"></app-default-size-button>
