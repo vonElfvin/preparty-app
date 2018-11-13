@@ -1,14 +1,11 @@
 .logo{
   margin-top: 10vh;
-  margin-bottom: 20vh;
   width: 40vh;
 }
 
 .logo-wrapper{
   min-height: 56vh;
 }
-
-
 
 .help-button{
   position: absolute;
@@ -17,4 +14,21 @@
   color: white;
 }
 
+.game-code b{
+  font-size: 4vh;
+  color: white;
+}
 
+.players{
+  width: 100%;
+  font-size: 2vh;
+  text-align: center;
+  color: white;
+  margin-top: 2vh;
+  margin-bottom: 20vh;
+}
+
+.players b{
+  font-size: 3vh;
+  padding-bottom: 2vh;
+}

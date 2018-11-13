@@ -3,12 +3,19 @@
   <div class="help-button">
     <mat-icon style="font-size: 5vh">help</mat-icon>
   </div>
-  <div class="logo-wrapper">
+  <div>
     <img *ngIf="game" [src]="game?.image_path" class="logo">
+  </div>
+</div>
+<div class="players">
+  <div style="margin-bottom: 10px">
+    <b>Players</b>
+  </div>
+  <div fxLayout="row wrap" fxLayoutGap="5px" fxLayoutAlign="space-between start">
+    <div style="padding-bottom: 2vh" fxFlex="0 1 calc(29% - 5px)" *ngFor="let alias of aliases | async">{{alias}}</div>
   </div>
 </div>
 <app-default-size-button *ngIf="isLeader" (click)="startGame()" [text]="'Start Game!'"></app-default-size-button>
 <div class="center">
-  <div style="margin:auto;" *ngFor="let alias of aliases | async">{{alias}}</div>
   <app-footer-image></app-footer-image>
 </div>
