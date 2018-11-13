@@ -6,7 +6,6 @@ import { Game } from '../../games/shared/game.model';
 import { GameService } from '../../games/shared/game.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { Party } from '../shared/party';
-import { FireauthService } from '../../core/firebase/fireauth/fireauth.service';
 
 @Component({
   selector: 'app-alias',
@@ -28,7 +27,6 @@ export class AliasComponent implements OnInit {
     private route: ActivatedRoute,
     private partyService: PartyService,
     private gameService: GameService,
-    private fireauthService: FireauthService,
     private authService: AuthService,
   ) { }
 
@@ -42,7 +40,8 @@ export class AliasComponent implements OnInit {
   }
 
   setAlias() {
-    this.fireauthService.loginAnonymously().then(() => {
+    this.authService.loginAnonymously().then(() => {
+      console.log('hej');
       this.authService.upsertUserAlias(this.alias);
       this.partyService.addUserToParty(this.party);
       this.router.navigate([`lobby/${this.joinCode}`]);
@@ -53,7 +52,7 @@ export class AliasComponent implements OnInit {
     if (this.partyService.isGameLeader(this.party)) {
       this.isLeader = true;
       this.gameCodeText = 'Game code will be generated';
-      this.startButtonText = 'Start Game';
+      this.startButtonText = 'Create Game';
     } else {
       this.isLeader = false;
       this.gameCodeText = this.party.joinCode;
