@@ -5,4 +5,5 @@ export interface Game {
   menuImagePath: string;
   urlPath: string;
   description: string;
+  backgroundColor: string;
 }

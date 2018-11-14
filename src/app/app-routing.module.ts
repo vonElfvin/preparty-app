@@ -5,6 +5,7 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
 import { GamesComponent} from './games/games.component';
 import { LobbyComponent} from './party/lobby/lobby.component';
 import { AliasComponent } from './party/alias/alias.component';
+import {GameInfoComponent} from './party/game-info/game-info.component';
 
 const routes: Routes = [
   {
@@ -20,7 +21,7 @@ const routes: Routes = [
     component: AliasComponent
   },
   {
-    path: 'nhie/:id',
+    path: 'nhie/:joinCode',
     component: NhieComponent
   },
   {
@@ -34,6 +35,10 @@ const routes: Routes = [
   {
     path: 'lobby',
     component: LobbyComponent
+  },
+  {
+    path: 'game-info/:gameId',
+    component: GameInfoComponent
   },
   {
     path: '**',

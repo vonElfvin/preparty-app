@@ -61,4 +61,16 @@ export class LobbyComponent implements OnInit {
       this.router.navigate([party.selectedGame + '/' + party.joinCode]);
     });
   }
+
+  onGameInfoClick() {
+    this.game.pipe(
+      take(1)
+    ).subscribe(game => {
+      this.router.navigate(['game-info/' + game.urlPath]);
+    });
+  }
+
+  onLeaveClick() {
+
+  }
 }

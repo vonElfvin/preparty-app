@@ -29,7 +29,8 @@
 .add-question-button{
   position: absolute;
   bottom: 15vh;
-  width: 76%;
+  max-width: 40vh;
+  width: 100%;
 }
 
 .add-question-div{

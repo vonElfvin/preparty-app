@@ -1,15 +1,16 @@
 <div class="center">
   <app-game-code [gameCode]="(party | async)?.joinCode"></app-game-code>
-  <div class="help-button">
-    <mat-icon style="font-size: 5vh">help</mat-icon>
-  </div>
+  <app-menu-button (gameInfoClick)="onGameInfoClick()" (leaveClick)="onLeaveClick()"></app-menu-button>
   <div>
     <img [src]="(game | async)?.image_path" class="logo">
   </div>
-</div>
-<div class="players">
-  <div style="margin-bottom: 10px">
-    <b>Players</b>
+  <div class="players">
+    <div style="margin-bottom: 10px">
+      <b>Players</b>
+    </div>
+    <div fxLayout="row wrap">
+      <div style="padding-bottom: 2vh" fxFlex="33" *ngFor="let alias of aliases | async">{{alias}}</div>
+    </div>
   </div>
   <div fxLayout="row wrap">
     <div style="padding-bottom: 2vh" fxFlex="33" *ngFor="let member of (party | async)?.members">{{member.alias}}</div>

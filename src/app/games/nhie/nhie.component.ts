@@ -15,13 +15,11 @@ import {AuthService} from '../../core/auth/auth.service';
 })
 export class NhieComponent implements OnInit {
 
-
   gameInstance: NhieGameInstance;
 
   isGameLeader: Observable<boolean>;
 
   showAddQuestion = false;
-
 
   currentPlayer: string;
   currentQuestion: string;
@@ -37,7 +35,7 @@ export class NhieComponent implements OnInit {
 
   ngOnInit() {
     this.isGameLeader = this.partyService.isGameLeaderObservable;
-    const joinCode = this.route.snapshot.params['id'];
+    const joinCode = this.route.snapshot.params['joinCode'];
     if (joinCode) {
       this.nhieGameInstanceService.getGameInstanceByJoinCode(joinCode).subscribe(gameInstance => {
         console.log(gameInstance);
@@ -73,7 +71,6 @@ export class NhieComponent implements OnInit {
     this.nhieGameInstanceService.updateGameInstance(this.gameInstance).then(res => {
     });
   }
-
 
   submitNewManualQuestion(newManualQuestion: string) {
     this.gameInstance.manualQuestions.push(newManualQuestion);
