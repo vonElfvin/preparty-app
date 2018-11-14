@@ -51,7 +51,7 @@ export class AliasComponent implements OnInit {
   setGameCodeText() {
     if (this.partyService.isGameLeader(this.party)) {
       this.isLeader = true;
-      this.gameCodeText = 'Game code will be generated';
+      this.gameCodeText = 'Create game to generate game code!';
       this.startButtonText = 'Create Game';
     } else {
       this.isLeader = false;
