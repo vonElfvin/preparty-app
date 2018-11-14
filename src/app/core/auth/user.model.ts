@@ -5,6 +5,7 @@ export enum Role {
 
 export interface User {
   id?: string;
+  partyId?: string;
   alias: string;
   role: Role;
 }

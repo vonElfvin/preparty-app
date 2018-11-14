@@ -6,12 +6,15 @@ import {PartyService} from './shared/party.service';
 import { AliasComponent } from './alias/alias.component';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
-import { GameCodeComponent } from './shared/game-code/game-code.component';
 import { SharedModule } from '../shared/shared.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
-  declarations: [LobbyComponent, AliasComponent, GameCodeComponent],
+  declarations: [
+    LobbyComponent,
+    AliasComponent
+  ],
+  exports: [LobbyComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -30,6 +33,5 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     FlexLayoutModule
   ],
   providers: [PartyService],
-  exports: [LobbyComponent, GameCodeComponent]
 })
 export class PartyModule { }

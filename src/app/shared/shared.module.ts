@@ -7,13 +7,15 @@ import { FooterImageComponent } from './footer-image/footer-image.component';
 import { RouterModule } from '@angular/router';
 import { BackButtonComponent } from './back-button/back-button.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GameCodeComponent } from './game-code/game-code.component';
 
 @NgModule({
   declarations: [
     PageNotFoundComponent,
     DefaultSizeButtonComponent,
     FooterImageComponent,
-    BackButtonComponent
+    BackButtonComponent,
+    GameCodeComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   exports: [
     FooterImageComponent,
     BackButtonComponent,
-    DefaultSizeButtonComponent
+    DefaultSizeButtonComponent,
+    GameCodeComponent
   ]
 })
 export class SharedModule { }

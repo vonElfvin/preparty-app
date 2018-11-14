@@ -5,6 +5,7 @@ import {NhieGameInstance} from './shared/nhie-game-instance';
 import {FeedbackService} from '../../core/feedback/feedback.service';
 import {FeedbackMessage, FeedbackType} from '../../core/feedback/feedback.model';
 import {PartyService} from '../../party/shared/party.service';
+import {Observable} from 'rxjs';
 import {AuthService} from '../../core/auth/auth.service';
 
 @Component({
@@ -17,8 +18,9 @@ export class NhieComponent implements OnInit {
 
   gameInstance: NhieGameInstance;
 
+  isGameLeader: Observable<boolean>;
+
   showAddQuestion = false;
-  isLeader = false;
 
 
   currentPlayer: string;
@@ -34,7 +36,7 @@ export class NhieComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.isGameLeader = this.partyService.isGameLeaderObservable;
     const joinCode = this.route.snapshot.params['id'];
     if (joinCode) {
       this.nhieGameInstanceService.getGameInstanceByJoinCode(joinCode).subscribe(gameInstance => {
@@ -42,7 +44,6 @@ export class NhieComponent implements OnInit {
         if (gameInstance) {
           this.gameInstance = gameInstance;
           this.currentQuestion = gameInstance.currentQuestion;
-          this.isLeader = this.authService.uid === gameInstance.gameLeader;
           console.log(gameInstance);
         } else {
           this.nhieGameInstanceService.generateNewGameInstanceFromCode(joinCode).then( newGameInstance => {

@@ -12,7 +12,7 @@
     </div>
     <div class="add-question-button" fxLayout="column" fxLayoutGap="12px">
         <app-default-size-button [text]="'Add Question'" [matIconName]="''" (click)="showAddQuestion=!showAddQuestion"></app-default-size-button>
-        <app-default-size-button *ngIf="isLeader" [text]="'Next Question'" [matIconName]="'chevron_right'" (click)="setNextQuestion()"></app-default-size-button>
+        <app-default-size-button *ngIf="isGameLeader | async" [text]="'Next Question'" [matIconName]="'chevron_right'" (click)="setNextQuestion()"></app-default-size-button>
     </div>
   </div>
 

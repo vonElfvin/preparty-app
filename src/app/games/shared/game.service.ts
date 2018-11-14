@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FirestoreService } from '../../core/firebase/firestore/firestore.service';
 import { Game } from './game.model';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { PartyService } from '../../party/shared/party.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +11,18 @@ import { Game } from './game.model';
 export class GameService {
 
   private readonly path = 'game';
+  private gameObservable: Observable<Game>;
 
   constructor(
-    private firestoreService: FirestoreService<Game>
-  ) { }
+    private firestoreService: FirestoreService<Game>,
+    private partyService: PartyService,
+  ) {
+    this.setGame();
+  }
+
+  get game() {
+    return this.gameObservable;
+  }
 
   getGames() {
     return this.firestoreService.list(this.path);
@@ -19,5 +30,17 @@ export class GameService {
 
   getGame(id) {
     return this.firestoreService.get(this.path, id);
+  }
+
+  setGame() {
+    this.gameObservable = this.partyService.party.pipe(
+      switchMap(party => {
+        if (party) {
+          return this.getGame(party.selectedGame);
+        } else {
+          return of(null);
+        }
+      })
+    );
   }
 }

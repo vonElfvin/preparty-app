@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FirestoreService } from '../../core/firebase/firestore/firestore.service';
 import { Party } from './party';
-import { Observable, combineLatest } from 'rxjs';
-import { map, take, switchMap } from 'rxjs/operators';
+import { Observable, combineLatest, of } from 'rxjs';
+import { map, tap, switchMap } from 'rxjs/operators';
 import { Game } from '../../games/shared/game.model';
 import { AuthService } from '../../core/auth/auth.service';
 
@@ -12,18 +12,32 @@ import { AuthService } from '../../core/auth/auth.service';
 export class PartyService {
 
   private readonly path = 'party';
+  private partyObservable: Observable<Party>;
+  private _isGameLeader = false;
 
   constructor (
     private firestoreService: FirestoreService<Party>,
     private authService: AuthService
-  ) { }
+  ) {
+    this.setParty();
+  }
+
+  get party() {
+    return this.partyObservable;
+  }
+
+  get isGameLeader() {
+    return this._isGameLeader;
+  }
+
+  get isGameLeaderObservable() {
+    return this.party.pipe(
+      map(party => party.leader === this.authService.uid)
+    );
+  }
 
   createParty(party: Party): Promise<Party> {
     return this.firestoreService.insert(this.path, party);
-  }
-
-  updateParty(partyId: string, party: Party): Promise<void> {
-    return this.firestoreService.update(this.path, partyId, party);
   }
 
   getPartyByJoinCode(joinCode: string): Observable<Party> {
@@ -41,12 +55,12 @@ export class PartyService {
   createNewPartyFromGame(game: Game): Promise<Party> {
     return this.authService.loginAnonymously().then(user => {
       const party: Party = {
-        users: [user.id],
         leader: user.id,
         selectedGame: game.id,
         joinCode: Math.random().toString(36).substring(7)
       };
-      return this.createParty(party).then(() => {
+      return this.createParty(party).then((newParty) => {
+        this.authService.upsertUserParty(newParty.id);
         return party;
       });
     });
@@ -56,37 +70,25 @@ export class PartyService {
     return this.firestoreService.check(this.path, 'joinCode', joinCode);
   }
 
-  addUserToParty(party: Party) {
-    const userId = this.authService.uid;
-    if (party.users.indexOf(userId) === -1) {
-      party.users.push(this.authService.uid);
-      this.updateParty(party.id, party);
-    }
-  }
-
-  isGameLeader(party: Party): boolean {
-    return !!this.authService.uid && this.authService.uid === party.leader;
-  }
-
-  isGameLeaderObservable(partyId: string): Observable<boolean> {
-    return this.getPartyById(partyId).pipe(map(party => {
-      return this.isGameLeader(party);
-    }));
-  }
-
-
-  getAliasesOfParty(party: Party): Observable<string[]> {
-
-    const aliases: Observable<string>[] = [];
-    console.log(party);
-    if (typeof party !== 'undefined') {
-      party.users.forEach((user) => {
-        aliases.push(this.authService.userAliasByUid(user));
-      });
-    }
-    const wholeAlias: Observable<string[]> = combineLatest(aliases);
-
-    return wholeAlias;
+  setParty() {
+    this.partyObservable = this.authService.user.pipe(
+      switchMap(user => {
+        if (user) {
+          const partyId = user.partyId;
+          return combineLatest(this.getPartyById(partyId), this.authService.getUsersByPartyId(partyId)).pipe(
+            tap(([party, users]) => {
+              this._isGameLeader = user.id === party.leader;
+            }),
+            map(([party, users]) => {
+              return {...party, members: users};
+            })
+          );
+        } else {
+          this._isGameLeader = false;
+          return of(null);
+        }
+      })
+    );
   }
 
 }

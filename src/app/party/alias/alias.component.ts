@@ -41,15 +41,13 @@ export class AliasComponent implements OnInit {
 
   setAlias() {
     this.authService.loginAnonymously().then(() => {
-      console.log('hej');
       this.authService.upsertUserAlias(this.alias);
-      this.partyService.addUserToParty(this.party);
       this.router.navigate([`lobby/${this.joinCode}`]);
     });
   }
 
   setGameCodeText() {
-    if (this.partyService.isGameLeader(this.party)) {
+    if (this.partyService.isGameLeader) {
       this.isLeader = true;
       this.gameCodeText = 'Game code will be generated';
       this.startButtonText = 'Create Game';
@@ -57,10 +55,6 @@ export class AliasComponent implements OnInit {
       this.isLeader = false;
       this.gameCodeText = this.party.joinCode;
       this.startButtonText = 'Join Game';
-
     }
-
-
-
   }
 }

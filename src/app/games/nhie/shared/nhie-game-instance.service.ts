@@ -7,6 +7,7 @@ import { combineLatest, Observable } from 'rxjs';
 import {PartyService} from '../../../party/shared/party.service';
 import {switchMap, take, map} from 'rxjs/operators';
 import { NhieQuestionService } from './nhie-question.service';
+import { Nhie } from './nhie';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,10 @@ export class NhieGameInstanceService {
 
   getGameInstanceQuestions(startAt: number): Observable<string[]> {
     return this.nhieQuestionService.getQuestions(startAt);
+  }
+
+  getGameInstanceByJoinCode(joinCode: string) {
+    return <Observable<NhieGameInstance>>this.gameInstanceService.getGameInstanceByJoinCode(joinCode);
   }
 
   generateNewGameInstanceFromCode(joinCode: string): Promise<void> {
@@ -43,11 +48,6 @@ export class NhieGameInstanceService {
 
   updateGameInstance(gameInstance: NhieGameInstance): Promise<any> {
     return this.gameInstanceService.updateGameInstance(gameInstance);
-  }
-
-
-  getGameInstanceByJoinCode(joinCode: string): Observable<NhieGameInstance> {
-    return <Observable<NhieGameInstance>>this.gameInstanceService.getGameInstanceByJoinCode(joinCode);
   }
 
 }

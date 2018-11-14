@@ -72,9 +72,9 @@ export class AuthService {
     });
   }
 
-  userAliasByUid(userID: string): Observable<string> {
+  userAliasByUid(userId: string): Observable<string> {
 
-    return this.firestoreService.get(this.path, userID).pipe(
+    return this.firestoreService.get(this.path, userId).pipe(
       map(user => {
         if (typeof user === 'undefined' || typeof user.alias === 'undefined') {
           return 'User Alias Not Found';
@@ -82,6 +82,11 @@ export class AuthService {
         return user.alias;
       })
     );
+  }
+
+  getUsersByPartyId(partyId: string) {
+    return this.firestoreService.list(this.path, ref => ref
+      .where('partyId', '==', partyId));
   }
 
   setUser() {
@@ -98,5 +103,9 @@ export class AuthService {
 
   upsertUserAlias(alias: string) {
     this.firestoreService.upsert(this.path, this.uid, { alias: alias });
+  }
+
+  upsertUserParty(partyId: string) {
+    this.firestoreService.upsert(this.path, this.uid, { partyId: partyId });
   }
 }
