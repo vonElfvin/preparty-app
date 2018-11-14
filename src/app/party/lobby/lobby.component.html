@@ -1,21 +1,23 @@
-<div class="center">
+<div appBackgroundColour class="center">
   <app-game-code [gameCode]="party?.joinCode"></app-game-code>
   <app-menu-button (gameInfoClick)="onGameInfoClick()" (leaveClick)="onLeaveClick()"></app-menu-button>
-  <div class="logo-wrapper">
+  <div>
     <img *ngIf="game" [src]="game?.image_path" class="logo">
   </div>
-</div>
-<div class="players">
-  <div style="margin-bottom: 10px">
-    <b>Players</b>
+  <div class="players">
+    <div style="margin-bottom: 10px">
+      <b>Players</b>
+    </div>
+    <div fxLayout="row wrap">
+      <div style="padding-bottom: 2vh" fxFlex="33" *ngFor="let alias of aliases | async">{{alias}}</div>
+    </div>
   </div>
-  <div fxLayout="row wrap">
-    <div style="padding-bottom: 2vh" fxFlex="33" *ngFor="let alias of aliases | async">{{alias}}</div>
+    <div class="content">
+      <app-default-size-button class="bottom-button" *ngIf="isLeader" (click)="startGame()" [text]="'Start Game!'">
+      </app-default-size-button>
+    </div>
+  <div class="bottom-text center" *ngIf="!isLeader && isLoggedIn | async" [innerHtml]="waitingMessage"></div>
+  <div class="center">
+    <app-footer-image></app-footer-image>
   </div>
-</div>
-<app-default-size-button class="bottom-button" *ngIf="isLeader" (click)="startGame()" [text]="'Start Game!'">
-</app-default-size-button>
-<div class="bottom-text center" *ngIf="!isLeader && isLoggedIn | async" [innerHtml]="waitingMessage"></div>
-<div class="center">
-  <app-footer-image></app-footer-image>
 </div>

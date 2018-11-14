@@ -1,5 +1,14 @@
-<div *ngIf="gameObs | async as game">
-  <div class="descriprion-text" [innerHtml]="game.description">
 
+<div class="center">
+  <app-back-button (click)="navigateBack()"></app-back-button>
+  <div>
+    <img *ngIf="image_path" [src]="image_path" class="logo">
   </div>
+  <div class="content">
+    <div *ngIf="gameObs | async as game">
+      <div class="descriprion-text" [innerHtml]="game.description">
+      </div>
+    </div>
+  </div>
+  <app-footer-image></app-footer-image>
 </div>

@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { BackButtonComponent } from './back-button/back-button.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MenuButtonComponent } from './menu-button/menu-button.component';
+import { BackgroundColourDirective } from './background-colour.directive';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { MenuButtonComponent } from './menu-button/menu-button.component';
     DefaultSizeButtonComponent,
     FooterImageComponent,
     MenuButtonComponent,
-    BackButtonComponent
+    BackButtonComponent,
+    BackgroundColourDirective
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,8 @@ import { MenuButtonComponent } from './menu-button/menu-button.component';
     FooterImageComponent,
     BackButtonComponent,
     DefaultSizeButtonComponent,
-    MenuButtonComponent
+    MenuButtonComponent,
+    BackgroundColourDirective
   ]
 })
 export class SharedModule { }
