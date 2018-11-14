@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Location} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GameService} from '../../games/shared/game.service';
 import {Observable} from 'rxjs';
@@ -15,14 +16,24 @@ export class GameInfoComponent implements OnInit {
 
   gameObs: Observable<Game>;
 
+  image_path: string;
+
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private gameService: GameService ) { }
+              private gameService: GameService,
+              private location: Location) { }
 
   ngOnInit() {
     this.gameId = this.route.snapshot.params['id'];
     this.gameObs = this.gameService.getGame(this.gameId);
+    this.gameObs.subscribe(data => {
+      this.image_path = data.image_path;
+    });
+  }
 
+  navigateBack() {
+    console.log("Goooooo");
+    this.location.back();
   }
 
 }
