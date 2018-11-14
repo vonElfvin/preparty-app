@@ -17,9 +17,4 @@ export class BackButtonComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  onClick($event) {
-    this.click.emit($event);
-  }
-
 }
