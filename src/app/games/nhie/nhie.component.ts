@@ -14,12 +14,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class NhieComponent implements OnInit {
 
-
   gameInstance: NhieGameInstance;
 
   showAddQuestion = false;
   isLeader = false;
-
 
   currentPlayer: string;
   currentQuestion: string;
@@ -73,7 +71,6 @@ export class NhieComponent implements OnInit {
     this.nhieGameInstanceService.updateGameInstance(this.gameInstance).then(res => {
     });
   }
-
 
   submitNewManualQuestion(newManualQuestion: string) {
     this.gameInstance.manualQuestions.push(newManualQuestion);

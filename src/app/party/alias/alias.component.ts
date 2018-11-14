@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {PartyService} from '../shared/party.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PartyService } from '../shared/party.service';
 import { Observable } from 'rxjs';
 import { Game } from '../../games/shared/game.model';
 import { GameService } from '../../games/shared/game.service';
@@ -57,10 +57,6 @@ export class AliasComponent implements OnInit {
       this.isLeader = false;
       this.gameCodeText = this.party.joinCode;
       this.startButtonText = 'Join Game';
-
     }
-
-
-
   }
 }
