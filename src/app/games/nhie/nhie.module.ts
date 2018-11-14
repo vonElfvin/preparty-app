@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NhieComponent } from './nhie.component';
-import { NhieGameInstanceService } from './shared/nhieGameInstance.service';
-import {MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatSliderModule} from '@angular/material';
+import { NhieGameInstanceService } from './shared/nhie-game-instance.service';
+import {MatButtonModule, MatCardModule, MatIconModule, MatInputModule} from '@angular/material';
 import { NhieCardComponent } from './nhie-card/nhie-card.component';
 import {FormsModule} from '@angular/forms';
 import { AddQuestionsComponent } from './add-questions/add-questions.component';
@@ -14,7 +14,13 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import {PartyModule} from '../../party/party.module';
 
 @NgModule({
-  declarations: [NhieComponent, NhieCardComponent, AddQuestionsComponent, AddQuestionButtonComponent, AddManualQuestionComponent],
+  declarations: [
+    NhieComponent,
+    NhieCardComponent,
+    AddQuestionsComponent,
+    AddQuestionButtonComponent,
+    AddManualQuestionComponent
+  ],
   exports: [AddQuestionsComponent],
   providers: [NhieGameInstanceService],
   imports: [

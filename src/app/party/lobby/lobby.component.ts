@@ -3,7 +3,7 @@ import { Party } from '../shared/party';
 import { PartyService } from '../shared/party.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GameInstanceService } from '../../games/shared/game-instance.service';
-import { NhieGameInstanceService } from '../../games/nhie/shared/nhieGameInstance.service';
+import { NhieGameInstanceService } from '../../games/nhie/shared/nhie-game-instance.service';
 import { Observable } from 'rxjs';
 import {GameService} from '../../games/shared/game.service';
 import {Game} from '../../games/shared/game.model';
@@ -43,6 +43,7 @@ export class LobbyComponent implements OnInit {
         this.aliases = this.getAliases();
         this.gameService.getGame(party.selectedGame).subscribe(game => {
           this.game = game;
+          console.log(game);
         });
       });
       this.checkGameInstance();
@@ -68,5 +69,13 @@ export class LobbyComponent implements OnInit {
 
   getAliases() {
     return this.partyService.getAliasesOfParty(this.party);
+  }
+
+  onGameInfoClick() {
+    this.router.navigate(['game-info/' + this.game.urlPath]);
+  }
+
+  onLeaveClick() {
+
   }
 }

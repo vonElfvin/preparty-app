@@ -13,7 +13,7 @@ export class PartyService {
 
   private readonly path = 'party';
 
-  constructor(
+  constructor (
     private firestoreService: FirestoreService<Party>,
     private authService: AuthService
   ) { }
@@ -40,7 +40,7 @@ export class PartyService {
 
   createNewPartyFromGame(game: Game): Promise<Party> {
     return this.authService.loginAnonymously().then(user => {
-      const party = <Party>{
+      const party: Party = {
         users: [user.id],
         leader: user.id,
         selectedGame: game.id,

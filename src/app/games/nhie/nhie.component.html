@@ -1,22 +1,22 @@
 <div class="center">
-  <div class="back-button" *ngIf="showAddquestion">
-    <button mat-icon-button (click)="showAddquestion=!showAddquestion">
+  <div class="back-button" *ngIf="showAddQuestion">
+    <button mat-icon-button (click)="showAddQuestion=!showAddQuestion">
       <mat-icon style="font-size: 5vh" aria-label="Example icon-button with a heart icon">keyboard_arrow_left</mat-icon>
     </button>
   </div>
   <app-game-code *ngIf="gameInstance" [gameCode]="gameInstance?.joinCode"></app-game-code>
   <img src="../../assets/illustrations/never_have_I_ever_logo_text.png" class="logo">
-  <div class="center" *ngIf="!showAddquestion">
+  <div class="center" *ngIf="!showAddQuestion">
     <div class="question">
       <app-nhie-card (answer)="onAnswer($event)" [question]="currentQuestion" [playerName]="currentPlayer"></app-nhie-card>
     </div>
     <div class="add-question-button" fxLayout="column" fxLayoutGap="12px">
-        <app-default-size-button [text]="'Add Question'" [matIconName]="''" (click)="showAddquestion=!showAddquestion"></app-default-size-button>
+        <app-default-size-button [text]="'Add Question'" [matIconName]="''" (click)="showAddQuestion=!showAddQuestion"></app-default-size-button>
         <app-default-size-button *ngIf="isLeader" [text]="'Next Question'" [matIconName]="'chevron_right'" (click)="setNextQuestion()"></app-default-size-button>
     </div>
   </div>
 
-  <div class="add-question-div" *ngIf="showAddquestion">
+  <div class="add-question-div" *ngIf="showAddQuestion">
     <app-add-manual-question
       (submitNewQuestion)="submitNewManualQuestion($event)">
     </app-add-manual-question>

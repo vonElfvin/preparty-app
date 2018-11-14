@@ -12,7 +12,6 @@ import { FeedbackMessage, FeedbackType } from '../../../core/feedback/feedback.m
 export class AddQuestionsComponent implements OnInit {
 
   questions = null;
-  levels = null;
 
   constructor(
     private nhieQuestionService: NhieQuestionService,
@@ -24,23 +23,20 @@ export class AddQuestionsComponent implements OnInit {
 
   addQuestion() {
     const questions = this.questions.split('\n');
-    const levels = this.levels.split('\n');
     const n_questions = questions.length;
-    const n_levels = levels.length;
-    if (n_levels !== n_questions) {
+    if (!n_questions) {
       this.feedbackService.message(FeedbackMessage.QuestionError, FeedbackType.Error);
       return;
     }
     for (let i = 0; i < n_questions; ++i) {
+      const question_level = questions[i].split('\t');
+      const question = question_level[0];
+      const level = question_level[1];
       const nhieQuestion: NhieQuestion = {
-        question: questions[i],
-        level: +levels[i]
+        question: question,
+        level: +level
       };
       this.nhieQuestionService.addQuestion(nhieQuestion);
     }
-    console.log(this.questions);
-    console.log(this.levels);
-    console.log(n_questions);
-    console.log(n_levels);
   }
 }

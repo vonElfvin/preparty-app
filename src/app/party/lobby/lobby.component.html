@@ -1,9 +1,7 @@
 <div class="center">
   <app-game-code [gameCode]="party?.joinCode"></app-game-code>
-  <div class="help-button">
-    <mat-icon style="font-size: 5vh">help</mat-icon>
-  </div>
-  <div>
+  <app-menu-button (gameInfoClick)="onGameInfoClick()" (leaveClick)="onLeaveClick()"></app-menu-button>
+  <div class="logo-wrapper">
     <img *ngIf="game" [src]="game?.image_path" class="logo">
   </div>
   <div class="players">

@@ -9,9 +9,10 @@ import {RouterModule} from '@angular/router';
 import { GameCodeComponent } from './shared/game-code/game-code.component';
 import { SharedModule } from '../shared/shared.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { GameInfoComponent } from './game-info/game-info.component';
 
 @NgModule({
-  declarations: [LobbyComponent, AliasComponent, GameCodeComponent],
+  declarations: [LobbyComponent, AliasComponent, GameCodeComponent, GameInfoComponent],
   imports: [
     CommonModule,
     FormsModule,

@@ -1,0 +1,13 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="gameInfoClick.emit($event)">
+    <mat-icon>info</mat-icon>
+    <span>Game Info</span>
+  </button>
+  <button mat-menu-item (click)="leaveClick.emit($event)">
+    <mat-icon>exit_to_app</mat-icon>
+    <span>Leave party</span>
+  </button>
+</mat-menu>
