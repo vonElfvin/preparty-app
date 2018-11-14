@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {NhieGameInstanceService} from './shared/nhie-game-instance.service';
-import {ActivatedRoute} from '@angular/router';
 import {NhieGameInstance} from './shared/nhie-game-instance';
 import {FeedbackService} from '../../core/feedback/feedback.service';
 import {FeedbackMessage, FeedbackType} from '../../core/feedback/feedback.model';
 import {PartyService} from '../../party/shared/party.service';
 import {AuthService} from '../../core/auth/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-nhie',
@@ -30,7 +30,8 @@ export class NhieComponent implements OnInit {
     private route: ActivatedRoute,
     private feedbackService: FeedbackService,
     private partyService: PartyService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -80,5 +81,13 @@ export class NhieComponent implements OnInit {
     });
     this.showAddQuestion = false;
     this.feedbackService.message(FeedbackMessage.QuestionSuccess, FeedbackType.Primary);
+  }
+
+  onGameInfoClick() {
+    this.router.navigate(['game-info/nhie']);
+  }
+
+  onLeaveClick() {
+
   }
 }
