@@ -1,7 +1,7 @@
 import { Directive, ElementRef } from '@angular/core';
 import { GameService } from '../games/shared/game.service';
 import { Game } from '../games/shared/game.model';
-import {Location} from '@angular/common';
+import { Router, Event, NavigationEnd } from '@angular/router';
 
 
 @Directive({
@@ -9,13 +9,27 @@ import {Location} from '@angular/common';
 })
 export class BackgroundColourDirective {
 
+  accent = "#4fc3f7";
+
   constructor(
     private gameService: GameService,
     el: ElementRef,
-    private location: Location) {
+    private router: Router) {
+
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd ) {
+        if (event['urlAfterRedirects'] === '/') {
+          el.nativeElement.style.backgroundColor = this.accent;
+        }
+      }
+    });
+
     this.gameService.game.subscribe((game: Game) => {
-      if ((typeof game.backgroundColor !== 'undefined') && (this.location.path() !== '')) {
+      console.log(this.router.url);
+      if ((typeof game.backgroundColor !== 'undefined') && this.router.url !== '/') {
         el.nativeElement.style.backgroundColor = game.backgroundColor;
+      } else {
+        el.nativeElement.style.backgroundColor = this.accent;
       }
     });
   }
