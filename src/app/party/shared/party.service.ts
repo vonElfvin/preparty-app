@@ -116,10 +116,10 @@ export class PartyService {
             console.log(users);
             console.log(party);
             if (users.length === 1) {
-              console.log('tjena');
               return this.firestoreService.delete(this.path, user.partyId);
             }
-            return this.firestoreService.upsert(this.path, user.partyId, {leader: users[0].id});
+            console.log('tjo');
+            return this.firestoreService.upsert(this.path, user.partyId, {leader: users[1].id});
           })
         );
       })

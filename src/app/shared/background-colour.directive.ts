@@ -1,15 +1,17 @@
-import { Directive, ElementRef } from '@angular/core';
+import {Directive, ElementRef, OnDestroy} from '@angular/core';
 import { GameService } from '../games/shared/game.service';
 import { Game } from '../games/shared/game.model';
 import { Router, Event, NavigationEnd } from '@angular/router';
+import {Subscription} from 'rxjs';
 
 
 @Directive({
   selector: '[appBackgroundColour]'
 })
-export class BackgroundColourDirective {
+export class BackgroundColourDirective implements OnDestroy {
 
-  accent = "#4fc3f7";
+  accent = '#4fc3f7';
+  subscription: Subscription
 
   constructor(
     private gameService: GameService,
@@ -24,14 +26,20 @@ export class BackgroundColourDirective {
       }
     });
 
-    this.gameService.game.subscribe((game: Game) => {
+    this.subscription = this.gameService.game.subscribe((game: Game) => {
       console.log(this.router.url);
-      if ((typeof game.backgroundColor !== 'undefined') && this.router.url !== '/') {
-        el.nativeElement.style.backgroundColor = game.backgroundColor;
-      } else {
-        el.nativeElement.style.backgroundColor = this.accent;
+      if (game) {
+        if ((typeof game.backgroundColor !== 'undefined') && this.router.url !== '/') {
+          el.nativeElement.style.backgroundColor = game.backgroundColor;
+        } else {
+          el.nativeElement.style.backgroundColor = this.accent;
+        }
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
 
