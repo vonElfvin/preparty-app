@@ -4,6 +4,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {GameService} from '../../games/shared/game.service';
 import {Observable} from 'rxjs';
 import {Game} from '../../games/shared/game.model';
+import {Party} from '../shared/party';
+import {PartyService} from '../shared/party.service';
 
 @Component({
   selector: 'app-game-info',
@@ -16,12 +18,15 @@ export class GameInfoComponent implements OnInit {
 
   gameObs: Observable<Game>;
 
+  gameCode: string;
+
   image_path: string;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private gameService: GameService,
-              private location: Location) { }
+              private location: Location,
+              private partyService: PartyService) { }
 
   ngOnInit() {
     this.gameId = this.route.snapshot.params['gameId'];
@@ -29,10 +34,13 @@ export class GameInfoComponent implements OnInit {
     this.gameObs.subscribe(data => {
       this.image_path = data.image_path;
     });
+
+    this.partyService.party.subscribe((party: Party) => {
+      this.gameCode = party.joinCode;
+    });
   }
 
   navigateBack() {
-    console.log("Goooooo");
     this.location.back();
   }
 

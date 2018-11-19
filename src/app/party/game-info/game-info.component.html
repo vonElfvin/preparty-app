@@ -1,6 +1,7 @@
 
 <div class="center">
   <app-back-button (click)="navigateBack()"></app-back-button>
+  <app-game-code *ngIf="gameCode" [gameCode]="gameCode"></app-game-code>
   <div>
     <img *ngIf="image_path" [src]="image_path" class="logo">
   </div>
