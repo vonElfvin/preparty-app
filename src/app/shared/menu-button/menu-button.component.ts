@@ -1,4 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Router} from '@angular/router';
+import {PartyService} from '../../party/shared/party.service';
 
 @Component({
   selector: 'app-menu-button',
@@ -7,7 +9,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 })
 export class MenuButtonComponent implements OnInit {
 
-  constructor() { }
+  constructor(private partyService: PartyService, private router: Router) { }
 
   @Output()
   leaveClick = new EventEmitter();
@@ -16,6 +18,12 @@ export class MenuButtonComponent implements OnInit {
   gameInfoClick = new EventEmitter();
 
   ngOnInit() {
+  }
+
+  leaveGameClick() {
+    this.partyService.leaveParty().then( () => {
+      this.router.navigate(['/']);
+    });
   }
 
 }
