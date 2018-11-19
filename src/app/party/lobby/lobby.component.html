@@ -1,6 +1,6 @@
 <div class="center">
   <app-game-code [gameCode]="(party | async)?.joinCode"></app-game-code>
-  <app-menu-button (gameInfoClick)="onGameInfoClick()"></app-menu-button>
+  <app-menu-button (gameInfoClick)="onGameInfoClick()" (leaveClick)="onLeaveClick()"></app-menu-button>
     <div class="logo-wrapper">
       <img *ngIf="gameObservable | async as game" [src]="game.image_path" class="logo">
     </div>
@@ -17,6 +17,6 @@
                              (click)="startGame()"
                              [text]="'Start Game!'">
     </app-default-size-button>
-    <div class="bottom-text" *ngIf="!(isGameLeader | async)" [innerHtml]="waitingMessage">hej</div>
+    <div class="bottom-text" *ngIf="!(isGameLeader | async) && isLoggedIn | async" [innerHtml]="waitingMessage"></div>
     <app-footer-image></app-footer-image>
 </div>

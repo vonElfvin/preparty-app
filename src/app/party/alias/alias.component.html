@@ -1,4 +1,4 @@
-<div appBackgroundColour *ngIf="gameObservable | async as game" class="center">
+<div *ngIf="gameObservable | async as game" class="center">
   <app-back-button [routerLink]="'/'"></app-back-button>
   <app-game-code [gameCode]="gameCodeText" [notGameCode]="isLeader"></app-game-code>
   <div class="content">

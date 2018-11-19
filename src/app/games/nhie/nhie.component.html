@@ -1,14 +1,19 @@
-<div appBackgroundColour class="center">
+<div class="center">
   <div class="back-button" *ngIf="showAddQuestion">
     <button mat-icon-button (click)="showAddQuestion=!showAddQuestion">
       <mat-icon style="font-size: 5vh" aria-label="Example icon-button with a heart icon">keyboard_arrow_left</mat-icon>
     </button>
   </div>
   <app-game-code *ngIf="gameInstance" [gameCode]="gameInstance?.joinCode"></app-game-code>
-  <app-menu-button (gameInfoClick)="onGameInfoClick()" (leaveClick)="onLeaveClick()"></app-menu-button>
+  <div *ngIf="!showAddQuestion">
+    <app-menu-button (gameInfoClick)="onGameInfoClick()" (leaveClick)="onLeaveClick()"></app-menu-button>
+  </div>
   <img src="../../assets/illustrations/never_have_I_ever_logo_text.png" class="logo">
   <div class="center" *ngIf="!showAddQuestion">
-    <div class="question">
+    <div *ngIf="!(isGameLeader | async)" class="question-player">
+      <app-nhie-card (answer)="onAnswer($event)" [question]="currentQuestion" [playerName]="currentPlayer"></app-nhie-card>
+    </div>
+    <div *ngIf="isGameLeader | async" class="question-game-leader">
       <app-nhie-card (answer)="onAnswer($event)" [question]="currentQuestion" [playerName]="currentPlayer"></app-nhie-card>
     </div>
     <div class="add-question-button" fxLayout="column" fxLayoutGap="12px">
