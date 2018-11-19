@@ -2,7 +2,7 @@
   <app-game-code [gameCode]="(party | async)?.joinCode"></app-game-code>
   <app-menu-button (gameInfoClick)="onGameInfoClick()" (leaveClick)="onLeaveClick()"></app-menu-button>
     <div>
-      <img [src]="(game | async)?.image_path" class="logo">
+      <img *ngIf="game" [src]="(game | async)?.image_path" class="logo">
     </div>
     <div class="players">
       <div style="margin-bottom: 10px">
