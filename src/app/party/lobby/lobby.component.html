@@ -17,6 +17,6 @@
                              (click)="startGame()"
                              [text]="'Start Game!'">
     </app-default-size-button>
-    <div class="bottom-text center" *ngIf="!(isGameLeader | async) && isLoggedIn | async" [innerHtml]="waitingMessage"></div>
+    <div class="bottom-text" *ngIf="!(isGameLeader | async) && isLoggedIn | async" [innerHtml]="waitingMessage"></div>
     <app-footer-image></app-footer-image>
 </div>
