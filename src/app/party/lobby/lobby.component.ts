@@ -19,7 +19,7 @@ import { tap, take } from 'rxjs/operators';
 export class LobbyComponent implements OnInit {
 
   party: Observable<Party>;
-  game: Observable<Game>;
+  gameObservable: Observable<Game>;
   waitingMessage = 'Waiting for Game Leader <br> to start the game...';
   isLoggedIn: Observable<boolean>;
 
@@ -42,7 +42,7 @@ export class LobbyComponent implements OnInit {
     this.isGameLeader = this.partyService.isGameLeaderObservable;
     this.isLoggedIn = this.authService.isLoggedInObservable;
     this.joinCode = this.route.snapshot.params['joinCode'];
-    this.game = this.gameService.game;
+    this.gameObservable = this.gameService.game;
     this.checkGameInstance();
   }
 
@@ -63,7 +63,7 @@ export class LobbyComponent implements OnInit {
   }
 
   onGameInfoClick() {
-    this.game.pipe(
+    this.gameObservable.pipe(
       take(1)
     ).subscribe(game => {
       this.router.navigate(['game-info/' + game.urlPath]);

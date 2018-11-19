@@ -108,4 +108,8 @@ export class AuthService {
   upsertUserParty(partyId: string) {
     this.firestoreService.upsert(this.path, this.uid, { partyId: partyId });
   }
+
+  joinParty(alias: string, partyId: string) {
+    return this.firestoreService.upsert(this.path, this.uid, {partyId: partyId, alias: alias});
+  }
 }

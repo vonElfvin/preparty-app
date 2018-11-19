@@ -41,7 +41,8 @@ export class AliasComponent implements OnInit {
 
   setAlias() {
     this.authService.loginAnonymously().then(() => {
-      this.authService.upsertUserAlias(this.alias);
+      // this.authService.upsertUserAlias(this.alias);
+      this.authService.joinParty(this.alias, this.party.id);
       this.router.navigate([`lobby/${this.joinCode}`]);
     });
   }

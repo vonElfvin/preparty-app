@@ -75,12 +75,12 @@ export class PartyService {
       switchMap(user => {
         if (user) {
           const partyId = user.partyId;
+          console.log(user);
           return combineLatest(this.getPartyById(partyId), this.authService.getUsersByPartyId(partyId)).pipe(
-            tap(([party, users]) => {
-              this._isGameLeader = user.id === party.leader;
-            }),
             map(([party, users]) => {
-              return {...party, members: users};
+              this._isGameLeader = user.id === party.leader;
+              party.members = users;
+              return party;
             })
           );
         } else {

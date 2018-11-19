@@ -9,7 +9,7 @@
 }
 
 .logo-wrapper{
-  min-height: 56vh;
+  min-height: 40vh;
 }
 
 .help-button{
@@ -45,4 +45,11 @@
   color: white;
   position: absolute;
   bottom: 15vh;
+}
+
+.start-game-button{
+  position: absolute;
+  bottom: 15vh;
+  max-width: 40vh;
+  width: 100%;
 }
