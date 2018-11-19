@@ -1,10 +1,9 @@
-<div class="center">
-  <mat-form-field style="margin-bottom: -16px; width: 40vh;" class="example-full-width" appearance="fill">
-    <textarea matInput name="manualquestion" [(ngModel)]="newManualQuestion"  placeholder="... been to the Australian continent"></textarea>
-  </mat-form-field>
-  <div style="height: 36px"></div>
+<div class="center" fxLayout="column" fxLayoutGap="12px">
+    <mat-form-field appearance="fill">
+      <mat-label>Never have I ever ...</mat-label>
+      <input matInput [(ngModel)]="newManualQuestion" name="manualquestion">
+    </mat-form-field>
   <div style="width: 100%">
     <app-default-size-button [text]="'Add Question'" [matIconName]="''" (click)="submitNewManualQuestionClick()"></app-default-size-button>
   </div>
-  
 </div>
