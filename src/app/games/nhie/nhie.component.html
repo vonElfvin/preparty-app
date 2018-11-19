@@ -5,7 +5,9 @@
     </button>
   </div>
   <app-game-code *ngIf="gameInstance" [gameCode]="gameInstance?.joinCode"></app-game-code>
-  <app-menu-button (gameInfoClick)="onGameInfoClick()" (leaveClick)="onLeaveClick()"></app-menu-button>
+  <div *ngIf="!showAddQuestion">
+    <app-menu-button (gameInfoClick)="onGameInfoClick()" (leaveClick)="onLeaveClick()"></app-menu-button>
+  </div>
   <img src="../../assets/illustrations/never_have_I_ever_logo_text.png" class="logo">
   <div class="center" *ngIf="!showAddQuestion">
     <div *ngIf="!(isGameLeader | async)" class="question-player">
