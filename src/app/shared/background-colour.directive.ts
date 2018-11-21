@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { Directive, ElementRef, OnDestroy } from '@angular/core';
-=======
-import {Directive, ElementRef, OnDestroy} from '@angular/core';
->>>>>>> 1aa4457155f5d8ac20bfa29172f4ceaa061a68d9
 import { GameService } from '../games/shared/game.service';
 import { Game } from '../games/shared/game.model';
 import { Router, Event, NavigationEnd } from '@angular/router';
