@@ -7,7 +7,7 @@ import { combineLatest, Observable } from 'rxjs';
 import {PartyService} from '../../../party/shared/party.service';
 import {switchMap, take, map} from 'rxjs/operators';
 import { NhieQuestionService } from './nhie-question.service';
-import { Nhie } from './nhie';
+import { Nhie, NhieQuestion } from './nhie';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +21,8 @@ export class NhieGameInstanceService {
     private partyService: PartyService
   ) { }
 
-  getGameInstanceQuestions(startAt: number): Observable<string[]> {
-    return this.nhieQuestionService.getQuestions(startAt);
+  getGameInstanceQuestions(seenQuestions: number[]): Observable<NhieQuestion[]> {
+    return this.nhieQuestionService.getQuestions(seenQuestions);
   }
 
   getGameInstanceByJoinCode(joinCode: string) {
@@ -30,19 +30,21 @@ export class NhieGameInstanceService {
   }
 
   generateNewGameInstanceFromCode(joinCode: string): Promise<void> {
-    return combineLatest(this.partyService.getPartyByJoinCode(joinCode), this.getGameInstanceQuestions(0)).pipe(
-      switchMap(([party, questions]: [Party, string[]]) => {
-        const gameInstance = <NhieGameInstance>{
-          partyId: party.id,
-          gameId: party.selectedGame,
-          gameLeader: party.leader,
-          joinCode: party.joinCode,
-          genericQuestions: questions,
-          manualQuestions: [],
-          currentQuestion: questions.pop()
-        };
-        return this.gameInstanceService.createNewGameInstance(gameInstance);
-      })
+    return combineLatest(this.partyService.getPartyByJoinCode(joinCode), this.getGameInstanceQuestions([]))
+      .pipe(
+        switchMap(([party, questions]: [Party, NhieQuestion[]]) => {
+          const gameInstance = <NhieGameInstance>{
+            partyId: party.id,
+            gameId: party.selectedGame,
+            gameLeader: party.leader,
+            joinCode: party.joinCode,
+            genericQuestions: questions,
+            currentQuestion: questions.shift(),
+            manualQuestions: [],
+            seenQuestions: [],
+          };
+          return this.gameInstanceService.createNewGameInstance(gameInstance);
+        })
     ).toPromise();
   }
 

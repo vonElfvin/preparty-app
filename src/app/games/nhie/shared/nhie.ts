@@ -6,4 +6,5 @@ export interface NhieQuestion {
   id?: string;
   question: string;
   level: number;
+  index: number;
 }

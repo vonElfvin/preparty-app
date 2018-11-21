@@ -7,6 +7,8 @@ import {PartyService} from '../../party/shared/party.service';
 import {Observable} from 'rxjs';
 import {AuthService} from '../../core/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NhieQuestion } from './shared/nhie';
+import { NhieQuestionService } from './shared/nhie-question.service';
 
 @Component({
   selector: 'app-nhie',
@@ -16,17 +18,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class NhieComponent implements OnInit {
 
   gameInstance: NhieGameInstance;
+  currentQuestion: NhieQuestion;
 
   isGameLeader: Observable<boolean>;
 
   showAddQuestion = false;
 
   currentPlayer: string;
-  currentQuestion: string;
-  nGenericQuestions = 0;
 
   constructor(
     private nhieGameInstanceService: NhieGameInstanceService,
+    private nhieQuestionService: NhieQuestionService,
     private route: ActivatedRoute,
     private feedbackService: FeedbackService,
     private partyService: PartyService,
@@ -43,11 +45,8 @@ export class NhieComponent implements OnInit {
         if (gameInstance) {
           this.gameInstance = gameInstance;
           this.currentQuestion = gameInstance.currentQuestion;
-          console.log(gameInstance);
         } else {
-          this.nhieGameInstanceService.generateNewGameInstanceFromCode(joinCode).then( newGameInstance => {
-            console.log(newGameInstance);
-          });
+          this.nhieGameInstanceService.generateNewGameInstanceFromCode(joinCode);
         }
       });
     }
@@ -58,22 +57,27 @@ export class NhieComponent implements OnInit {
     if (this.gameInstance.manualQuestions.length > 0 && Math.floor(Math.random() * Math.floor(100)) <= 70) {
       this.gameInstance.currentQuestion = this.gameInstance.manualQuestions.shift();
     } else {
-      this.gameInstance.currentQuestion = this.gameInstance.genericQuestions.shift();
+      const currentQuestion: NhieQuestion = this.gameInstance.genericQuestions.shift();
+      this.gameInstance.currentQuestion = currentQuestion;
+      this.gameInstance.seenQuestions.push(currentQuestion.index);
+      if (this.gameInstance.seenQuestions.length === this.nhieQuestionService.nQuestions) {
+        this.gameInstance.seenQuestions = [];
+      }
     }
+
     // Add more generic if empty
     if (this.gameInstance.genericQuestions.length === 0) {
-      this.nhieGameInstanceService.getGameInstanceQuestions(this.nGenericQuestions).subscribe(questions => {
-        this.gameInstance.genericQuestions = this.gameInstance.genericQuestions.concat(
-          questions
-        );
+      this.nhieGameInstanceService.getGameInstanceQuestions(this.gameInstance.seenQuestions)
+        .subscribe(questions => {
+          this.gameInstance.genericQuestions = this.gameInstance.genericQuestions.concat(questions);
       });
     }
+
     // Update the game instance in DB
-    this.nhieGameInstanceService.updateGameInstance(this.gameInstance).then(res => {
-    });
+    this.nhieGameInstanceService.updateGameInstance(this.gameInstance);
   }
 
-  submitNewManualQuestion(newManualQuestion: string) {
+  submitNewManualQuestion(newManualQuestion: NhieQuestion) {
     this.gameInstance.manualQuestions.push(newManualQuestion);
     this.nhieGameInstanceService.updateGameInstance(this.gameInstance).then(() => {
     });

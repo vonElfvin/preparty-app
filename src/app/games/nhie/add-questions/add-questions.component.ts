@@ -9,7 +9,7 @@ import { FeedbackMessage, FeedbackType } from '../../../core/feedback/feedback.m
   templateUrl: './add-questions.component.html',
   styleUrls: ['./add-questions.component.scss']
 })
-export class AddQuestionsComponent implements OnInit {
+export class AddQuestionsComponent {
 
   questions = null;
 
@@ -17,9 +17,6 @@ export class AddQuestionsComponent implements OnInit {
     private nhieQuestionService: NhieQuestionService,
     private feedbackService: FeedbackService,
   ) { }
-
-  ngOnInit() {
-  }
 
   addQuestion() {
     const questions = this.questions.split('\n');
@@ -29,12 +26,14 @@ export class AddQuestionsComponent implements OnInit {
       return;
     }
     for (let i = 0; i < n_questions; ++i) {
-      const question_level = questions[i].split('\t');
-      const question = question_level[0];
-      const level = question_level[1];
+      const index_question_level = questions[i].split('\t');
+      const index = index_question_level[0];
+      const question = index_question_level[1];
+      const level = index_question_level[2];
       const nhieQuestion: NhieQuestion = {
         question: question,
-        level: +level
+        level: +level,
+        index: +index,
       };
       this.nhieQuestionService.addQuestion(nhieQuestion);
     }

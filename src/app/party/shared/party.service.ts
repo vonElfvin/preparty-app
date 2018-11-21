@@ -106,19 +106,16 @@ export class PartyService {
   }
 
   changePartyLeader(): Observable<void> {
-    return  this.authService.user.pipe(
+    return this.authService.user.pipe(
       take(1),
       switchMap(user => {
         return combineLatest(this.getPartyById(user.partyId), this.authService.getUsersByPartyId(user.partyId)).pipe(
           take(1),
           switchMap(([party, users]) => {
             // If other users change leader
-            console.log(users);
-            console.log(party);
             if (users.length === 1) {
               return this.firestoreService.delete(this.path, user.partyId);
             }
-            console.log('tjo');
             return this.firestoreService.upsert(this.path, user.partyId, {leader: users[1].id});
           })
         );
