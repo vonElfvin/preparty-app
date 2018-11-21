@@ -6,7 +6,6 @@ import {MatButtonModule, MatCardModule, MatIconModule, MatInputModule} from '@an
 import { NhieCardComponent } from './nhie-card/nhie-card.component';
 import {FormsModule} from '@angular/forms';
 import { AddQuestionsComponent } from './add-questions/add-questions.component';
-import { AddQuestionButtonComponent } from './add-question-button/add-question-button.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { AddManualQuestionComponent } from './add-manual-question/add-manual-question.component';
 import {RouterModule} from '@angular/router';
@@ -18,7 +17,6 @@ import {PartyModule} from '../../party/party.module';
     NhieComponent,
     NhieCardComponent,
     AddQuestionsComponent,
-    AddQuestionButtonComponent,
     AddManualQuestionComponent
   ],
   exports: [AddQuestionsComponent],
