@@ -1,8 +1,8 @@
-import {Directive, ElementRef, OnDestroy} from '@angular/core';
+import { Directive, ElementRef, OnDestroy } from '@angular/core';
 import { GameService } from '../games/shared/game.service';
 import { Game } from '../games/shared/game.model';
 import { Router, Event, NavigationEnd } from '@angular/router';
-import {Subscription} from 'rxjs';
+import { Subscription } from 'rxjs';
 
 
 @Directive({
@@ -18,22 +18,25 @@ export class BackgroundColourDirective implements OnDestroy {
     el: ElementRef,
     private router: Router) {
 
-    this.router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationEnd ) {
-        if (event['urlAfterRedirects'] === '/') {
-          el.nativeElement.style.backgroundColor = this.accent;
-        }
-      }
-    });
-
     this.subscription = this.gameService.game.subscribe((game: Game) => {
-      console.log(this.router.url);
       if (game) {
         if ((typeof game.backgroundColor !== 'undefined') && this.router.url !== '/') {
           el.nativeElement.style.backgroundColor = game.backgroundColor;
         } else {
           el.nativeElement.style.backgroundColor = this.accent;
         }
+
+        this.router.events.subscribe((event: Event) => {
+          if (event instanceof NavigationEnd) {
+            console.log(event['urlAfterRedirects']);
+            if (event['urlAfterRedirects'] === '/') {
+              console.log("accent-nav");
+              el.nativeElement.style.backgroundColor = this.accent;
+            } else {
+              el.nativeElement.style.backgroundColor = game.backgroundColor;
+            }
+          }
+        });
       }
     });
   }

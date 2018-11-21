@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {NhieGameInstanceService} from './shared/nhie-game-instance.service';
-import {NhieGameInstance} from './shared/nhie-game-instance';
-import {FeedbackService} from '../../core/feedback/feedback.service';
-import {FeedbackMessage, FeedbackType} from '../../core/feedback/feedback.model';
-import {PartyService} from '../../party/shared/party.service';
-import {Observable} from 'rxjs';
-import {AuthService} from '../../core/auth/auth.service';
+import { NhieGameInstanceService } from './shared/nhie-game-instance.service';
+import { NhieGameInstance } from './shared/nhie-game-instance';
+import { FeedbackService } from '../../core/feedback/feedback.service';
+import { FeedbackMessage, FeedbackType } from '../../core/feedback/feedback.model';
+import { PartyService } from '../../party/shared/party.service';
+import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NhieQuestion } from './shared/nhie';
 import { NhieQuestionService } from './shared/nhie-question.service';
@@ -32,7 +31,6 @@ export class NhieComponent implements OnInit {
     private route: ActivatedRoute,
     private feedbackService: FeedbackService,
     private partyService: PartyService,
-    private authService: AuthService,
     private router: Router
   ) { }
 
