@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FirestoreService } from '../../core/firebase/firestore/firestore.service';
 import { Party } from './party';
-import { Observable, combineLatest, of } from 'rxjs';
-import { map, tap, switchMap } from 'rxjs/operators';
+import {Observable, combineLatest, of, from} from 'rxjs';
+import {map, tap, switchMap, take} from 'rxjs/operators';
 import { Game } from '../../games/shared/game.model';
 import { AuthService } from '../../core/auth/auth.service';
 
@@ -32,7 +32,7 @@ export class PartyService {
 
   get isGameLeaderObservable() {
     return this.party.pipe(
-      map(party => party.leader === this.authService.uid)
+      map(party => party && party.leader === this.authService.uid)
     );
   }
 
@@ -73,20 +73,55 @@ export class PartyService {
   setParty() {
     this.partyObservable = this.authService.user.pipe(
       switchMap(user => {
-        if (user) {
+        if (user && user.partyId) {
           const partyId = user.partyId;
           console.log(user);
           return combineLatest(this.getPartyById(partyId), this.authService.getUsersByPartyId(partyId)).pipe(
             map(([party, users]) => {
-              this._isGameLeader = user.id === party.leader;
-              party.members = users;
-              return party;
+              if (party) {
+                this._isGameLeader = user.id === party.leader;
+                party.members = users;
+                return party;
+              } else {
+                return of (null);
+              }
             })
           );
         } else {
           this._isGameLeader = false;
           return of(null);
         }
+      })
+    );
+  }
+
+  leaveParty(): Promise<any> {
+    if (this.isGameLeader) {
+      return this.changePartyLeader().toPromise().then(res => {
+        this.authService.removePartyId();
+      });
+    } else {
+      return this.authService.removePartyId();
+    }
+  }
+
+  changePartyLeader(): Observable<void> {
+    return  this.authService.user.pipe(
+      take(1),
+      switchMap(user => {
+        return combineLatest(this.getPartyById(user.partyId), this.authService.getUsersByPartyId(user.partyId)).pipe(
+          take(1),
+          switchMap(([party, users]) => {
+            // If other users change leader
+            console.log(users);
+            console.log(party);
+            if (users.length === 1) {
+              return this.firestoreService.delete(this.path, user.partyId);
+            }
+            console.log('tjo');
+            return this.firestoreService.upsert(this.path, user.partyId, {leader: users[1].id});
+          })
+        );
       })
     );
   }

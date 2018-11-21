@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PartyService } from '../shared/party.service';
-import { Observable } from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import { Game } from '../../games/shared/game.model';
 import { GameService } from '../../games/shared/game.service';
 import { AuthService } from '../../core/auth/auth.service';
@@ -12,7 +12,7 @@ import { Party } from '../shared/party';
   templateUrl: './alias.component.html',
   styleUrls: ['./alias.component.scss']
 })
-export class AliasComponent implements OnInit {
+export class AliasComponent implements OnInit, OnDestroy {
 
   alias: string;
   joinCode: string;
@@ -21,6 +21,7 @@ export class AliasComponent implements OnInit {
   gameCodeText: string;
   startButtonText = 'Join Game';
   isLeader = false;
+  subscription: Subscription;
 
   constructor(
     private router: Router,
@@ -32,7 +33,7 @@ export class AliasComponent implements OnInit {
 
   ngOnInit() {
     this.joinCode = this.route.snapshot.params['joinCode'];
-    this.partyService.getPartyByJoinCode(this.joinCode).subscribe(party => {
+    this.subscription = this.partyService.getPartyByJoinCode(this.joinCode).subscribe(party => {
       this.party = party;
       this.setGameCodeText();
       this.gameObservable = this.gameService.getGame(this.party.selectedGame);
@@ -57,5 +58,9 @@ export class AliasComponent implements OnInit {
       this.gameCodeText = this.party.joinCode;
       this.startButtonText = 'Join Game';
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
