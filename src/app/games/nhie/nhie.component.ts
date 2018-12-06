@@ -75,8 +75,11 @@ export class NhieComponent implements OnInit {
     this.nhieGameInstanceService.updateGameInstance(this.gameInstance);
   }
 
-  submitNewManualQuestion(newManualQuestion: NhieQuestion) {
-    this.gameInstance.manualQuestions.push(newManualQuestion);
+  submitNewManualQuestion(newManualQuestion: string) {
+    const newQuestion: NhieQuestion = {
+      question: newManualQuestion
+    };
+    this.gameInstance.manualQuestions.push(newQuestion);
     this.nhieGameInstanceService.updateGameInstance(this.gameInstance).then(() => {
     });
     this.showAddQuestion = false;

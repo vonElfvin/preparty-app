@@ -5,6 +5,6 @@ export interface Nhie {
 export interface NhieQuestion {
   id?: string;
   question: string;
-  level: number;
-  index: number;
+  level?: number;
+  index?: number;
 }
