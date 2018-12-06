@@ -33,6 +33,7 @@ export class AliasComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.joinCode = this.route.snapshot.params['joinCode'];
+    this.joinCode = this.joinCode.toLowerCase();
     this.subscription = this.partyService.getPartyByJoinCode(this.joinCode).subscribe(party => {
       this.party = party;
       this.setGameCodeText();

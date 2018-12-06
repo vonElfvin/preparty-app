@@ -18,7 +18,7 @@ export class GamesComponent implements OnInit {
 
   games: Observable<Game[]>;
 
-  joinCode: string;
+  joinCode = '';
 
   constructor(
     private gameService: GameService,
@@ -32,7 +32,8 @@ export class GamesComponent implements OnInit {
   }
 
   joinGame() {
-    this.partyService.checkPartyExists(this.joinCode).subscribe(partyExists => {
+    this.joinCode = this.joinCode.toLowerCase();
+    this.partyService.checkPartyExists(this.joinCode.toLowerCase()).subscribe(partyExists => {
       if (partyExists) {
         this.feedbackService.message(FeedbackMessage.JoinCodeSuccess, FeedbackType.Primary);
         this.router.navigate([`alias/${this.joinCode}`]);
@@ -46,5 +47,11 @@ export class GamesComponent implements OnInit {
     this.partyService.createNewPartyFromGame(game).then(party => {
       this.router.navigate([`alias/${party.joinCode}`]);
     });
+  }
+
+  changeCase() {
+    console.log('hej');
+
+    this.joinCode = this.joinCode.toLowerCase();
   }
 }
