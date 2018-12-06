@@ -113,7 +113,7 @@ export class AuthService {
     return this.firestoreService.upsert(this.path, this.uid, {partyId: partyId, alias: alias});
   }
 
-  removePartyId() {
+  removePartyId(): Promise<any> {
     return this.firestoreService.upsert(this.path, this.uid, {partyId: null});
   }
 
