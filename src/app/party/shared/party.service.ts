@@ -5,6 +5,7 @@ import {Observable, combineLatest, of, from} from 'rxjs';
 import {map, tap, switchMap, take} from 'rxjs/operators';
 import { Game } from '../../games/shared/game.model';
 import { AuthService } from '../../core/auth/auth.service';
+import {User} from '../../core/auth/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +58,7 @@ export class PartyService {
       const party: Party = {
         leader: user.id,
         selectedGame: game.id,
-        joinCode: Math.random().toString(36).substring(7)
+        joinCode: this.randomString(6)
       };
       return this.createParty(party).then((newParty) => {
         this.authService.upsertUserParty(newParty.id);
@@ -98,7 +99,7 @@ export class PartyService {
   leaveParty(): Promise<any> {
     if (this.isGameLeader) {
       return this.changePartyLeader().toPromise().then(res => {
-        this.authService.removePartyId();
+        return this.authService.removePartyId();
       });
     } else {
       return this.authService.removePartyId();
@@ -106,21 +107,31 @@ export class PartyService {
   }
 
   changePartyLeader(): Observable<void> {
-    return this.authService.user.pipe(
+    return combineLatest(this.partyObservable, this.authService.user).pipe(
       take(1),
-      switchMap(user => {
-        return combineLatest(this.getPartyById(user.partyId), this.authService.getUsersByPartyId(user.partyId)).pipe(
-          take(1),
-          switchMap(([party, users]) => {
-            // If other users change leader
-            if (users.length === 1) {
-              return this.firestoreService.delete(this.path, user.partyId);
-            }
-            return this.firestoreService.upsert(this.path, user.partyId, {leader: users[1].id});
-          })
-        );
+      switchMap(([party, user]) => {
+        // If other users change leader
+        const members = party.members;
+        if (members.length === 1) {
+          return this.firestoreService.delete(this.path, user.partyId);
+        }
+        const leader = members[0].id === user.id ? members[1] : members[0];
+
+        return this.firestoreService.upsert(this.path, user.partyId, {leader: leader.id});
       })
     );
+
+  }
+
+  randomString(length: number): string {
+    const chars = '0123456789abcdefghiklmnopqrstuvwxyz';
+    const string_length = length;
+    let randomString = '';
+    for (let i = 0; i < string_length; i++) {
+      const rnum = Math.floor(Math.random() * chars.length);
+      randomString += chars.substring(rnum, rnum + 1);
+    }
+    return randomString;
   }
 
 }

@@ -1,0 +1,16 @@
+<div style="z-index: 1000; background-color: white; display: none">
+  <ul>
+    <li>
+      Party Join Code: {{party?.joinCode}}
+    </li>
+    <li>
+      Party Leader: {{party?.leader}}
+    </li>
+    <li>Party Members: </li>
+    <ul>
+      <li *ngFor="let member of party?.members">
+        {{member.id}}
+      </li>
+    </ul>
+  </ul>
+</div>

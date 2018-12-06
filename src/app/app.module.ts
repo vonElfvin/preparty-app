@@ -10,10 +10,12 @@ import { AdminModule } from './admin/admin.module';
 import { GamesModule } from './games/games.module';
 import { PartyModule } from './party/party.module';
 import { GestureConfig } from '@angular/material';
+import { DebugInfoComponent } from './debug-info/debug-info.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DebugInfoComponent
   ],
   imports: [
     // Custom

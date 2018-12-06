@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Game } from './shared/game.model';
-import { FireauthService } from '../core/firebase/fireauth/fireauth.service';
 import { Router } from '@angular/router';
 import { GameService } from './shared/game.service';
 import { Observable } from 'rxjs';
 import {PartyService} from '../party/shared/party.service';
 import { FeedbackService } from '../core/feedback/feedback.service';
 import { FeedbackMessage, FeedbackType } from '../core/feedback/feedback.model';
-import { FormBuilder } from '@angular/forms';
 import { AuthService } from '../core/auth/auth.service';
 
 @Component({
@@ -19,7 +17,7 @@ export class GamesComponent implements OnInit {
 
   games: Observable<Game[]>;
 
-  joinCode: string;
+  joinCode = '';
 
   constructor(
     private gameService: GameService,
@@ -34,7 +32,7 @@ export class GamesComponent implements OnInit {
   }
 
   joinGame() {
-    this.partyService.getPartyByJoinCode(this.joinCode).subscribe(party => {
+    this.partyService.getPartyByJoinCode(this.joinCode.toLowerCase()).subscribe(party => {
       if (party) {
         this.authService.loginAnonymously().then(() => {
           this.authService.joinParty(party).then(() => {
