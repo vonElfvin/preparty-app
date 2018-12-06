@@ -28,9 +28,7 @@ export class BackgroundColourDirective implements OnDestroy {
 
         this.router.events.subscribe((event: Event) => {
           if (event instanceof NavigationEnd) {
-            console.log(event['urlAfterRedirects']);
             if (event['urlAfterRedirects'] === '/') {
-              console.log("accent-nav");
               el.nativeElement.style.backgroundColor = this.accent;
             } else {
               el.nativeElement.style.backgroundColor = game.backgroundColor;

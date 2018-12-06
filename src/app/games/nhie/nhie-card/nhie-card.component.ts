@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {NhieGameInstanceService} from '../shared/nhie-game-instance.service';
 
 @Component({
   selector: 'app-nhie-card',

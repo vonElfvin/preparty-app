@@ -1,0 +1,13 @@
+<ul>
+  <li>
+    Party Join Code: {{party?.joinCode}}
+  </li>
+  <li>
+    Party Leader: {{party?.leader}}
+  </li>
+  <ul>
+    <li *ngFor="let member of party?.members">
+      {{member.alias}}
+    </li>
+  </ul>
+</ul>
