@@ -18,7 +18,7 @@ export class GameInfoComponent implements OnInit {
 
   gameObs: Observable<Game>;
 
-  gameCode: string;
+  joinCode: string;
 
   image_path: string;
 
@@ -35,7 +35,7 @@ export class GameInfoComponent implements OnInit {
     });
 
     this.partyService.party.subscribe((party: Party) => {
-      this.gameCode = party.joinCode;
+      this.joinCode = party.joinCode;
     });
   }
 

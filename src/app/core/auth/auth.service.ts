@@ -7,6 +7,7 @@ import { Observable, of } from 'rxjs';
 import { switchMap, map, take } from 'rxjs/operators';
 import { Role, User } from './user.model';
 import { Router } from '@angular/router';
+import { Party } from '../../party/shared/party';
 
 @Injectable({
   providedIn: 'root'
@@ -72,18 +73,6 @@ export class AuthService {
     });
   }
 
-  userAliasByUid(userId: string): Observable<string> {
-
-    return this.firestoreService.get(this.path, userId).pipe(
-      map(user => {
-        if (typeof user === 'undefined' || typeof user.alias === 'undefined') {
-          return 'User Alias Not Found';
-        }
-        return user.alias;
-      })
-    );
-  }
-
   getUsersByPartyId(partyId: string) {
     return this.firestoreService.list(this.path, ref => ref
       .where('partyId', '==', partyId));
@@ -102,15 +91,15 @@ export class AuthService {
   }
 
   upsertUserAlias(alias: string) {
-    this.firestoreService.upsert(this.path, this.uid, { alias: alias });
+    return this.firestoreService.upsert(this.path, this.uid, { alias: alias });
   }
 
   upsertUserParty(partyId: string) {
     this.firestoreService.upsert(this.path, this.uid, { partyId: partyId });
   }
 
-  joinParty(alias: string, partyId: string) {
-    return this.firestoreService.upsert(this.path, this.uid, {partyId: partyId, alias: alias});
+  joinParty(party: Party) {
+    return this.firestoreService.upsert(this.path, this.uid, {partyId: party.id});
   }
 
   removePartyId() {

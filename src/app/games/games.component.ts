@@ -8,6 +8,7 @@ import {PartyService} from '../party/shared/party.service';
 import { FeedbackService } from '../core/feedback/feedback.service';
 import { FeedbackMessage, FeedbackType } from '../core/feedback/feedback.model';
 import { FormBuilder } from '@angular/forms';
+import { AuthService } from '../core/auth/auth.service';
 
 @Component({
   selector: 'app-games',
@@ -24,7 +25,8 @@ export class GamesComponent implements OnInit {
     private gameService: GameService,
     private router: Router,
     private partyService: PartyService,
-    private feedbackService: FeedbackService
+    private feedbackService: FeedbackService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
@@ -32,10 +34,14 @@ export class GamesComponent implements OnInit {
   }
 
   joinGame() {
-    this.partyService.checkPartyExists(this.joinCode).subscribe(partyExists => {
-      if (partyExists) {
-        this.feedbackService.message(FeedbackMessage.JoinCodeSuccess, FeedbackType.Primary);
-        this.router.navigate([`alias/${this.joinCode}`]);
+    this.partyService.getPartyByJoinCode(this.joinCode).subscribe(party => {
+      if (party) {
+        this.authService.loginAnonymously().then(() => {
+          this.authService.joinParty(party).then(() => {
+            this.feedbackService.message(FeedbackMessage.JoinCodeSuccess, FeedbackType.Primary);
+            this.router.navigate([`alias/${this.joinCode}`]);
+          });
+        });
       } else {
         this.feedbackService.message(FeedbackMessage.JoinCodeError, FeedbackType.Error);
       }

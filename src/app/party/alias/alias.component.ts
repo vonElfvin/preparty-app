@@ -12,16 +12,12 @@ import { Party } from '../shared/party';
   templateUrl: './alias.component.html',
   styleUrls: ['./alias.component.scss']
 })
-export class AliasComponent implements OnInit, OnDestroy {
+export class AliasComponent implements OnInit {
 
   alias: string;
   joinCode: string;
   gameObservable: Observable<Game>;
-  party: Party;
-  gameCodeText: string;
-  startButtonText = 'Join Game';
-  isLeader = false;
-  subscription: Subscription;
+  isGameLeaderObservable: Observable<boolean>;
 
   constructor(
     private router: Router,
@@ -33,34 +29,13 @@ export class AliasComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.joinCode = this.route.snapshot.params['joinCode'];
-    this.subscription = this.partyService.getPartyByJoinCode(this.joinCode).subscribe(party => {
-      this.party = party;
-      this.setGameCodeText();
-      this.gameObservable = this.gameService.getGame(this.party.selectedGame);
-    });
+    this.isGameLeaderObservable = this.partyService.isGameLeaderObservable;
+    this.gameObservable = this.gameService.game;
   }
 
   setAlias() {
-    this.authService.loginAnonymously().then(() => {
-      // this.authService.upsertUserAlias(this.alias);
-      this.authService.joinParty(this.alias, this.party.id);
+    this.authService.upsertUserAlias(this.alias).then(() => {
       this.router.navigate([`lobby/${this.joinCode}`]);
     });
-  }
-
-  setGameCodeText() {
-    if (this.partyService.isGameLeader) {
-      this.isLeader = true;
-      this.gameCodeText = 'Create game to generate game code!';
-      this.startButtonText = 'Create Game';
-    } else {
-      this.isLeader = false;
-      this.gameCodeText = this.party.joinCode;
-      this.startButtonText = 'Join Game';
-    }
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }

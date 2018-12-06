@@ -4,7 +4,7 @@
       <mat-icon style="font-size: 5vh" aria-label="Example icon-button with a heart icon">keyboard_arrow_left</mat-icon>
     </button>
   </div>
-  <app-game-code *ngIf="gameInstance" [gameCode]="gameInstance?.joinCode"></app-game-code>
+  <app-game-code *ngIf="gameInstance" [joinCode]="gameInstance?.joinCode"></app-game-code>
   <div *ngIf="!showAddQuestion">
     <app-menu-button (gameInfoClick)="onGameInfoClick()" (leaveClick)="onLeaveClick()"></app-menu-button>
   </div>
