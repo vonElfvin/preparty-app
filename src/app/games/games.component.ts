@@ -7,6 +7,7 @@ import {PartyService} from '../party/shared/party.service';
 import { FeedbackService } from '../core/feedback/feedback.service';
 import { FeedbackMessage, FeedbackType } from '../core/feedback/feedback.model';
 import { AuthService } from '../core/auth/auth.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-games',
@@ -32,7 +33,9 @@ export class GamesComponent implements OnInit {
   }
 
   joinGame() {
-    this.partyService.getPartyByJoinCode(this.joinCode.toLowerCase()).subscribe(party => {
+    this.partyService.getPartyByJoinCode(this.joinCode.toLowerCase()).pipe(
+      take(1)
+    ).subscribe(party => {
       if (party) {
         this.authService.loginAnonymously().then(() => {
           this.authService.joinParty(party).then(() => {

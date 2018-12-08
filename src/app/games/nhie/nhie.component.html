@@ -11,10 +11,10 @@
   <img src="../../assets/illustrations/never_have_I_ever_logo_text.png" class="logo">
   <div class="center" *ngIf="!showAddQuestion && currentQuestion">
     <div *ngIf="!(isGameLeader | async)" class="question-player">
-      <app-nhie-card (answer)="onAnswer($event)" [question]="currentQuestion.question" [playerName]="currentPlayer"></app-nhie-card>
+      <app-nhie-card [question]="currentQuestion.question"></app-nhie-card>
     </div>
     <div *ngIf="isGameLeader | async" class="question-game-leader">
-      <app-nhie-card (answer)="onAnswer($event)" [question]="currentQuestion.question" [playerName]="currentPlayer"></app-nhie-card>
+      <app-nhie-card [question]="currentQuestion.question"></app-nhie-card>
     </div>
     <div class="add-question-button" fxLayout="column" fxLayoutGap="12px">
         <app-default-size-button [text]="'Add Question'" [matIconName]="''" (click)="showAddQuestion=!showAddQuestion"></app-default-size-button>

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-nhie-card',
@@ -9,17 +9,6 @@ export class NhieCardComponent {
 
   @Input()
   question: string;
-
-  @Input()
-  playerName: string;
-
-  @Input()
-  gameInstanceId: string;
-
-
-  showForm = false;
-
-  @Output() answer = new EventEmitter<boolean>();
 
   constructor() {}
 
