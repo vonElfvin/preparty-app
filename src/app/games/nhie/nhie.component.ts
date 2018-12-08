@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NhieQuestion } from './shared/nhie';
 import { NhieQuestionService } from './shared/nhie-question.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-nhie',
@@ -65,7 +66,9 @@ export class NhieComponent implements OnInit {
 
     // Add more generic if empty
     if (this.gameInstance.genericQuestions.length === 0) {
-      this.nhieGameInstanceService.getGameInstanceQuestions(this.gameInstance.seenQuestions)
+      this.nhieGameInstanceService.getGameInstanceQuestions(this.gameInstance.seenQuestions).pipe(
+        take(1)
+      )
         .subscribe(questions => {
           this.gameInstance.genericQuestions = this.gameInstance.genericQuestions.concat(questions);
       });

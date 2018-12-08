@@ -49,7 +49,7 @@ export class LobbyComponent implements OnInit {
 
   checkGameInstance() {
     this.gameInstanceService.gameInstance.subscribe(gameInstance => {
-      if (gameInstance) {
+      if (gameInstance && this.router.url.indexOf('lobby') !== -1) {
         this.router.navigate([gameInstance.gameId + '/' + gameInstance.joinCode]);
       }
     });
