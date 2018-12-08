@@ -1,6 +1,7 @@
 <div *ngIf="gameObservable | async as game" class="center">
+  <span *ngIf="isGameLeader !== null">
   <app-back-button [routerLink]="'/'"></app-back-button>
-  <app-game-code [joinCode]="!(isGameLeaderObservable | async) ? joinCode : false"></app-game-code>
+  <app-game-code [joinCode]="!isGameLeader ? joinCode : false"></app-game-code>
   <div class="content">
     <div class="center">
       <img [src]="game?.image_path" class="logo">
@@ -11,7 +12,7 @@
         <input matInput [(ngModel)]="alias" name="alias">
       </mat-form-field>
       <div style="height: 12px"></div>
-      <app-default-size-button [text]="(isGameLeaderObservable | async) ? 'Create game' : 'Join game'"
+      <app-default-size-button [text]="isGameLeader ? 'Create game' : 'Join game'"
                                [matIconName]="'chevron_right'"></app-default-size-button>
     </form>
     <mat-divider class="divider"></mat-divider>
@@ -20,4 +21,5 @@
     </div>
   </div>
   <app-footer-image></app-footer-image>
+  </span>
 </div>

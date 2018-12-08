@@ -12,12 +12,13 @@ import { Party } from '../shared/party';
   templateUrl: './alias.component.html',
   styleUrls: ['./alias.component.scss']
 })
-export class AliasComponent implements OnInit {
+export class AliasComponent implements OnInit, OnDestroy {
 
   alias: string;
   joinCode: string;
   gameObservable: Observable<Game>;
-  isGameLeaderObservable: Observable<boolean>;
+  isGameLeader: boolean;
+  subscription: Subscription;
 
   constructor(
     private router: Router,
@@ -29,8 +30,14 @@ export class AliasComponent implements OnInit {
 
   ngOnInit() {
     this.joinCode = this.route.snapshot.params['joinCode'];
-    this.isGameLeaderObservable = this.partyService.isGameLeaderObservable;
     this.gameObservable = this.gameService.game;
+    this.subscription = this.partyService.isGameLeaderObservable.subscribe(isGameLeader => {
+      this.isGameLeader = isGameLeader;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   setAlias() {
