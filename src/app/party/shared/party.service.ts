@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { FirestoreService } from '../../core/firebase/firestore/firestore.service';
 import { Party } from './party';
-import {Observable, combineLatest, of, from} from 'rxjs';
+import {Observable, combineLatest, of, from, throwError} from 'rxjs';
 import {map, tap, switchMap, take} from 'rxjs/operators';
 import { Game } from '../../games/shared/game.model';
 import { AuthService } from '../../core/auth/auth.service';
 import {User} from '../../core/auth/user.model';
+import {FeedbackMessage, FeedbackType} from '../../core/feedback/feedback.model';
 
 @Injectable({
   providedIn: 'root'
@@ -121,6 +122,19 @@ export class PartyService {
       })
     );
 
+  }
+  joinGame(joinCode: string): Promise<any> {
+    return this.getPartyByJoinCode(joinCode.toLowerCase()).pipe(
+      take(1),
+      switchMap(party => {
+        if (party) {
+          this.authService.loginAnonymously().then(() => {
+            return this.authService.joinParty(party);
+          });
+        } else {
+          return throwError('no such party with joinCode: ' + joinCode);
+        }
+      })).toPromise();
   }
 
   randomString(length: number): string {

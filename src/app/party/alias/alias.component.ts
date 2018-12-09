@@ -6,6 +6,8 @@ import { Game } from '../../games/shared/game.model';
 import { GameService } from '../../games/shared/game.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { Party } from '../shared/party';
+import {FeedbackService} from '../../core/feedback/feedback.service';
+import {FeedbackMessage, FeedbackType} from '../../core/feedback/feedback.model';
 
 @Component({
   selector: 'app-alias',
@@ -19,6 +21,7 @@ export class AliasComponent implements OnInit, OnDestroy {
   gameObservable: Observable<Game>;
   isGameLeader: boolean;
   subscription: Subscription;
+  fromLink: string;
 
   constructor(
     private router: Router,
@@ -26,14 +29,32 @@ export class AliasComponent implements OnInit, OnDestroy {
     private partyService: PartyService,
     private gameService: GameService,
     private authService: AuthService,
+    private feedbackService: FeedbackService
   ) { }
 
   ngOnInit() {
     this.joinCode = this.route.snapshot.params['joinCode'];
+    this.fromLink = this.route.snapshot.params['fromLink'];
     this.gameObservable = this.gameService.game;
     this.subscription = this.partyService.isGameLeaderObservable.subscribe(isGameLeader => {
       this.isGameLeader = isGameLeader;
     });
+    console.log(this.route.snapshot.params);
+    if (this.fromLink) {
+      this.partyService.party.subscribe(party => {
+        console.log(party);
+        if ((party && party.joinCode === this.joinCode)) {
+          return;
+        } else {
+          this.partyService.joinGame(this.joinCode).then(res => {
+            console.log(res);
+          }).catch(err => {
+            this.router.navigate(['/']);
+            this.feedbackService.message(FeedbackMessage.JoinCodeError, FeedbackType.Error);
+          });
+        }
+      });
+    }
   }
 
   ngOnDestroy(): void {
