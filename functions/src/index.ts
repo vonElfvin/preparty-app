@@ -1,8 +1,8 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin'
 admin.initializeApp();
-const db = admin.firestore();
 
+const firestore = admin.firestore();
 
 
 exports.addMessage = functions.https.onRequest((req, res) => {
@@ -15,8 +15,28 @@ exports.addMessage = functions.https.onRequest((req, res) => {
   });
 });
 
+exports.deleteOldParties = functions.firestore
+  .document('party/{partyId}')
+  .onCreate((snap, context) => {
 
+  const now = Date.now();
+  const cutoff = now - 60 * 60 * 24 * 1000; // deleting 1 day old parties
 
+  const promises = [];
+
+  return firestore.collection('party').where('created', '<=', cutoff)
+    .get()
+    .then(snapshot => {
+      console.log('Deleting parties');
+      snapshot.forEach(doc => {
+        promises.push(doc.ref.delete());
+      });
+      return Promise.all(promises);
+    }).catch(err => {
+      console.log('Something went wrong when deleting parties', err);
+      return false;
+    })
+});
 
 /*// Nihe aggregate number of questions
 exports.aggregateNhieQuestions = functions.firestore

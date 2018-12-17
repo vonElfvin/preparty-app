@@ -6,4 +6,5 @@ export interface Party {
   leader: string;
   selectedGame: string;
   joinCode: string;
+  created: number;
 }
