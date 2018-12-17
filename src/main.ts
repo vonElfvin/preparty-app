@@ -10,4 +10,9 @@ if (environment.production) {
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)
+  .then(() => {
+    if (navigator.userAgent.indexOf('Chrome') > -1 && navigator.userAgent.toLowerCase().indexOf('samsung') === -1) {
+      navigator.serviceWorker.register('/ngsw-worker.js');
+    }
+  })
   .catch(err => console.error(err));

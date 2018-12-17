@@ -31,7 +31,7 @@ import { environment } from '../environments/environment';
     // Angular Imports
     BrowserModule,
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule,
   ],
   providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }],
   bootstrap: [AppComponent]
