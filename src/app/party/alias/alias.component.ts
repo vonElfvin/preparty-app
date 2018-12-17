@@ -6,6 +6,8 @@ import { Game } from '../../games/shared/game.model';
 import { GameService } from '../../games/shared/game.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { Party } from '../shared/party';
+import {FeedbackService} from '../../core/feedback/feedback.service';
+import {FeedbackMessage, FeedbackType} from '../../core/feedback/feedback.model';
 
 @Component({
   selector: 'app-alias',
@@ -17,11 +19,9 @@ export class AliasComponent implements OnInit, OnDestroy {
   alias: string;
   joinCode: string;
   gameObservable: Observable<Game>;
-  party: Party;
-  gameCodeText: string;
-  startButtonText = 'Join Game';
-  isLeader = false;
+  isGameLeader: boolean;
   subscription: Subscription;
+  fromLink: string;
 
   constructor(
     private router: Router,
@@ -29,38 +29,41 @@ export class AliasComponent implements OnInit, OnDestroy {
     private partyService: PartyService,
     private gameService: GameService,
     private authService: AuthService,
+    private feedbackService: FeedbackService
   ) { }
 
   ngOnInit() {
     this.joinCode = this.route.snapshot.params['joinCode'];
-    this.subscription = this.partyService.getPartyByJoinCode(this.joinCode).subscribe(party => {
-      this.party = party;
-      this.setGameCodeText();
-      this.gameObservable = this.gameService.getGame(this.party.selectedGame);
+    this.fromLink = this.route.snapshot.params['fromLink'];
+    this.gameObservable = this.gameService.game;
+    this.subscription = this.partyService.isGameLeaderObservable.subscribe(isGameLeader => {
+      this.isGameLeader = isGameLeader;
     });
-  }
-
-  setAlias() {
-    this.authService.loginAnonymously().then(() => {
-      // this.authService.upsertUserAlias(this.alias);
-      this.authService.joinParty(this.alias, this.party.id);
-      this.router.navigate([`lobby/${this.joinCode}`]);
-    });
-  }
-
-  setGameCodeText() {
-    if (this.partyService.isGameLeader) {
-      this.isLeader = true;
-      this.gameCodeText = 'Create game to generate game code!';
-      this.startButtonText = 'Create Game';
-    } else {
-      this.isLeader = false;
-      this.gameCodeText = this.party.joinCode;
-      this.startButtonText = 'Join Game';
+    console.log(this.route.snapshot.params);
+    if (this.fromLink) {
+      this.partyService.party.subscribe(party => {
+        console.log(party);
+        if ((party && party.joinCode === this.joinCode)) {
+          return;
+        } else {
+          this.partyService.joinGame(this.joinCode).then(res => {
+            console.log(res);
+          }).catch(err => {
+            this.router.navigate(['/']);
+            this.feedbackService.message(FeedbackMessage.JoinCodeError, FeedbackType.Error);
+          });
+        }
+      });
     }
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  setAlias() {
+    this.authService.upsertUserAlias(this.alias).then(() => {
+      this.router.navigate([`lobby/${this.joinCode}`]);
+    });
   }
 }

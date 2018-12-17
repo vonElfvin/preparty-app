@@ -42,13 +42,14 @@ export class LobbyComponent implements OnInit {
     this.isGameLeader = this.partyService.isGameLeaderObservable;
     this.isLoggedIn = this.authService.isLoggedInObservable;
     this.joinCode = this.route.snapshot.params['joinCode'];
+    this.joinCode = this.joinCode.toLowerCase();
     this.gameObservable = this.gameService.game;
     this.checkGameInstance();
   }
 
   checkGameInstance() {
     this.gameInstanceService.gameInstance.subscribe(gameInstance => {
-      if (gameInstance) {
+      if (gameInstance && this.router.url.indexOf('lobby') !== -1) {
         this.router.navigate([gameInstance.gameId + '/' + gameInstance.joinCode]);
       }
     });

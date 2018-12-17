@@ -1,4 +1,9 @@
-<div class="game-code">
-  <p>{{header}}</p>
-  <b *ngIf="!notGameCode" >{{gameCode}}</b>
+<div>
+  <span class="game-code" *ngIf="joinCode">
+    <p>Game Code</p>
+    <b>{{joinCode}}</b>
+  </span>
+  <span class="game-code" *ngIf="!joinCode">
+    <p>Create game to generate game code!</p>
+  </span>
 </div>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DefaultSizeButtonComponent } from './default-size-button/default-size-button.component';
-import {MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatMenuModule} from '@angular/material';
+import {MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatMenuModule, MatTooltipModule} from '@angular/material';
 import { FooterImageComponent } from './footer-image/footer-image.component';
 import { RouterModule } from '@angular/router';
 import { BackButtonComponent } from './back-button/back-button.component';
@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GameCodeComponent } from './game-code/game-code.component';
 import { MenuButtonComponent } from './menu-button/menu-button.component';
 import { BackgroundColourDirective } from './background-colour.directive';
+import { TruncatePipe } from './truncate-pipe/truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { BackgroundColourDirective } from './background-colour.directive';
     GameCodeComponent,
     MenuButtonComponent,
     BackButtonComponent,
-    BackgroundColourDirective
+    BackgroundColourDirective,
+    TruncatePipe
   ],
   imports: [
     CommonModule,
@@ -31,6 +33,7 @@ import { BackgroundColourDirective } from './background-colour.directive';
     MatFormFieldModule,
     MatMenuModule,
     MatInputModule,
+    MatTooltipModule,
     ReactiveFormsModule
   ],
   exports: [
@@ -39,7 +42,8 @@ import { BackgroundColourDirective } from './background-colour.directive';
     DefaultSizeButtonComponent,
     GameCodeComponent,
     MenuButtonComponent,
-    BackgroundColourDirective
+    BackgroundColourDirective,
+    TruncatePipe
   ]
 })
 export class SharedModule { }

@@ -1,23 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NhieGameInstanceService } from './shared/nhie-game-instance.service';
 import { NhieGameInstance } from './shared/nhie-game-instance';
 import { FeedbackService } from '../../core/feedback/feedback.service';
 import { FeedbackMessage, FeedbackType } from '../../core/feedback/feedback.model';
 import { PartyService } from '../../party/shared/party.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NhieQuestion } from './shared/nhie';
 import { NhieQuestionService } from './shared/nhie-question.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-nhie',
   templateUrl: './nhie.component.html',
   styleUrls: ['./nhie.component.scss']
 })
-export class NhieComponent implements OnInit {
+export class NhieComponent implements OnInit, OnDestroy {
 
   gameInstance: NhieGameInstance;
   currentQuestion: NhieQuestion;
+  subscription: Subscription;
 
   isGameLeader: Observable<boolean>;
 
@@ -50,6 +52,10 @@ export class NhieComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.nhieQuestionService
+  }
+
   setNextQuestion() {
     // Select manual question with 70% probability
     if (this.gameInstance.manualQuestions.length > 0 && Math.floor(Math.random() * Math.floor(100)) <= 70) {
@@ -65,7 +71,9 @@ export class NhieComponent implements OnInit {
 
     // Add more generic if empty
     if (this.gameInstance.genericQuestions.length === 0) {
-      this.nhieGameInstanceService.getGameInstanceQuestions(this.gameInstance.seenQuestions)
+      this.nhieGameInstanceService.getGameInstanceQuestions(this.gameInstance.seenQuestions).pipe(
+        take(1)
+      )
         .subscribe(questions => {
           this.gameInstance.genericQuestions = this.gameInstance.genericQuestions.concat(questions);
       });
