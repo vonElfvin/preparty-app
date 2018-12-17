@@ -15,13 +15,15 @@
 }
 
 .question-player{
-  margin-top: 17vh;
+  position: absolute;
+  bottom: 40vh;
   width: 40vh;
   text-align: center;
 }
 
 .question-game-leader{
-  margin-top: 10vh;
+  position: absolute;
+  bottom: 45vh;
   width: 40vh;
   text-align: center;
 }
