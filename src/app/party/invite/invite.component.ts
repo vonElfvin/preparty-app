@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FeedbackService } from '../../core/feedback/feedback.service';
 import { FeedbackMessage, FeedbackType } from '../../core/feedback/feedback.model';
 import { Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ import { PartyService } from '../../party/shared/party.service';
   templateUrl: './invite.component.html',
   styleUrls: ['./invite.component.scss']
 })
-export class InviteComponent implements OnInit {
+export class InviteComponent implements OnInit, OnDestroy {
 
   constructor(
     private feedbackService: FeedbackService,
@@ -67,4 +67,7 @@ export class InviteComponent implements OnInit {
     document.body.removeChild(selBox);
   }
 
+  ngOnDestroy(): void {
+    this.partySub.unsubscribe();
+  }
 }
