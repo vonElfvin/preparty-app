@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Party } from 'src/app/party/shared/party';
 import { PartyService } from 'src/app/party/shared/party.service';
-import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-debug-info',
@@ -12,17 +12,17 @@ export class DebugInfoComponent implements OnInit {
 
   party: Party;
   joinCode: string;
+  gameLeader: boolean;
 
-  constructor(private partyService: PartyService,
-    private route: ActivatedRoute
-
-  ) { }
+  constructor(private partyService: PartyService) { }
 
   ngOnInit() {
-    
-    this.joinCode = this.route.snapshot.params['joinCode'];
+
     this.partyService.party.subscribe((party: Party) => {
       this.party = party;
     });
+    this.partyService.isGameLeaderObservable.subscribe((gameleader: boolean) => {
+      this.gameLeader = gameleader;
+    })
   }
 }

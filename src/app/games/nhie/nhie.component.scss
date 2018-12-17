@@ -15,13 +15,15 @@
 }
 
 .question-player{
-  margin-top: 17vh;
+  position: absolute;
+  top: 48vh;
   width: 40vh;
   text-align: center;
 }
 
 .question-game-leader{
-  margin-top: 10vh;
+  position: absolute;
+  top: 42vh;
   width: 40vh;
   text-align: center;
 }
@@ -42,4 +44,11 @@
 .add-question-div{
   margin-top: 3vh;
   width: 40vh;
+}
+
+#invite {
+  position: absolute;
+  bottom: 2vh;
+  right: 2vh;
+  color: white;
 }

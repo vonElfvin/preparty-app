@@ -7,5 +7,6 @@ export const environment = {
     projectId: 'preparty-app',
     storageBucket: 'preparty-app.appspot.com',
     messagingSenderId: '415921951170'
-  }
+  },
+  messenger_app_id: '2240029852988441'
 };

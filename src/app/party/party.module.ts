@@ -14,16 +14,19 @@ import { AliasComponent } from './alias/alias.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { FlexLayoutModule} from '@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { GameInfoComponent } from './game-info/game-info.component';
+import { InviteComponent } from './invite/invite.component';
 
 @NgModule({
   declarations: [
     LobbyComponent,
     AliasComponent,
-    GameInfoComponent
+    GameInfoComponent,
+    InviteComponent
   ],
-  exports: [LobbyComponent],
+  exports: [LobbyComponent,
+    InviteComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -41,6 +44,6 @@ import { GameInfoComponent } from './game-info/game-info.component';
     RouterModule,
     FlexLayoutModule
   ],
-  providers: [PartyService],
+  providers: [PartyService]
 })
 export class PartyModule { }
