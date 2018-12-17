@@ -1,35 +1,28 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {PartyService} from '../../party/shared/party.service';
-import {FeedbackService} from '../../core/feedback/feedback.service';
-import {FeedbackMessage, FeedbackType} from '../../core/feedback/feedback.model';
-import {Party} from '../../party/shared/party';
-import {Subscription} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { FeedbackService } from '../../core/feedback/feedback.service';
+import { FeedbackMessage, FeedbackType } from '../../core/feedback/feedback.model';
+import { Subscription } from 'rxjs';
+import { Party } from '../../party/shared/party';
+import { PartyService } from '../../party/shared/party.service';
+
+
 
 @Component({
-  selector: 'app-menu-button',
-  templateUrl: './menu-button.component.html',
-  styleUrls: ['./menu-button.component.scss']
+  selector: 'app-invite',
+  templateUrl: './invite.component.html',
+  styleUrls: ['./invite.component.scss']
 })
-export class MenuButtonComponent implements OnInit, OnDestroy {
+export class InviteComponent implements OnInit {
 
   constructor(
-    private partyService: PartyService,
-    private router: Router,
-    private feedbackService: FeedbackService) { }
-
-  @Output()
-  leaveClick = new EventEmitter();
-
-  @Output()
-  gameInfoClick = new EventEmitter();
-
-  party: Party;
+    private feedbackService: FeedbackService,
+    private partyService: PartyService
+  ) { }
 
   partySub: Subscription;
+  party: Party;
 
   // @ViewChild('shareButton') shareButton;
-
 
   ngOnInit() {
     this.partySub = this.partyService.party.subscribe(party => {
@@ -37,11 +30,6 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
     });
   }
 
-  leaveGameClick() {
-    this.partyService.leaveParty().then( () => {
-      this.router.navigate(['/']);
-    });
-  }
 
   inviteFriends() {
     // window.open('fb-messenger://share?link=' + encodeURIComponent('google.com') + '&app_id=' + encodeURIComponent('1406488912743309'));
@@ -79,7 +67,4 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
     document.body.removeChild(selBox);
   }
 
-  ngOnDestroy(): void {
-    this.partySub.unsubscribe();
-  }
 }
