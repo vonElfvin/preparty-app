@@ -8,7 +8,6 @@ import { AuthService } from '../../core/auth/auth.service';
 import {User} from '../../core/auth/user.model';
 import {FeedbackMessage, FeedbackType} from '../../core/feedback/feedback.model';
 
-
 @Injectable({
   providedIn: 'root'
 })
