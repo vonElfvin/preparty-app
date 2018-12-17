@@ -4,7 +4,7 @@ import { FeedbackMessage, FeedbackType } from '../../core/feedback/feedback.mode
 import { Subscription } from 'rxjs';
 import { Party } from '../../party/shared/party';
 import { PartyService } from '../../party/shared/party.service';
-
+import { environment } from '../../../environments/environment.prod';
 
 
 @Component({
@@ -30,9 +30,9 @@ export class InviteComponent implements OnInit, OnDestroy {
     });
   }
 
-
   inviteFriends() {
-    // window.open('fb-messenger://share?link=' + encodeURIComponent('google.com') + '&app_id=' + encodeURIComponent('1406488912743309'));
+    let iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+
     // IF on an Androd device use the built in share API
     if (navigator['share']) {
       navigator['share']({
@@ -42,11 +42,12 @@ export class InviteComponent implements OnInit, OnDestroy {
       })
         .then(() => console.log('Share complete'))
         .error((error) => console.error('Could not share at this time', error));
-    } else {
-
-      //window.open('fb-messenger://share?link=' + encodeURIComponent('https://preparty.app/alias/' + this.party.joinCode + '/true') + '&app_id=' + encodeURIComponent(app_id));
-
-      // If not on Android share by copying link
+    } else if (iOS) {
+      let app_id = environment.messenger_app_id;
+      window.open('fb-messenger://share?link=' + encodeURIComponent('https://preparty.app/alias/' + this.party.joinCode + '/true') + '&app_id=' + encodeURIComponent(app_id));
+    }
+    else {
+      // If not on Android or iOS share by copying link
       const url = 'https://preparty.app/alias/' + this.party.joinCode + '/true';
       this.copyMessage(url);
       this.feedbackService.message(FeedbackMessage.Custom, FeedbackType.Primary, 'Copied invite link!');
