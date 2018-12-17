@@ -16,12 +16,14 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { FlexLayoutModule} from '@angular/flex-layout';
 import { GameInfoComponent } from './game-info/game-info.component';
+import { InviteComponent } from './invite/invite.component';
 
 @NgModule({
   declarations: [
     LobbyComponent,
     AliasComponent,
-    GameInfoComponent
+    GameInfoComponent,
+    InviteComponent
   ],
   exports: [LobbyComponent],
   imports: [
