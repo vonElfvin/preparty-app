@@ -13,42 +13,31 @@ exports.addMessage = functions.https.onRequest((req, res) => {
         return res.redirect(303, snapshot.ref.toString());
     });
 });
-exports.deleteOldParties = functions.firestore
-    .document('party/{partyId}')
+exports.deleteOldPartiesAndGameInstances = functions.firestore
+    .document('parties/{partyId}')
     .onCreate((snap, context) => {
-    console.log('Deleting parties');
     const now = Date.now();
-    const cutoff = now; // - 60 * 60 * 24 * 1000; // 1 day
+    const cutoff = now - 60 * 60 * 24 * 1000; // deleting 1 day old parties
     const promises = [];
-    return firestore.collection('party').where('created', '<=', cutoff)
+    promises.push(deleteCollection(firestore, 'parties', cutoff));
+    promises.push(deleteCollection(firestore, 'game-instances', cutoff));
+    return Promise.all(promises);
+});
+function deleteCollection(db, collectionPath, cutoff) {
+    const promises = [];
+    return db.collection(collectionPath).where('created', '<=', cutoff)
         .get()
         .then(snapshot => {
+        console.log('Deleting old ' + collectionPath);
         snapshot.forEach(doc => {
             promises.push(doc.ref.delete());
         });
         return Promise.all(promises);
     }).catch(err => {
-        console.log('Something went wrong when deleting parties', err);
+        console.log('Something went wrong when deleting', err);
         return false;
     });
-});
-/*exports.deleteOldParties = functions.firestore.document('party/{partyId}').onCreate((snap, context) => {
-  const now = Date.now();
-  const cutoff = now; // - 60 * 60 * 24 * 1000; // 1 day
-
-  const ref = firestore.collection('party');
-  const query = ref.where('created', '<=', cutoff);
-
-  return query.get().then(snapshot => {
-    const batch = firestore.batch();
-
-    snapshot.forEach(doc => {
-      batch.delete(doc.id);
-    });
-
-    return batch.commit();
-  })
-});*/
+}
 /*// Nihe aggregate number of questions
 exports.aggregateNhieQuestions = functions.firestore
   .document('nhie-questions/{nId}')

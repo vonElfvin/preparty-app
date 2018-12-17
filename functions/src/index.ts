@@ -15,8 +15,8 @@ exports.addMessage = functions.https.onRequest((req, res) => {
   });
 });
 
-exports.deleteOldParties = functions.firestore
-  .document('party/{partyId}')
+exports.deleteOldPartiesAndGameInstances = functions.firestore
+  .document('parties/{partyId}')
   .onCreate((snap, context) => {
 
   const now = Date.now();
@@ -24,19 +24,28 @@ exports.deleteOldParties = functions.firestore
 
   const promises = [];
 
-  return firestore.collection('party').where('created', '<=', cutoff)
+  promises.push(deleteCollection(firestore,'parties', cutoff));
+  promises.push(deleteCollection(firestore,'game-instances', cutoff));
+
+  return Promise.all(promises);
+});
+
+function deleteCollection(db, collectionPath, cutoff) {
+  const promises = [];
+
+  return db.collection(collectionPath).where('created', '<=', cutoff)
     .get()
     .then(snapshot => {
-      console.log('Deleting parties');
+      console.log('Deleting old ' + collectionPath);
       snapshot.forEach(doc => {
         promises.push(doc.ref.delete());
       });
       return Promise.all(promises);
     }).catch(err => {
-      console.log('Something went wrong when deleting parties', err);
+      console.log('Something went wrong when deleting', err);
       return false;
-    })
-});
+    });
+}
 
 /*// Nihe aggregate number of questions
 exports.aggregateNhieQuestions = functions.firestore

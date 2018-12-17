@@ -3,4 +3,5 @@ export interface GameInstance {
   partyId: string;
   joinCode: string;
   gameId: string;
+  created: number;
 }

@@ -13,7 +13,7 @@ import {FeedbackMessage, FeedbackType} from '../../core/feedback/feedback.model'
 })
 export class PartyService {
 
-  private readonly path = 'party';
+  private readonly path = 'parties';
   private partyObservable: Observable<Party>;
   private _isGameLeader = false;
 
