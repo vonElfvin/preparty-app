@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "deploy": "ng build --prod && firebase deploy --only hosting",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -28,6 +29,7 @@
     "@angular/service-worker": "~7.1.3",
     "core-js": "^2.5.4",
     "firebase": "^5.5.7",
+    "firebase-tools": "^6.1.2",
     "hammerjs": "^2.0.8",
     "npm": "^6.5.0",
     "rxjs": "~6.3.3",

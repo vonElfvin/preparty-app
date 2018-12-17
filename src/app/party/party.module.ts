@@ -14,7 +14,7 @@ import { AliasComponent } from './alias/alias.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { FlexLayoutModule} from '@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { GameInfoComponent } from './game-info/game-info.component';
 import { InviteComponent } from './invite/invite.component';
 
@@ -25,7 +25,8 @@ import { InviteComponent } from './invite/invite.component';
     GameInfoComponent,
     InviteComponent
   ],
-  exports: [LobbyComponent],
+  exports: [LobbyComponent,
+    InviteComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -43,6 +44,6 @@ import { InviteComponent } from './invite/invite.component';
     RouterModule,
     FlexLayoutModule
   ],
-  providers: [PartyService],
+  providers: [PartyService]
 })
 export class PartyModule { }

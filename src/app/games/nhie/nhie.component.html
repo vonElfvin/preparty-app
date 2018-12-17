@@ -16,10 +16,10 @@
     <div *ngIf="isGameLeader | async" class="question-game-leader">
       <app-nhie-card [question]="currentQuestion.question"></app-nhie-card>
     </div>
-  </div>
-  <div class="add-question-button" fxLayout="column" fxLayoutGap="12px">
-    <app-default-size-button [text]="'Add Question'" [matIconName]="''" (click)="showAddQuestion=!showAddQuestion"></app-default-size-button>
-    <app-default-size-button *ngIf="isGameLeader | async" [text]="'Next Question'" [matIconName]="'chevron_right'" (click)="setNextQuestion()"></app-default-size-button>
+    <div class="add-question-button" fxLayout="column" fxLayoutGap="12px">
+      <app-default-size-button [text]="'Add Question'" [matIconName]="''" (click)="showAddQuestion=!showAddQuestion"></app-default-size-button>
+      <app-default-size-button *ngIf="isGameLeader | async" [text]="'Next Question'" [matIconName]="'chevron_right'" (click)="setNextQuestion()"></app-default-size-button>
+    </div>
   </div>
   <div class="add-question-div" *ngIf="showAddQuestion">
     <app-add-manual-question
@@ -28,4 +28,5 @@
   </div>
 
   <app-footer-image></app-footer-image>
+  <app-invite id="invite"></app-invite>
 </div>
