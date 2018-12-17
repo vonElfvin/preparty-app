@@ -11,6 +11,8 @@ import { GamesModule } from './games/games.module';
 import { PartyModule } from './party/party.module';
 import { GestureConfig } from '@angular/material';
 import { DebugInfoComponent } from './debug-info/debug-info.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { DebugInfoComponent } from './debug-info/debug-info.component';
     // Angular Imports
     BrowserModule,
     BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }],
   bootstrap: [AppComponent]
