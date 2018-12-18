@@ -30,14 +30,17 @@ export class NhieGameInstanceService {
   }
 
   generateNewGameInstanceFromCode(joinCode: string): Promise<void> {
-    return combineLatest(this.partyService.getPartyByJoinCode(joinCode), this.getGameInstanceQuestions([]))
-      .pipe(
+    return combineLatest(
+      this.partyService.getPartyByJoinCode(joinCode),
+      this.getGameInstanceQuestions([])
+    ).pipe(
         switchMap(([party, questions]: [Party, NhieQuestion[]]) => {
           const gameInstance = <NhieGameInstance>{
             partyId: party.id,
             gameId: party.selectedGame,
             gameLeader: party.leader,
             joinCode: party.joinCode,
+            created: Date.now(),
             genericQuestions: questions,
             currentQuestion: questions.shift(),
             manualQuestions: [],

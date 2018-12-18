@@ -13,7 +13,7 @@ import {FeedbackMessage, FeedbackType} from '../../core/feedback/feedback.model'
 })
 export class PartyService {
 
-  private readonly path = 'party';
+  private readonly path = 'parties';
   private partyObservable: Observable<Party>;
   private _isGameLeader = false;
 
@@ -59,7 +59,8 @@ export class PartyService {
       const party: Party = {
         leader: user.id,
         selectedGame: game.id,
-        joinCode: this.randomString(6)
+        joinCode: this.randomString(6),
+        created: Date.now(),
       };
       return this.createParty(party).then((newParty) => {
         this.authService.upsertUserParty(newParty.id);
