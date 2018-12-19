@@ -41,6 +41,13 @@
   width: 100%;
 }
 
+.next-question-button{
+  position: absolute;
+  bottom: 25vh;
+  max-width: 40vh;
+  width: 100%;
+}
+
 .add-question-div{
   margin-top: 3vh;
   width: 40vh;
@@ -51,4 +58,9 @@
   bottom: 2vh;
   right: 2vh;
   color: white;
+}
+
+.content {
+  max-width: 40vh;
+  width: 100%;
 }
