@@ -22,6 +22,10 @@ export class AliasComponent implements OnInit, OnDestroy {
   isGameLeader: boolean;
   subscription: Subscription;
   fromLink: string;
+  party: Party;
+  // TODO: Fix better nicknames
+  nicknames = ['Bob', 'Obi Wan', 'Copycat', 'Zelda', 'Big Mac', 'Baby Boo', 'Champ', 'King Kong',
+    'Snicky Snack', 'Kraken', 'Oh Snap', 'Katniss'];
 
   constructor(
     private router: Router,
@@ -43,6 +47,7 @@ export class AliasComponent implements OnInit, OnDestroy {
     if (this.fromLink) {
       this.partyService.party.subscribe(party => {
         console.log(party);
+        this.party = party;
         if ((party && party.joinCode === this.joinCode)) {
           return;
         } else {
@@ -62,6 +67,9 @@ export class AliasComponent implements OnInit, OnDestroy {
   }
 
   setAlias() {
+    if (!this.alias) {
+      this.alias = this.nicknames[Math.floor(Math.random() * this.nicknames.length)];
+    }
     this.authService.upsertUserAlias(this.alias).then(() => {
       this.router.navigate([`lobby/${this.joinCode}`]);
     });
