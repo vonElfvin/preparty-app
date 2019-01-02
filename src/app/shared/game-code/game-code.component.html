@@ -1,9 +1,9 @@
-<div>
-  <span class="game-code" *ngIf="joinCode">
+<div *ngIf="(joinCodeObs | async) as joinCode">
+  <span class="game-code" *ngIf="joinCode && showJoinCode">
     <p>Game Code</p>
     <b>{{joinCode}}</b>
   </span>
-  <span class="game-code" *ngIf="!joinCode">
+  <span class="game-code" *ngIf="!showJoinCode">
     <p>Create game to generate game code!</p>
   </span>
 </div>

@@ -1,10 +1,25 @@
 <div class="center">
   <app-back-button (click)="hideMenuButton=!hideMenuButton" *ngIf="hideMenuButton">
   </app-back-button>
-  <app-game-code *ngIf="gameInstance" [joinCode]="gameInstance?.joinCode"></app-game-code>
-  <app-menu-button *ngIf="!hideMenuButton" (gameInfoClick)="onGameInfoClick()" ></app-menu-button>
+  <app-game-code></app-game-code>
+  <app-menu-button *ngIf="!hideMenuButton"></app-menu-button>
   <img src="../../assets/illustrations/never_have_I_ever_logo_text.png" class="logo">
   <div class="content">
+    <mat-card>
+      <b>Who is most likely to eat a Big mac Right now?</b>
+      <div>Vote for:</div>
+      <button mat-raised-button *ngFor="let member of party?.members"
+              [color]="member.id == selectedMemberId ? 'accent': 'primary'"
+              style="margin:auto 2px"
+              (click)="selectMember(member.id)">
+        {{member.alias}}
+      </button>
+      <div *ngIf="gameInstance && party">{{gameInstance?.currentVotes.length + '/' + party?.members.length + 'Have voted'}}</div>
+    </mat-card>
+    <app-default-size-button class="next-question-button" *ngIf="isGameLeader | async"
+                             [text]="'Force next Question'" [matIconName]="'chevron_right'" (click)="setNextQuestion()">
+    </app-default-size-button>
+
 
   </div>
   <app-footer-image></app-footer-image>

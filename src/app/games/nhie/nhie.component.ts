@@ -33,14 +33,13 @@ export class NhieComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private feedbackService: FeedbackService,
     private partyService: PartyService,
-    private router: Router
   ) { }
 
   ngOnInit() {
     this.isGameLeader = this.partyService.isGameLeaderObservable;
     const joinCode = this.route.snapshot.params['joinCode'];
     if (joinCode) {
-      this.nhieGameInstanceService.getGameInstanceByJoinCode(joinCode).subscribe(gameInstance => {
+      this.subscription = this.nhieGameInstanceService.getGameInstanceByJoinCode(joinCode).subscribe(gameInstance => {
         console.log(gameInstance);
         if (gameInstance) {
           this.gameInstance = gameInstance;
@@ -53,6 +52,7 @@ export class NhieComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   setNextQuestion() {

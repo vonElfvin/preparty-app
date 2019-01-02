@@ -1,5 +1,5 @@
 <div class="center">
-  <app-game-code [joinCode]="(party | async)?.joinCode"></app-game-code>
+  <app-game-code></app-game-code>
   <app-menu-button></app-menu-button>
   <div class="logo-wrapper">
     <img *ngIf="gameObservable | async as game" [src]="game.image_path" class="logo">

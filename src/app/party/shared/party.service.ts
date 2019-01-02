@@ -51,7 +51,12 @@ export class PartyService {
   }
 
   getPartyById(id: string): Observable<Party> {
-    return this.firestoreService.get(this.path, id);
+    return this.firestoreService.get(this.path, id).pipe(map(party => {
+      if (party) {
+        party['id'] = id;
+      }
+      return party;
+    }));
   }
 
   createNewPartyFromGame(game: Game): Promise<Party> {

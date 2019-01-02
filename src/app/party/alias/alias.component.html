@@ -1,7 +1,7 @@
 <div *ngIf="gameObservable | async as game" class="center">
   <span *ngIf="isGameLeader !== null">
   <app-back-button [routerLink]="'/'"></app-back-button>
-  <app-game-code [joinCode]="!isGameLeader ? joinCode : false"></app-game-code>
+  <app-game-code [showJoinCode]="!isGameLeader"></app-game-code>
   <div class="content">
     <div class="center">
       <img [src]="game?.image_path" class="logo">

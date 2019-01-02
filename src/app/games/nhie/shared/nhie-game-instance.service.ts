@@ -15,7 +15,6 @@ import { Nhie, NhieQuestion } from './nhie';
 export class NhieGameInstanceService {
 
   constructor(
-    private firestoreService: FirestoreService<NhieGameInstance>,
     private nhieQuestionService: NhieQuestionService,
     private gameInstanceService: GameInstanceService,
     private partyService: PartyService
