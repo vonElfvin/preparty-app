@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NhieModule } from './nhie/nhie.module';
-import { GamesComponent } from './games.component';
 import {
   MatFormFieldModule, MatInputModule, MatDividerModule, MatCardModule, MatGridListModule
 } from '@angular/material';
@@ -15,7 +14,6 @@ import { VotingGameComponent } from './voting-game/voting-game.component';
 
 @NgModule({
   declarations: [
-    GamesComponent,
     VotingGameComponent
   ],
   imports: [

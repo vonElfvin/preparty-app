@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Game } from './shared/game.model';
-import { Router } from '@angular/router';
-import { GameService } from './shared/game.service';
-import { Observable } from 'rxjs';
-import {PartyService} from '../party/shared/party.service';
-import { FeedbackService } from '../core/feedback/feedback.service';
-import { FeedbackMessage, FeedbackType } from '../core/feedback/feedback.model';
-import { AuthService } from '../core/auth/auth.service';
-import { take } from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {Game} from '../../games/shared/game.model';
+import {GameService} from '../../games/shared/game.service';
+import {Router} from '@angular/router';
+import {PartyService} from '../shared/party.service';
+import {FeedbackService} from '../../core/feedback/feedback.service';
+import {AuthService} from '../../core/auth/auth.service';
+import {take} from 'rxjs/operators';
+import {FeedbackMessage, FeedbackType} from '../../core/feedback/feedback.model';
 
 @Component({
-  selector: 'app-games',
-  templateUrl: './games.component.html',
-  styleUrls: ['./games.component.scss']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
-export class GamesComponent implements OnInit {
-
+export class HomeComponent implements OnInit {
   games: Observable<Game[]>;
 
   joinCode = '';
