@@ -50,7 +50,7 @@ export class LobbyComponent implements OnInit {
   checkGameInstance() {
     this.gameInstanceService.gameInstance.subscribe(gameInstance => {
       if (gameInstance && this.router.url.indexOf('lobby') !== -1) {
-        this.router.navigate([gameInstance.gameId + '/' + gameInstance.joinCode]);
+        this.router.navigate(['game/' + gameInstance.gameId + '/' + gameInstance.joinCode]);
       }
     });
   }
@@ -59,19 +59,7 @@ export class LobbyComponent implements OnInit {
     this.party.pipe(
       take(1)
     ).subscribe(party => {
-      this.router.navigate([party.selectedGame + '/' + party.joinCode]);
+      this.router.navigate(['game/' + party.selectedGame + '/' + party.joinCode]);
     });
-  }
-
-  onGameInfoClick() {
-    this.gameObservable.pipe(
-      take(1)
-    ).subscribe(game => {
-      this.router.navigate(['game-info/' + game.urlPath]);
-    });
-  }
-
-  onLeaveClick() {
-
   }
 }

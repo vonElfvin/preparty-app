@@ -92,12 +92,4 @@ export class NhieComponent implements OnInit, OnDestroy {
     this.showAddQuestion = false;
     this.feedbackService.message(FeedbackMessage.QuestionSuccess, FeedbackType.Primary);
   }
-
-  onGameInfoClick() {
-    this.router.navigate(['game-info/nhie']);
-  }
-
-  onLeaveClick() {
-
-  }
 }

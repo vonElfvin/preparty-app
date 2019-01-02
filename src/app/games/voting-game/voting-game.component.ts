@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VotingGameComponent implements OnInit {
 
+  hideMenuButton = false;
+
   constructor() { }
 
   ngOnInit() {
