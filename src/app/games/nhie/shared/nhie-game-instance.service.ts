@@ -3,7 +3,7 @@ import {Party} from '../../../party/shared/party';
 import {NhieGameInstance} from './nhie-game-instance';
 import {FirestoreService} from '../../../core/firebase/firestore/firestore.service';
 import {GameInstanceService} from '../../shared/game-instance.service';
-import { combineLatest, Observable } from 'rxjs';
+import {combineLatest, Observable, of} from 'rxjs';
 import {PartyService} from '../../../party/shared/party.service';
 import {switchMap, take, map} from 'rxjs/operators';
 import { NhieQuestionService } from './nhie-question.service';
@@ -35,6 +35,7 @@ export class NhieGameInstanceService {
       this.getGameInstanceQuestions([])
     ).pipe(
         switchMap(([party, questions]: [Party, NhieQuestion[]]) => {
+          if (!party) { return of(null); }
           const gameInstance = <NhieGameInstance>{
             partyId: party.id,
             gameId: party.selectedGame,

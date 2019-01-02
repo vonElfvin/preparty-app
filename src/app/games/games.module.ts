@@ -11,10 +11,12 @@ import { FormsModule } from '@angular/forms';
 import { GameInstanceService } from './shared/game-instance.service';
 import { GameService } from './shared/game.service';
 import { SharedModule } from '../shared/shared.module';
+import { VotingGameComponent } from './voting-game/voting-game.component';
 
 @NgModule({
   declarations: [
-    GamesComponent
+    GamesComponent,
+    VotingGameComponent
   ],
   imports: [
     CommonModule,

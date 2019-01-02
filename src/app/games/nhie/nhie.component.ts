@@ -53,7 +53,6 @@ export class NhieComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.nhieQuestionService
   }
 
   setNextQuestion() {
