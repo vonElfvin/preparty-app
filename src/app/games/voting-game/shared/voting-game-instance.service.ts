@@ -4,10 +4,10 @@ import {Observable, of} from 'rxjs';
 import {Vote, VotingGameInstance} from './voting-game';
 import {Party} from '../../../party/shared/party';
 import {PartyService} from '../../../party/shared/party.service';
-import {switchMap} from 'rxjs/operators';
+import {switchMap, take} from 'rxjs/operators';
 import {FirestoreService} from '../../../core/firebase/firestore/firestore.service';
-import * as firebase from 'firebase';
-
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +23,20 @@ export class VotingGameInstanceService {
     return <Observable<VotingGameInstance>> this.gameInstanceService.gameInstance;
   }
 
+  updateGameInstance(gameInstance: VotingGameInstance): Promise<void> {
+    return this.gameInstanceService.updateGameInstance(gameInstance);
+  }
+
   createGameInstance(): Promise<void> {
-    const questions = [{ question: 'Who is most likely to buy a Big Mac?', id: '1'},
-      {question: 'Who is most likely to get most drunk tonight?', id: '1'},
-      {question: 'Who is the smartest?', id: '1'},
-      {question: 'Who is most likely to get kids first?', id: '1'}];
-    return this.partyService.party.pipe(switchMap(party => {
+
+    return this.partyService.party.pipe(take(1), switchMap((party: Party) => {
+      const questions = [{ question: 'Who is most likely to buy a Big Mac?', id: '1', index: 1},
+        {question: 'Who is most likely to get most drunk tonight?', id: '2', index: 2},
+        {question: 'Who is the smartest?', id: '3', index: 3},
+        {question: 'Who is most likely to get kids first?', id: '4', index: 4},
+        {question: 'Whose eating skills are most impressive', id: '5', index: 5},
+        {question: 'Who would you bring to an empty island?', id: '6', index: 6},
+        {question: 'Who would you bring to På spåret?', id: '6', index: 6}];
       if (!party) { return of(null); }
       console.log(party);
       const votingGameInstance = <VotingGameInstance> {
@@ -42,7 +50,8 @@ export class VotingGameInstanceService {
         manualQuestions: [],
         seenQuestions: [],
         oldVotes: [],
-        currentVotes: []
+        currentVotes: [],
+        viewResults: false
       };
       return this.gameInstanceService.createNewGameInstance(votingGameInstance);
     })).toPromise();
@@ -53,5 +62,12 @@ export class VotingGameInstanceService {
     return this.firestoreService.update(this.path, gameInstanceId, {currentVotes: firebase.firestore.FieldValue.arrayUnion(vote)});
   }
 
+  removeVote(vote: Vote, gameInstanceId: string) {
+    return this.firestoreService.update(this.path, gameInstanceId, {currentVotes: firebase.firestore.FieldValue.arrayRemove(vote)});
+  }
+
+  setViewing(gameInstanceId: string, value: boolean){
+    return this.firestoreService.update(this.path, gameInstanceId, {viewResults: value});
+  }
 
 }

@@ -5,19 +5,38 @@
   <app-menu-button *ngIf="!hideMenuButton"></app-menu-button>
   <img src="../../assets/illustrations/never_have_I_ever_logo_text.png" class="logo">
   <div class="content">
-    <mat-card>
-      <b>Who is most likely to eat a Big mac Right now?</b>
+    <mat-card *ngIf=" gameInstance && !gameInstance?.viewResults">
+      <b>{{currentQuestion?.question}}</b>
       <div>Vote for:</div>
       <button mat-raised-button *ngFor="let member of party?.members"
               [color]="member.id == selectedMemberId ? 'accent': 'primary'"
               style="margin:auto 2px"
               (click)="selectMember(member.id)">
-        {{member.alias}}
+        {{member.id!=uid ? member.alias: 'Me'}}
       </button>
-      <div *ngIf="gameInstance && party">{{gameInstance?.currentVotes.length + '/' + party?.members.length + 'Have voted'}}</div>
+      <div *ngIf="gameInstance && party" >{{gameInstance?.currentVotes?.length + '/' + party?.members?.length + 'Have voted'}}</div>
     </mat-card>
-    <app-default-size-button class="next-question-button" *ngIf="isGameLeader | async"
+
+    <mat-card *ngIf="gameInstance && gameInstance?.viewResults">
+      <div>Results for:</div>
+      <b>{{gameInstance.currentQuestion.question}}</b>
+      <br>
+      <br>
+      <div *ngFor="let res of votingResults">{{res.name}} {{res.votes}}</div>
+
+
+    </mat-card>
+
+    <app-default-size-button class="next-question-button" *ngIf="isGameLeader && !gameInstance?.viewResults"
                              [text]="'Force next Question'" [matIconName]="'chevron_right'" (click)="setNextQuestion()">
+    </app-default-size-button>
+
+    <div *ngIf="!isGameLeader && gameInstance?.viewResults" class="bottom-text add-question-button">
+      Waiting for game leader to start next round...
+    </div>
+
+    <app-default-size-button class="add-question-button" *ngIf="isGameLeader && gameInstance?.viewResults"
+                             [text]="'Next Round'" [matIconName]="'chevron_right'" (click)="setViewingFalse()">
     </app-default-size-button>
 
 

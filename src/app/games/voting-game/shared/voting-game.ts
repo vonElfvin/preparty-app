@@ -20,4 +20,5 @@ export interface VotingGameInstance extends GameInstance {
   currentVotes: Vote[];
   oldVotes: Vote[];
   seenQuestions: number[];
+  viewResults: boolean;
 }

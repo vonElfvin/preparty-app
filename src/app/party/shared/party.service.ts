@@ -91,7 +91,7 @@ export class PartyService {
                 party.members = users;
                 return party;
               } else {
-                return of (null);
+                return null;
               }
             })
           );
