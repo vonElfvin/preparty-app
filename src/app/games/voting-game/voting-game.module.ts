@@ -4,6 +4,7 @@ import {VotingGameComponent} from './voting-game.component';
 import {SharedModule} from '../../shared/shared.module';
 import {PartyModule} from '../../party/party.module';
 import {MatButtonModule, MatCardModule} from '@angular/material';
+import {ChartsModule} from 'ng2-charts';
 
 @NgModule({
   declarations: [VotingGameComponent],
@@ -11,6 +12,8 @@ import {MatButtonModule, MatCardModule} from '@angular/material';
     CommonModule,
     SharedModule,
     PartyModule,
+
+    ChartsModule,
 
     MatCardModule,
     MatButtonModule

@@ -22,8 +22,15 @@
       <b>{{gameInstance.currentQuestion.question}}</b>
       <br>
       <br>
-      <div *ngFor="let res of votingResults">{{res.name}} {{res.votes}}</div>
-
+      <!--<div *ngFor="let res of votingResults">{{res.name}} {{res.votes}}</div>-->
+      <canvas *ngIf="labels.length>0" baseChart
+              [datasets]="data"
+              [labels]="labels"
+              [chartType]="'bar'"
+      [options]=" {legend: {display: false}, scales: {
+            yAxes: [{ticks: {beginAtZero:true, stepSize:1}, gridLines:{display:false}} ],
+            xAxes:[{gridLines:{display:false}}]}}">
+      </canvas>
 
     </mat-card>
 
@@ -44,3 +51,4 @@
   <app-footer-image></app-footer-image>
   <app-invite id="invite"></app-invite>
 </div>
+<script src="node_modules/chart.js/src/chart.js"></script>

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {PartyService} from '../../party/shared/party.service';
 import {Party} from '../../party/shared/party';
 import {Observable, Subscription} from 'rxjs';
@@ -12,7 +12,7 @@ import {User} from '../../core/auth/user.model';
   templateUrl: './voting-game.component.html',
   styleUrls: ['./voting-game.component.scss']
 })
-export class VotingGameComponent implements OnInit, OnDestroy {
+export class VotingGameComponent implements OnInit, OnDestroy, AfterViewInit {
 
   hideMenuButton = false;
   selectedMemberId: string;
@@ -28,9 +28,12 @@ export class VotingGameComponent implements OnInit, OnDestroy {
   partySub: Subscription;
   gameInstanceSub: Subscription;
   private userSub: Subscription;
+  private labels = [];
+  private data = [];
 
   constructor(private partyService: PartyService, private votingGameInstanceService: VotingGameInstanceService,
-              private authService: AuthService) { }
+              private authService: AuthService) {
+  }
 
   ngOnInit() {
     this.userSub = this.authService.user.subscribe(user => {
@@ -40,8 +43,6 @@ export class VotingGameComponent implements OnInit, OnDestroy {
         this.isGameLeader = this.party.leader === this.uid;
       }
     });
-    console.log(this.uid);
-
     this.partySub = this.partyService.party.subscribe(party => {
       this.party = party;
       if (party) {
@@ -57,10 +58,9 @@ export class VotingGameComponent implements OnInit, OnDestroy {
         if (this.party && gameInstance.currentVotes.length === this.party.members.length && this.isGameLeader) {
           this.setViewIngTrue();
         }
-        if (gameInstance.viewResults) {
+        if(this.gameInstance.viewResults) {
           this.setVotingResults();
         }
-
       } else {
         this.votingGameInstanceService.createGameInstance();
       }
@@ -78,6 +78,12 @@ export class VotingGameComponent implements OnInit, OnDestroy {
     }
     if (!voted) {
       this.selectedMemberId = null;
+    }
+  }
+
+  ngAfterViewInit(): void {
+    if (this.gameInstance && this.gameInstance.viewResults) {
+      this.setVotingResults();
     }
   }
 
@@ -126,7 +132,6 @@ export class VotingGameComponent implements OnInit, OnDestroy {
   }
 
 
-
   ngOnDestroy(): void {
     this.partySub.unsubscribe();
     this.gameInstanceSub.unsubscribe();
@@ -138,18 +143,23 @@ export class VotingGameComponent implements OnInit, OnDestroy {
   }
 
   setViewIngTrue() {
-    this.setVotingResults();
     this.votingGameInstanceService.setViewing(this.gameInstance.id, true);
   }
 
   private getOccurrence(array: Array<Vote>, value) {
     return array.filter((v) => (v.votedOnId === value)).length;
   }
+
   private setVotingResults() {
     this.votingResults = [];
+    this.labels = [];
+    this.data = [];
+    const temp = []
     for (const member of this.party.members) {
+      temp.push(this.getOccurrence(this.gameInstance.currentVotes, member.id));
+      this.labels.push(member.alias);
       this.votingResults.push({name: member.alias, votes: this.getOccurrence(this.gameInstance.currentVotes, member.id)});
     }
-
+    this.data.push({data: temp, label: 'Votes'});
   }
 }
