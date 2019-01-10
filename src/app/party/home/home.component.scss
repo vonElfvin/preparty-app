@@ -1,6 +1,6 @@
 .content {
   margin-top: 24px;
-  max-width: 300px;
+  max-width: 320px;
   width: 100%;
 }
 
@@ -8,15 +8,14 @@ img {
   width: 100%;
 }
 
-button {
-  width: 100%;
-  height: 59.5px;
-}
-
-#start {
+.start {
   text-align: center;
   color: white;
   margin-bottom: 4px !important;
+}
+
+form {
+  margin-top: 16px;
 }
 
 .game-divider{
@@ -32,8 +31,8 @@ button {
 /deep/ .mat-tab-label{
   width: 50% !important;
   color: #ffffff !important;
-  font-size: 2vh;
 }
+
 /*
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
   background-color: white;
