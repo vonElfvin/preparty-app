@@ -18,7 +18,7 @@ export class GameInfoComponent implements OnInit, OnDestroy {
 
   gameObs: Observable<Game>;
 
-  joinCode: string;
+  joinCode: number;
 
   image_path: string;
 

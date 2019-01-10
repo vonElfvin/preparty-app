@@ -17,7 +17,7 @@ import {FeedbackMessage, FeedbackType} from '../../core/feedback/feedback.model'
 export class AliasComponent implements OnInit, OnDestroy {
 
   alias: string;
-  joinCode: string;
+  joinCode: number;
   gameObservable: Observable<Game>;
   isGameLeader: boolean;
   subscription: Subscription;

@@ -25,7 +25,7 @@ export class LobbyComponent implements OnInit {
 
   isGameLeader: Observable<boolean>;
 
-  joinCode: string;
+  joinCode: number;
 
   constructor(
     private partyService: PartyService,
@@ -42,7 +42,7 @@ export class LobbyComponent implements OnInit {
     this.isGameLeader = this.partyService.isGameLeaderObservable;
     this.isLoggedIn = this.authService.isLoggedInObservable;
     this.joinCode = this.route.snapshot.params['joinCode'];
-    this.joinCode = this.joinCode.toLowerCase();
+    this.joinCode = this.joinCode;
     this.gameObservable = this.gameService.game;
     this.checkGameInstance();
   }
