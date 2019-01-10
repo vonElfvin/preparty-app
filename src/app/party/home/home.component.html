@@ -5,8 +5,7 @@
     <form (ngSubmit)="joinGame()">
       <mat-form-field appearance="fill">
         <mat-label>Game code</mat-label>
-        <input oninput="this.value = this.value.toLowerCase()" matInput
-               [(ngModel)]="joinCode" name="joinCode" type="number" min="0" max="999999">
+        <input matInput [(ngModel)]="joinCode" name="joinCode" type="number" min="0" max="999999">
       </mat-form-field>
       <div style="height: 12px"></div>
       <app-default-size-button [text]="'Join Game'" [matIconName]="'chevron_right'" [disabled]="!joinCode"></app-default-size-button>
