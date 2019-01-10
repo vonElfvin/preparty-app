@@ -23,6 +23,16 @@ form {
   margin-bottom: 2vh;
 }
 
+.game-image-div{
+  border-radius: 3px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 8px 0 rgba(0, 0, 0, 0.19);
+}
+
+.game-image{
+  height: 90%;
+  width: 90%;
+}
+
 .game-image:hover {
   cursor: pointer;
   opacity: 0.925;
