@@ -5,6 +5,6 @@ export interface Party {
   members?: User[];
   leader: string;
   selectedGame: string;
-  joinCode: string;
+  joinCode: number;
   created: number;
 }
