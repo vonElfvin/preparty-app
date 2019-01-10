@@ -7,7 +7,7 @@ import {
   MatDividerModule,
   MatFormFieldModule, MatGridListModule,
   MatIconModule,
-  MatInputModule
+  MatInputModule, MatTabsModule
 } from '@angular/material';
 import { PartyService } from './shared/party.service';
 import { AliasComponent } from './alias/alias.component';
@@ -44,7 +44,8 @@ import { HomeComponent } from './home/home.component';
     MatFormFieldModule,
     MatDividerModule,
     MatIconModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTabsModule
   ],
   providers: [PartyService]
 })

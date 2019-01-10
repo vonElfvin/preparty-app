@@ -28,6 +28,12 @@ button {
   cursor: pointer;
   opacity: 0.925;
 }
+
+/deep/ .mat-tab-label{
+  width: 50% !important;
+  color: #ffffff !important;
+  font-size: 2vh;
+}
 /*
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
   background-color: white;
