@@ -4,8 +4,8 @@ import { NhieGameInstance } from './shared/nhie-game-instance';
 import { FeedbackService } from '../../core/feedback/feedback.service';
 import { FeedbackMessage, FeedbackType } from '../../core/feedback/feedback.model';
 import { PartyService } from '../../party/shared/party.service';
-import { Observable, Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { NhieQuestion } from './shared/nhie';
 import { NhieQuestionService } from './shared/nhie-question.service';
 import { take } from 'rxjs/operators';
@@ -19,13 +19,10 @@ export class NhieComponent implements OnInit, OnDestroy {
 
   gameInstance: NhieGameInstance;
   currentQuestion: NhieQuestion;
-  subscription: Subscription;
 
   isGameLeader: Observable<boolean>;
 
   showAddQuestion = false;
-
-  currentPlayer: string;
 
   constructor(
     private nhieGameInstanceService: NhieGameInstanceService,
@@ -33,12 +30,11 @@ export class NhieComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private feedbackService: FeedbackService,
     private partyService: PartyService,
-    private router: Router
   ) { }
 
   ngOnInit() {
     this.isGameLeader = this.partyService.isGameLeaderObservable;
-    const joinCode = this.route.snapshot.params['joinCode'];
+    const joinCode = +this.route.snapshot.params['joinCode'];
     if (joinCode) {
       this.nhieGameInstanceService.getGameInstanceByJoinCode(joinCode).subscribe(gameInstance => {
         console.log(gameInstance);
