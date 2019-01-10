@@ -15,7 +15,7 @@
     <mat-divider class="game-divider"></mat-divider>
 
     <mat-grid-list [cols]="2" rowHeight="1:1" gutterSize="10">
-      <mat-grid-tile *ngFor="let game of games | async">
+      <mat-grid-tile *ngFor="let game of games | async" class="game-image-div">
         <img src="{{game.menuImagePath}}" (click)="selectGame(game)" class="game-image">
       </mat-grid-tile>
     </mat-grid-list>
