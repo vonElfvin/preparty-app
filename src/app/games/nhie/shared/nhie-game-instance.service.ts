@@ -25,11 +25,11 @@ export class NhieGameInstanceService {
     return this.nhieQuestionService.getQuestions(seenQuestions);
   }
 
-  getGameInstanceByJoinCode(joinCode: string): Observable<NhieGameInstance> {
+  getGameInstanceByJoinCode(joinCode: number): Observable<NhieGameInstance> {
     return <Observable<NhieGameInstance>>this.gameInstanceService.getGameInstanceByJoinCode(joinCode);
   }
 
-  generateNewGameInstanceFromCode(joinCode: string): Promise<void> {
+  generateNewGameInstanceFromCode(joinCode: number): Promise<void> {
     return combineLatest(
       this.partyService.getPartyByJoinCode(joinCode),
       this.getGameInstanceQuestions([])

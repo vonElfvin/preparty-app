@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FirestoreService } from '../../core/firebase/firestore/firestore.service';
 import { Party } from './party';
-import {Observable, combineLatest, of, from, throwError} from 'rxjs';
-import {map, tap, switchMap, take} from 'rxjs/operators';
+import {Observable, combineLatest, of, throwError} from 'rxjs';
+import {map, switchMap, take} from 'rxjs/operators';
 import { Game } from '../../games/shared/game.model';
 import { AuthService } from '../../core/auth/auth.service';
-import {User} from '../../core/auth/user.model';
-import {FeedbackMessage, FeedbackType} from '../../core/feedback/feedback.model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +40,7 @@ export class PartyService {
     return this.firestoreService.insert(this.path, party);
   }
 
-  getPartyByJoinCode(joinCode: string): Observable<Party> {
+  getPartyByJoinCode(joinCode: number): Observable<Party> {
     return this.firestoreService.list(this.path,
       ref => ref.where('joinCode', '==', joinCode)
     ).pipe(
@@ -54,23 +52,19 @@ export class PartyService {
     return this.firestoreService.get(this.path, id);
   }
 
-  createNewPartyFromGame(game: Game): Promise<Party> {
-    return this.authService.loginAnonymously().then(user => {
-      const party: Party = {
-        leader: user.id,
-        selectedGame: game.id,
-        joinCode: this.randomString(6),
-        created: Date.now(),
-      };
-      return this.createParty(party).then((newParty) => {
-        this.authService.upsertUserParty(newParty.id);
-        return party;
-      });
+  async createNewPartyFromGame(game: Game): Promise<Party> {
+    const joinCode = await this.getNewJoinCode(6);
+    const user = await this.authService.loginAnonymously();
+    const party: Party = {
+      leader: user.id,
+      selectedGame: game.id,
+      joinCode: joinCode,
+      created: Date.now(),
+    };
+    return this.createParty(party).then((newParty) => {
+      this.authService.upsertUserParty(newParty.id);
+      return party;
     });
-  }
-
-  checkPartyExists(joinCode: string) {
-    return this.firestoreService.check(this.path, 'joinCode', joinCode);
   }
 
   setParty() {
@@ -78,7 +72,6 @@ export class PartyService {
       switchMap(user => {
         if (user && user.partyId) {
           const partyId = user.partyId;
-          console.log(user);
           return combineLatest(this.getPartyById(partyId), this.authService.getUsersByPartyId(partyId)).pipe(
             map(([party, users]) => {
               if (party) {
@@ -100,7 +93,7 @@ export class PartyService {
 
   leaveParty(): Promise<any> {
     if (this.isGameLeader) {
-      return this.changePartyLeader().toPromise().then(res => {
+      return this.changePartyLeader().toPromise().then(() => {
         return this.authService.removePartyId();
       });
     } else {
@@ -122,10 +115,10 @@ export class PartyService {
         return this.firestoreService.upsert(this.path, user.partyId, {leader: leader.id});
       })
     );
-
   }
-  joinGame(joinCode: string): Promise<any> {
-    return this.getPartyByJoinCode(joinCode.toLowerCase()).pipe(
+
+  joinGame(joinCode: number): Promise<any> {
+    return this.getPartyByJoinCode(joinCode).pipe(
       take(1),
       switchMap(party => {
         if (party) {
@@ -133,20 +126,22 @@ export class PartyService {
             return this.authService.joinParty(party);
           });
         } else {
-          return throwError('no such party with joinCode: ' + joinCode);
+          return throwError('No party with joinCode: ' + joinCode);
         }
       })).toPromise();
   }
 
-  randomString(length: number): string {
-    const chars = '0123456789abcdefghiklmnopqrstuvwxyz';
-    const string_length = length;
-    let randomString = '';
-    for (let i = 0; i < string_length; i++) {
-      const rnum = Math.floor(Math.random() * chars.length);
-      randomString += chars.substring(rnum, rnum + 1);
-    }
-    return randomString;
+  checkJoinCodeExists(joinCode: number): Promise<boolean> {
+    return this.firestoreService.check(this.path, 'joinCode', joinCode);
   }
 
+  async getNewJoinCode(length: number): Promise<number> {
+    const newId = Math.floor(Math.random() * (10 ** length));
+    const exists = await this.checkJoinCodeExists(newId);
+    if (!exists) {
+      return newId;
+    } else {
+      return this.getNewJoinCode(length);
+    }
+  }
 }

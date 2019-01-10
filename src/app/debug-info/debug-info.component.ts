@@ -11,7 +11,7 @@ import { PartyService } from 'src/app/party/shared/party.service';
 export class DebugInfoComponent implements OnInit {
 
   party: Party;
-  joinCode: string;
+  joinCode: number;
   gameLeader: boolean;
 
   constructor(private partyService: PartyService) { }

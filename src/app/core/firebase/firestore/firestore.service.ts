@@ -32,14 +32,14 @@ export class FirestoreService<Item> {
     return this.colWithIds(path, queryFn);
   }
 
-  check(path: string, key: string, value: string) {
+  check(path: string, key: string, value: any): Promise<boolean> {
     if (!value) {
-      return of(false);
+      throw new Error('No value provided.');
     }
     return this.col(path, ref => ref.where(key, '==', value)).snapshotChanges().pipe(
       take(1),
       map(items => items.length > 0)
-    );
+    ).toPromise();
   }
 
   delete(path: string, id: string): Promise<void> {
