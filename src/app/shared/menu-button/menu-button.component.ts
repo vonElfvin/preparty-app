@@ -42,7 +42,7 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
     });
   }
 
-  infoClick($event) {
+  infoClick() {
     this.router.navigate(['game-info/' + this.selectedGame]);
     //this.gameInfoClick.emit($event);
   }
