@@ -12,7 +12,6 @@ import { GameService } from './shared/game.service';
 import { SharedModule } from '../shared/shared.module';
 import { VotingGameComponent } from './voting-game/voting-game.component';
 import { GamesComponent } from './games.component';
-import {GamesRoutingModule} from './games-routing.module';
 import {PartyModule} from '../party/party.module';
 import {VotingGameModule} from './voting-game/voting-game.module';
 
@@ -24,7 +23,6 @@ import {VotingGameModule} from './voting-game/voting-game.module';
     CommonModule,
     FormsModule,
 
-    GamesRoutingModule,
     // Material
     MatFormFieldModule,
     MatInputModule,

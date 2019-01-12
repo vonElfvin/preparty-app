@@ -24,8 +24,8 @@ import { environment } from '../environments/environment';
     AdminModule,
     CoreModule,
     SharedModule,
-    GamesModule,
     PartyModule,
+    GamesModule,
     AppRoutingModule,
 
     // Angular Imports
