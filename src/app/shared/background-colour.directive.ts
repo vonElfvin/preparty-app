@@ -43,8 +43,10 @@ export class BackgroundColourDirective implements OnDestroy {
     this.spinnerService.loader.subscribe((loading: boolean) => {
       if (loading === true) {
         el.nativeElement.style.filter = 'brightness(50%)';
+        el.nativeElement.style.WebkitFilter = 'brightness(50%)';
       } else {
         el.nativeElement.style.filter = 'brightness(100%)';
+        el.nativeElement.style.WebkitFilter = 'brightness(100%)';
       }
     });
   }
