@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 export class BackgroundColourDirective implements OnDestroy {
 
   accent = '#4fc3f7';
-  subscription: Subscription
+  subscription: Subscription;
 
   constructor(
     private gameService: GameService,

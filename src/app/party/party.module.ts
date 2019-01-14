@@ -18,6 +18,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { GameInfoComponent } from './game-info/game-info.component';
 import { InviteComponent } from './invite/invite.component';
 import { HomeComponent } from './home/home.component';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [

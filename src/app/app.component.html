@@ -1,4 +1,5 @@
-<div appBackgroundColour style="height: 100%">
+<div appBackgroundColour [ngStyle]="{'filter': (loading | async) === true ? 'brightness(30%)' : 'brightness(100%)'}" style="height: 100%">
     <!--<app-debug-info></app-debug-info>-->
     <router-outlet></router-outlet>
 </div>
+<app-spinner *ngIf="loading | async"></app-spinner>
