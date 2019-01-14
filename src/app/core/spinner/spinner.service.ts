@@ -23,7 +23,6 @@ export class SpinnerService {
 
   load() {
     this.loading.next(true);
-    console.log(this.loading);
   }
 
   stopLoad() {

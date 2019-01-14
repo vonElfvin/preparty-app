@@ -13,6 +13,7 @@ import { MenuButtonComponent } from './menu-button/menu-button.component';
 import { BackgroundColourDirective } from './background-colour.directive';
 import { TruncatePipe } from './truncate-pipe/truncate.pipe';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     MatInputModule,
     MatTooltipModule,
     ReactiveFormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    CoreModule
   ],
   exports: [
     FooterImageComponent,
