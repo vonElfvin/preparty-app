@@ -3,7 +3,7 @@ import { AuthService } from './core/auth/auth.service';
 import { Observable } from 'rxjs';
 import { User } from './core/auth/user.model';
 import { SpinnerService } from './core/spinner/spinner.service';
-import { Router, NavigationEnd } from '@angular/router';
+import { NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +17,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private spinnerService: SpinnerService,
-    private router: Router
+    private spinnerService: SpinnerService
   ) { }
 
   ngOnInit() {
@@ -26,12 +25,6 @@ export class AppComponent implements OnInit {
     this.userObservable = this.authService.user;
     this.userObservable.subscribe(user => {
       console.log(user);
-    });
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        (<any>window).ga('set', 'page', event.urlAfterRedirects);
-        (<any>window).ga('send', 'pageview');
-      }
     });
   }
 }
