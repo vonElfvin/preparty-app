@@ -24,11 +24,13 @@ form {
 }
 
 .game-image-div{
-  border-radius: 3px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 8px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+  background-color: #75d2f2;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .game-image{
+  border-radius: 5px;
   height: 90%;
   width: 90%;
 }
