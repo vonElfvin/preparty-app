@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from 'rxjs';
-import {Game} from '../../games/shared/game.model';
-import {GameService} from '../../games/shared/game.service';
-import {Router} from '@angular/router';
-import {PartyService} from '../shared/party.service';
-import {FeedbackService} from '../../core/feedback/feedback.service';
-import {AuthService} from '../../core/auth/auth.service';
-import {take} from 'rxjs/operators';
-import {FeedbackMessage, FeedbackType} from '../../core/feedback/feedback.model';
+import { Observable } from 'rxjs';
+import { Game } from '../../games/shared/game.model';
+import { GameService } from '../../games/shared/game.service';
+import { Router } from '@angular/router';
+import { PartyService } from '../shared/party.service';
+import { FeedbackService } from '../../core/feedback/feedback.service';
+import { AuthService } from '../../core/auth/auth.service';
+import { take } from 'rxjs/operators';
+import { FeedbackMessage, FeedbackType } from '../../core/feedback/feedback.model';
+import { SpinnerService } from '../../core/spinner/spinner.service';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +26,7 @@ export class HomeComponent implements OnInit {
     private partyService: PartyService,
     private feedbackService: FeedbackService,
     private authService: AuthService,
+    private spinnerService: SpinnerService
   ) { }
 
   ngOnInit() {
@@ -32,6 +34,7 @@ export class HomeComponent implements OnInit {
   }
 
   joinGame() {
+    this.spinnerService.load();
     this.partyService.getPartyByJoinCode(this.joinCode).pipe(
       take(1)
     ).subscribe(party => {
@@ -49,6 +52,7 @@ export class HomeComponent implements OnInit {
   }
 
   selectGame(game: Game) {
+    this.spinnerService.load();
     this.partyService.createNewPartyFromGame(game).then(party => {
       this.router.navigate([`alias/${party.joinCode}`]);
     });

@@ -4,14 +4,14 @@ import { FirebaseModule } from './firebase/firebase.module';
 import { AuthService } from './auth/auth.service';
 import { MatSnackBarModule } from '@angular/material';
 import { FeedbackService } from './feedback/feedback.service';
+import { SpinnerService } from './spinner/spinner.service';
 
 @NgModule({
   declarations: [],
-  providers: [AuthService, FeedbackService],
+  providers: [AuthService, FeedbackService, SpinnerService],
   imports: [
     CommonModule,
     FirebaseModule,
-
     MatSnackBarModule,
   ]
 })
