@@ -18,6 +18,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { GameInfoComponent } from './game-info/game-info.component';
 import { InviteComponent } from './invite/invite.component';
 import { HomeComponent } from './home/home.component';
+import { WrapperComponent } from './wrapper/wrapper.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HomeComponent } from './home/home.component';
     AliasComponent,
     GameInfoComponent,
     InviteComponent,
-    HomeComponent
+    HomeComponent,
+    WrapperComponent
   ],
   exports: [LobbyComponent,
     InviteComponent],

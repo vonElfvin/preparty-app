@@ -5,6 +5,15 @@
   color: white;
 }
 
+.logo{
+  margin-top: 10vh;
+  width: 40vh;
+}
+
+.logo-wrapper{
+  min-height: 40vh;
+}
+
 .help-button{
   position: absolute;
   top: 2vh;
@@ -12,19 +21,11 @@
   color: white;
 }
 
-.players{
-  width: 100%;
-  font-size: 2vh;
-  text-align: center;
+.game-code b{
+  font-size: 4vh;
   color: white;
-  margin-top: 2vh;
-  margin-bottom: 20vh;
 }
 
-.players b{
-  font-size: 3vh;
-  padding-bottom: 2vh;
-}
 .bottom-text {
   width: 100%;
   font-size: 3vh;
@@ -33,11 +34,4 @@
   color: white;
   position: absolute;
   bottom: 15vh;
-}
-
-.start-game-button{
-  position: absolute;
-  bottom: 15vh;
-  max-width: 40vh;
-  width: 100%;
 }

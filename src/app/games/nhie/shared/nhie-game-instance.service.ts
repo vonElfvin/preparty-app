@@ -35,7 +35,6 @@ export class NhieGameInstanceService {
       this.getGameInstanceQuestions([])
     ).pipe(
         switchMap(([party, questions]: [Party, NhieQuestion[]]) => {
-          console.log('generating game instance with party', party);
           const gameInstance = <NhieGameInstance>{
             partyId: party.id,
             gameId: party.selectedGame,

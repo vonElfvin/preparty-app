@@ -31,9 +31,9 @@ export class InviteComponent implements OnInit, OnDestroy {
   }
 
   inviteFriends() {
-    let iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+    const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
-    // IF on an Androd device use the built in share API
+    // IF on an Android device use the built in share API
     if (navigator['share']) {
       navigator['share']({
         title: 'Preparty. ',
@@ -43,10 +43,11 @@ export class InviteComponent implements OnInit, OnDestroy {
         .then(() => console.log('Share complete'))
         .error((error) => console.error('Could not share at this time', error));
     } else if (iOS) {
-      let app_id = environment.messenger_app_id;
-      window.open('fb-messenger://share?link=' + encodeURIComponent('https://preparty.app/alias/' + this.party.joinCode + '/true') + '&app_id=' + encodeURIComponent(app_id));
-    }
-    else {
+      const app_id = environment.messenger_app_id;
+      window.open('fb-messenger://share?link=' +
+        encodeURIComponent('https://preparty.app/alias/' + this.party.joinCode + '/true') + '&app_id=' +
+        encodeURIComponent(app_id));
+    } else {
       // If not on Android or iOS share by copying link
       const url = 'https://preparty.app/alias/' + this.party.joinCode + '/true';
       this.copyMessage(url);

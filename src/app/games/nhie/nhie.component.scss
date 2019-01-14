@@ -2,17 +2,6 @@
   margin-bottom: 4% !important;
 }
 
-.logo {
-  margin-top: 10vh;
-  width: 40vh;
-}
-
-.back-button{
-  position: absolute;
-  top: 2vh;
-  left: 1vh;
-  color: white;
-}
 
 .question-player{
   position: absolute;
@@ -28,11 +17,6 @@
   text-align: center;
 }
 
-.bottom-logo {
-  width: 20vh;
-  bottom: 0;
-  position: absolute;
-}
 
 .add-question-button{
   position: absolute;
@@ -63,4 +47,10 @@
 .content {
   max-width: 40vh;
   width: 100%;
+}
+
+.nihe-text-animation b {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.3s ease-in-out 0.1s;
 }

@@ -56,6 +56,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
   flex-direction: column;
 }
 
+
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: white !important;
+  filter: brightness(100%) !important; 
+}
+
 /*Div to create perfect squares*/
 /*Make objects inside 'position: absolute' to fill square*/
 .div-square {
@@ -96,4 +102,9 @@ mat-form-field {
 
 .mat-form-field-underline {
   bottom: 0 !important;
+}
+
+.content {
+  max-width: 40vh;
+  width: 100%;
 }

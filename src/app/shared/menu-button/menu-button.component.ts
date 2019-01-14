@@ -1,9 +1,6 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {PartyService} from '../../party/shared/party.service';
-import {FeedbackService} from '../../core/feedback/feedback.service';
-import {FeedbackMessage, FeedbackType} from '../../core/feedback/feedback.model';
-import {Party} from '../../party/shared/party';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -42,9 +39,8 @@ export class MenuButtonComponent implements OnInit, OnDestroy {
     });
   }
 
-  infoClick($event) {
+  infoClick() {
     this.router.navigate(['game-info/' + this.selectedGame]);
-    //this.gameInfoClick.emit($event);
   }
 
   ngOnDestroy(): void {

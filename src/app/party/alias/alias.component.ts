@@ -8,6 +8,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { Party } from '../shared/party';
 import {FeedbackService} from '../../core/feedback/feedback.service';
 import {FeedbackMessage, FeedbackType} from '../../core/feedback/feedback.model';
+import {MenuService} from '../shared/menu.service';
 
 @Component({
   selector: 'app-alias',
@@ -33,11 +34,14 @@ export class AliasComponent implements OnInit, OnDestroy {
     private partyService: PartyService,
     private gameService: GameService,
     private authService: AuthService,
-    private feedbackService: FeedbackService
+    private feedbackService: FeedbackService,
+    private menuService: MenuService
   ) { }
 
   ngOnInit() {
-    this.joinCode = this.route.snapshot.params['joinCode'];
+    this.menuService.setMenuVisibility(false);
+    this.menuService.setRouterlink('/');
+    this.joinCode = +this.route.snapshot.params['joinCode'];
     this.fromLink = this.route.snapshot.params['fromLink'];
     this.gameObservable = this.gameService.game;
     this.subscription = this.partyService.isGameLeaderObservable.subscribe(isGameLeader => {
