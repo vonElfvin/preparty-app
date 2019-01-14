@@ -8,6 +8,7 @@ export class MenuService {
 
   private menuVisibleSub = new BehaviorSubject(false);
   private routerLinkSub = new BehaviorSubject(null);
+  private hideAllSub = new BehaviorSubject(false);
 
 
   constructor() { }
@@ -28,6 +29,15 @@ export class MenuService {
 
   getRouterLinkObs(): Observable<string> {
     return this.routerLinkSub.asObservable();
+  }
+
+  setHideAll(value: boolean): Observable<boolean> {
+    this.hideAllSub.next(value);
+    return this.hideAllSub.asObservable();
+  }
+
+  getHideAll(): Observable<boolean> {
+    return this.hideAllSub.asObservable();
   }
 
 

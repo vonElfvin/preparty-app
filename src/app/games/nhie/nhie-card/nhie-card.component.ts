@@ -10,6 +10,8 @@ export class NhieCardComponent {
   @Input()
   question: string;
 
+  isLoading: boolean;
+
   constructor() {}
 
 }

@@ -7,11 +7,11 @@
       <div *ngIf="isGameLeader | async" class="question-game-leader">
         <app-nhie-card [question]="currentQuestion.question"></app-nhie-card>
       </div>
-      <app-default-size-button class="add-question-button" [text]="'Add Question'" [matIconName]="''" (click)="showAddQuestion=!showAddQuestion"></app-default-size-button>
-      <app-default-size-button class="next-question-button" *ngIf="isGameLeader | async" [text]="'Next Question'" [matIconName]="'chevron_right'" (click)="setNextQuestion()"></app-default-size-button>
+      <app-default-size-button class="add-question-button" [text]="'Add Question'" [matIconName]="''" (click)="addManualQuestionClick()"></app-default-size-button>
+      <app-default-size-button class="next-question-button" [disabled]="isloadingMoreQuestions" *ngIf="isGameLeader | async" [text]="'Next Question'" [matIconName]="'chevron_right'" (click)="setNextQuestion()"></app-default-size-button>
     </div>
-    <div class="add-question-div" *ngIf="showAddQuestion">
-      <app-add-manual-question
+    <div class="add-question-div"  [ngClass]="{'fade-in': newQuestionLoading}" *ngIf="showAddQuestion">
+      <app-add-manual-question class="fade-in" (hideAddQuestion)="showAddQuestion=!showAddQuestion"
         (submitNewQuestion)="submitNewManualQuestion($event)">
       </app-add-manual-question>
     </div>

@@ -28,9 +28,11 @@ export class WrapperComponent implements OnInit, OnDestroy {
   // Config variables for the menu
   showMenu: boolean;
   backRouterLink: string;
+  hideAll: boolean;
 
   menuSub: Subscription;
   linkSub: Subscription;
+  hideAllSub: Subscription;
 
   constructor(
     private partyService: PartyService,
@@ -48,8 +50,12 @@ export class WrapperComponent implements OnInit, OnDestroy {
       this.showMenu = res;
       console.log(res);
     });
-    this.menuService.getRouterLinkObs().subscribe(link => {
+    this.linkSub = this.menuService.getRouterLinkObs().subscribe(link => {
       this.backRouterLink = link;
+    });
+
+    this.hideAllSub = this.menuService.getHideAll().subscribe(hideAll => {
+      this.hideAll = hideAll;
     });
 
     this.party = this.partyService.party;
@@ -73,6 +79,9 @@ export class WrapperComponent implements OnInit, OnDestroy {
     }
     if (this.linkSub) {
       this.linkSub.unsubscribe();
+    }
+    if (this.hideAllSub) {
+      this.hideAllSub.unsubscribe();
     }
   }
 
