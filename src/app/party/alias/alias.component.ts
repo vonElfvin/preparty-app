@@ -41,7 +41,7 @@ export class AliasComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.menuService.setMenuVisibility(false);
     this.menuService.setRouterlink('/');
-    this.joinCode = this.route.snapshot.params['joinCode'];
+    this.joinCode = +this.route.snapshot.params['joinCode'];
     this.fromLink = this.route.snapshot.params['fromLink'];
     this.gameObservable = this.gameService.game;
     this.subscription = this.partyService.isGameLeaderObservable.subscribe(isGameLeader => {
