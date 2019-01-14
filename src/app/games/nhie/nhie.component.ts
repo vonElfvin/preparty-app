@@ -4,11 +4,12 @@ import { NhieGameInstance } from './shared/nhie-game-instance';
 import { FeedbackService } from '../../core/feedback/feedback.service';
 import { FeedbackMessage, FeedbackType } from '../../core/feedback/feedback.model';
 import { PartyService } from '../../party/shared/party.service';
-import { Observable, Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Observable, Subscription} from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { NhieQuestion } from './shared/nhie';
 import { NhieQuestionService } from './shared/nhie-question.service';
 import { take } from 'rxjs/operators';
+import {MenuService} from '../../party/shared/menu.service';
 
 @Component({
   selector: 'app-nhie',
@@ -19,13 +20,12 @@ export class NhieComponent implements OnInit, OnDestroy {
 
   gameInstance: NhieGameInstance;
   currentQuestion: NhieQuestion;
-  subscription: Subscription;
 
   isGameLeader: Observable<boolean>;
 
   showAddQuestion = false;
 
-  currentPlayer: string;
+  gameSub: Subscription;
 
   constructor(
     private nhieGameInstanceService: NhieGameInstanceService,
@@ -33,14 +33,15 @@ export class NhieComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private feedbackService: FeedbackService,
     private partyService: PartyService,
-    private router: Router
+    private menuService: MenuService
   ) { }
 
   ngOnInit() {
     this.isGameLeader = this.partyService.isGameLeaderObservable;
-    const joinCode = this.route.snapshot.params['joinCode'];
+    const joinCode = +this.route.snapshot.params['joinCode'];
+    this.menuService.setMenuVisibility(true);
     if (joinCode) {
-      this.nhieGameInstanceService.getGameInstanceByJoinCode(joinCode).subscribe(gameInstance => {
+      this.gameSub = this.nhieGameInstanceService.getGameInstanceByJoinCode(joinCode).subscribe(gameInstance => {
         console.log(gameInstance);
         if (gameInstance) {
           this.gameInstance = gameInstance;
@@ -53,6 +54,9 @@ export class NhieComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    if (this.gameSub) {
+      this.gameSub.unsubscribe();
+    }
   }
 
   setNextQuestion() {

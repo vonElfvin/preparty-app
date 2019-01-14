@@ -17,7 +17,8 @@ import { SpinnerService } from '../../core/spinner/spinner.service';
 })
 export class HomeComponent implements OnInit {
   games: Observable<Game[]>;
-  joinCode = '';
+
+  joinCode: number;
 
   constructor(
     private gameService: GameService,
@@ -34,7 +35,7 @@ export class HomeComponent implements OnInit {
 
   joinGame() {
     this.spinnerService.load();
-    this.partyService.getPartyByJoinCode(this.joinCode.toLowerCase()).pipe(
+    this.partyService.getPartyByJoinCode(this.joinCode).pipe(
       take(1)
     ).subscribe(party => {
       if (party) {

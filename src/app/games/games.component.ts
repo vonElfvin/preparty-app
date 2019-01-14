@@ -10,13 +10,10 @@ import {Party} from '../party/shared/party';
 })
 export class GamesComponent implements OnInit {
 
-  showAddQuestion = false;
-  partyObs: Observable<Party>;
 
   constructor(private partyService: PartyService) { }
 
   ngOnInit() {
-    this.partyObs = this.partyService.party;
   }
 
 }

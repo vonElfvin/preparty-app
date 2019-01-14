@@ -1,6 +1,6 @@
 .content {
   margin-top: 24px;
-  max-width: 300px;
+  max-width: 320px;
   width: 100%;
 }
 
@@ -8,15 +8,14 @@ img {
   width: 100%;
 }
 
-button {
-  width: 100%;
-  height: 59.5px;
-}
-
-#start {
+.start {
   text-align: center;
   color: white;
   margin-bottom: 4px !important;
+}
+
+form {
+  margin-top: 16px;
 }
 
 .game-divider{
@@ -24,10 +23,33 @@ button {
   margin-bottom: 2vh;
 }
 
+.game-image-div{
+  border-radius: 3px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 8px 0 rgba(0, 0, 0, 0.19);
+}
+
+.game-image{
+  height: 90%;
+  width: 90%;
+}
+
 .game-image:hover {
   cursor: pointer;
   opacity: 0.925;
 }
+
+.explanatory-text {
+  margin-top: 2vh;
+  font-size: 2vh;
+  color: white;
+  text-align: center;
+}
+
+/deep/ .mat-tab-label{
+  width: 50% !important;
+  color: #ffffff !important;
+}
+
 /*
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
   background-color: white;

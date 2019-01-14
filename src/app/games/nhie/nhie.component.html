@@ -1,9 +1,4 @@
 <div class="center">
-  <app-back-button (click)="showAddQuestion=!showAddQuestion" *ngIf="showAddQuestion">
-  </app-back-button>
-  <app-game-code *ngIf="gameInstance" [joinCode]="gameInstance?.joinCode"></app-game-code>
-  <app-menu-button *ngIf="!showAddQuestion"  ></app-menu-button>
-  <img src="../../assets/illustrations/never_have_I_ever_logo_text.png" class="logo">
   <div class="content">
     <div class="center" *ngIf="!showAddQuestion && currentQuestion">
       <div *ngIf="!(isGameLeader | async)" class="question-player">
@@ -21,6 +16,4 @@
       </app-add-manual-question>
     </div>
   </div>
-  <app-footer-image></app-footer-image>
-  <app-invite id="invite"></app-invite>
 </div>

@@ -7,7 +7,7 @@ import {
   MatDividerModule,
   MatFormFieldModule, MatGridListModule,
   MatIconModule,
-  MatInputModule
+  MatInputModule, MatTabsModule
 } from '@angular/material';
 import { PartyService } from './shared/party.service';
 import { AliasComponent } from './alias/alias.component';
@@ -18,7 +18,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { GameInfoComponent } from './game-info/game-info.component';
 import { InviteComponent } from './invite/invite.component';
 import { HomeComponent } from './home/home.component';
-import { CoreModule } from '../core/core.module';
+import { WrapperComponent } from './wrapper/wrapper.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import { CoreModule } from '../core/core.module';
     AliasComponent,
     GameInfoComponent,
     InviteComponent,
-    HomeComponent
+    HomeComponent,
+    WrapperComponent
   ],
   exports: [LobbyComponent,
     InviteComponent],
@@ -45,7 +46,8 @@ import { CoreModule } from '../core/core.module';
     MatFormFieldModule,
     MatDividerModule,
     MatIconModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTabsModule
   ],
   providers: [PartyService]
 })

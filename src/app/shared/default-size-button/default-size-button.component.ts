@@ -7,8 +7,9 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class DefaultSizeButtonComponent implements OnInit {
 
-  @Input('text') text: string;
-  @Input('matIconName') matIconName?:string;
+  @Input() text: string;
+  @Input() matIconName?: string;
+  @Input() disabled: boolean;
 
   constructor() { }
 

@@ -9,5 +9,5 @@ export class GameCodeComponent {
 
   constructor() { }
 
-  @Input() joinCode: string;
+  @Input() joinCode: number;
 }
