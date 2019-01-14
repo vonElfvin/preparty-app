@@ -1,6 +1,6 @@
 .content {
   margin-top: 24px;
-  max-width: 320px;
+  max-width: 40vh;
   width: 100%;
 }
 
@@ -47,7 +47,10 @@ form {
 
 /deep/ .mat-tab-label{
   width: 50% !important;
+  min-width: 0 !important;
   color: #ffffff !important;
+  padding: 3px!important;
+  margin: 3px!important;
 }
 
 /*
