@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit {
           });
         });
       } else {
+        this.spinnerService.stopLoad();
         this.feedbackService.message(FeedbackMessage.JoinCodeError, FeedbackType.Error);
       }
     });
