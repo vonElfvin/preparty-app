@@ -106,7 +106,6 @@ export class NhieComponent implements OnInit, OnDestroy {
   }
 
   addManualQuestionClick() {
-    console.log('hej');
     this.showAddQuestion = !this.showAddQuestion;
     this.menuService.setHideAll(true);
   }

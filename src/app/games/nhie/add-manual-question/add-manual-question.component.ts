@@ -24,4 +24,8 @@ export class AddManualQuestionComponent implements OnInit {
     this.submitNewQuestion.emit(this.newManualQuestion);
   }
 
+  hideQuestionClick() {
+    this.menuService.setHideAll(false);
+    this.hideAddQuestion.emit('close');
+  }
 }
