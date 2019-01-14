@@ -27,6 +27,10 @@ export class NhieComponent implements OnInit, OnDestroy {
 
   gameSub: Subscription;
 
+  newQuestionLoading = true;
+
+  isloadingMoreQuestions = false;
+
   constructor(
     private nhieGameInstanceService: NhieGameInstanceService,
     private nhieQuestionService: NhieQuestionService,
@@ -64,26 +68,30 @@ export class NhieComponent implements OnInit, OnDestroy {
     if (this.gameInstance.manualQuestions.length > 0 && Math.floor(Math.random() * Math.floor(100)) <= 70) {
       this.gameInstance.currentQuestion = this.gameInstance.manualQuestions.shift();
     } else {
-      const currentQuestion: NhieQuestion = this.gameInstance.genericQuestions.shift();
-      this.gameInstance.currentQuestion = currentQuestion;
-      this.gameInstance.seenQuestions.push(currentQuestion.index);
+      if (this.gameInstance.genericQuestions.length > 0) {
+        const currentQuestion: NhieQuestion = this.gameInstance.genericQuestions.shift();
+        this.gameInstance.currentQuestion = currentQuestion;
+        this.gameInstance.seenQuestions.push(currentQuestion.index);
+      }
       if (this.gameInstance.seenQuestions.length === this.nhieQuestionService.nQuestions) {
         this.gameInstance.seenQuestions = [];
       }
     }
 
     // Add more generic if empty
-    if (this.gameInstance.genericQuestions.length === 0) {
-      this.nhieGameInstanceService.getGameInstanceQuestions(this.gameInstance.seenQuestions).pipe(
-        take(1)
-      )
-        .subscribe(questions => {
-          this.gameInstance.genericQuestions = this.gameInstance.genericQuestions.concat(questions);
-      });
+    if (this.gameInstance.genericQuestions.length <= 1) {
+      this.addQuestions();
     }
-
-    // Update the game instance in DB
     this.nhieGameInstanceService.updateGameInstance(this.gameInstance);
+  }
+
+  addQuestions() {
+    this.nhieGameInstanceService.getGameInstanceQuestions(this.gameInstance.seenQuestions).pipe(
+      take(1)
+    )
+      .subscribe(questions => {
+        this.gameInstance.genericQuestions = this.gameInstance.genericQuestions.concat(questions);
+      });
   }
 
   submitNewManualQuestion(newManualQuestion: string) {
@@ -95,5 +103,11 @@ export class NhieComponent implements OnInit, OnDestroy {
     });
     this.showAddQuestion = false;
     this.feedbackService.message(FeedbackMessage.QuestionSuccess, FeedbackType.Primary);
+  }
+
+  addManualQuestionClick() {
+    console.log('hej');
+    this.showAddQuestion = !this.showAddQuestion;
+    this.menuService.setHideAll(true);
   }
 }
