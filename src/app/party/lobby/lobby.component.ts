@@ -25,8 +25,6 @@ export class LobbyComponent implements OnInit {
 
   isGameLeader: Observable<boolean>;
 
-  joinCode: number;
-
   constructor(
     private partyService: PartyService,
     private router: Router,
@@ -41,8 +39,6 @@ export class LobbyComponent implements OnInit {
     this.party = this.partyService.party;
     this.isGameLeader = this.partyService.isGameLeaderObservable;
     this.isLoggedIn = this.authService.isLoggedInObservable;
-    this.joinCode = this.route.snapshot.params['joinCode'];
-    this.joinCode = this.joinCode;
     this.gameObservable = this.gameService.game;
     this.checkGameInstance();
   }
@@ -50,16 +46,12 @@ export class LobbyComponent implements OnInit {
   checkGameInstance() {
     this.gameInstanceService.gameInstance.subscribe(gameInstance => {
       if (gameInstance && this.router.url.indexOf('lobby') !== -1) {
-        this.router.navigate(['game/' + gameInstance.gameId + '/' + gameInstance.joinCode]);
+        this.router.navigate(['game/' + gameInstance.gameId]);
       }
     });
   }
 
-  startGame() {
-    this.party.pipe(
-      take(1)
-    ).subscribe(party => {
-      this.router.navigate(['game/' + party.selectedGame + '/' + party.joinCode]);
-    });
+  startGame(game) {
+    this.router.navigate(['game/' + game.id]);
   }
 }
