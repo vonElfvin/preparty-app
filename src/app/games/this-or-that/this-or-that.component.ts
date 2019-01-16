@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ThisOrThatGameInstance, ThisOrThatVote, ThisOrThatQuestion, VoteValue} from './shared/thisOrThat';
 import {ThisOrThatGameInstanceService} from './shared/this-or-that-game-instance.service';
 import {PartyService} from '../../party/shared/party.service';
@@ -9,6 +9,7 @@ import {User} from '../../core/auth/user.model';
 import {GameService} from '../shared/game.service';
 import {map, take} from 'rxjs/operators';
 import {MenuService} from '../../party/shared/menu.service';
+import {ClockComponent} from './clock/clock.component';
 
 @Component({
   selector: 'app-this-or-that',
@@ -35,7 +36,10 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
   gameInstanceSub: Subscription;
   private userSub: Subscription;
 
-  timer = 40;
+  timer = 10;
+
+  @ViewChild(ClockComponent)
+    clockComponent: ClockComponent;
 
 
   next = false;
@@ -99,7 +103,10 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
     if (this.gameInstance.manualQuestions.length > 0 && Math.floor(Math.random() * Math.floor(100)) <= 70) {
       this.gameInstance.currentQuestion = this.gameInstance.manualQuestions.shift();
     } else {
-      const currentQuestion: ThisOrThatQuestion = this.gameInstance.genericQuestions.shift();
+      let currentQuestion: ThisOrThatQuestion;
+      if  (this.gameInstance.genericQuestions.length > 0) {
+        currentQuestion = this.gameInstance.genericQuestions.shift();
+      }
       this.gameInstance.currentQuestion = currentQuestion;
       this.gameInstance.seenQuestions.push(currentQuestion.index);
       if (this.gameInstance.seenQuestions.length === 192) {
@@ -149,11 +156,7 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
   }
 
 
-  ngOnDestroy(): void {
-    this.partySub.unsubscribe();
-    this.gameInstanceSub.unsubscribe();
-    this.userSub.unsubscribe();
-  }
+
 
   setViewingFalse() {
     this.setNextQuestion();
@@ -172,8 +175,15 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
 
   }
 
-  nextQuestion() {
-    this.next = true;
+  timerComplete() {
+    this.clockComponent.startCount(this.timer);
+    this.thisOrThatGameInstanceService.setViewing(this.gameInstance.id, true);
+  }
+
+  ngOnDestroy(): void {
+    this.partySub.unsubscribe();
+    this.gameInstanceSub.unsubscribe();
+    this.userSub.unsubscribe();
   }
 
 }

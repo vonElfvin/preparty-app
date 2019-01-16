@@ -1,6 +1,6 @@
 <div class="center">
   <div class="content">
-    <app-clock [count]="timer"></app-clock>
+    <app-clock #totClock [count]="timer" (countdownFinished)="timerComplete()"></app-clock>
     <div *ngIf="gameInstance && party" >{{gameInstance?.currentVotes?.length + '/' + party?.members?.length + 'Have voted'}}</div>
     <app-default-size-button *ngIf="isGameLeader | async" [text]="'Next Question'" [matIconName]="'chevron_right'" (click)="setNextQuestion()"></app-default-size-button>
     <br><br>

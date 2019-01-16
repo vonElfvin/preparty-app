@@ -50,7 +50,7 @@ export class LobbyComponent implements OnInit {
     });
   }
 
-  startGame(game) {
+  startGame(game: Game) {
     this.router.navigate(['game/' + game.id]);
   }
 }

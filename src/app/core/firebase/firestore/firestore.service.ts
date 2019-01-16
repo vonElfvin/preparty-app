@@ -27,7 +27,9 @@ export class FirestoreService<Item> {
   get(path: string, id: string): Observable<Item> {
     return this.doc(path, id).valueChanges().pipe(
       map(item => {
-        item['id'] = id;
+        if (item) {
+          item['id'] = id;
+        }
         return item;
       })
     );
