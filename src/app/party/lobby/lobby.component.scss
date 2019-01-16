@@ -1,26 +1,14 @@
-.content {
-  max-width: 40vh;
-  width: 100%;
-}
-
-.logo{
-  margin-top: 10vh;
-  width: 40vh;
-}
-
-.logo-wrapper{
-  min-height: 40vh;
+#invite {
+  position: absolute;
+  bottom: 2vh;
+  right: 2vh;
+  color: white;
 }
 
 .help-button{
   position: absolute;
   top: 2vh;
   left: 2vh;
-  color: white;
-}
-
-.game-code b{
-  font-size: 4vh;
   color: white;
 }
 

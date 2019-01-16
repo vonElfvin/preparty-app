@@ -1,0 +1,37 @@
+<div class="center">
+  <div class="content">
+    <div class="center">
+      <img src="../../assets/illustrations/logo_with_text.png">
+    </div>
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="Join Game">
+        <!--<h1 class="start">JOIN GAME</h1>-->
+        <br>
+        <div class="explanatory-text">
+          <p>Enter a game code to join a game</p>
+        </div>
+        <form (ngSubmit)="joinGame()">
+          <mat-form-field appearance="fill">
+            <mat-label>Game code</mat-label>
+            <input matInput [(ngModel)]="joinCode" name="joinCode" type="number" min="0" max="999999">
+          </mat-form-field>
+          <div style="height: 12px"></div>
+          <app-default-size-button [text]="'Join Game'" [matIconName]="'chevron_right'" [disabled]="!joinCode"></app-default-size-button>
+        </form>
+      </mat-tab>
+      <mat-tab label="Create Game">
+        <!--<h1 class="start">CREATE GAME</h1>-->
+        <!--<mat-divider class="game-divider"></mat-divider>-->
+        <br>
+        <div class="explanatory-text">
+          <p>Choose a game</p>
+        </div>
+        <mat-grid-list [cols]="2" rowHeight="1:1" gutterSize="10">
+          <mat-grid-tile *ngFor="let game of games | async" class="game-image-div">
+            <img src="{{game.menuImagePath}}" (click)="selectGame(game)" class="game-image">
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

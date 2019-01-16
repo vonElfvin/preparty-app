@@ -2,35 +2,21 @@
   margin-bottom: 4% !important;
 }
 
-.logo {
-  margin-top: 10vh;
-  width: 40vh;
-}
-
-.back-button{
-  position: absolute;
-  top: 2vh;
-  left: 1vh;
-  color: white;
-}
 
 .question-player{
-  margin-top: 17vh;
+  position: absolute;
+  top: 48vh;
   width: 40vh;
   text-align: center;
 }
 
 .question-game-leader{
-  margin-top: 10vh;
+  position: absolute;
+  top: 42vh;
   width: 40vh;
   text-align: center;
 }
 
-.bottom-logo {
-  width: 20vh;
-  bottom: 0;
-  position: absolute;
-}
 
 .add-question-button{
   position: absolute;
@@ -39,7 +25,32 @@
   width: 100%;
 }
 
+.next-question-button{
+  position: absolute;
+  bottom: 25vh;
+  max-width: 40vh;
+  width: 100%;
+}
+
 .add-question-div{
   margin-top: 3vh;
   width: 40vh;
+}
+
+#invite {
+  position: absolute;
+  bottom: 2vh;
+  right: 2vh;
+  color: white;
+}
+
+.content {
+  max-width: 40vh;
+  width: 100%;
+}
+
+.nihe-text-animation b {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.3s ease-in-out 0.1s;
 }

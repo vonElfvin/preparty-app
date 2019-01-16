@@ -1,32 +1,19 @@
 <div class="center">
-  <div class="back-button" *ngIf="showAddQuestion">
-    <button mat-icon-button (click)="showAddQuestion=!showAddQuestion">
-      <mat-icon style="font-size: 5vh" aria-label="Example icon-button with a heart icon">keyboard_arrow_left</mat-icon>
-    </button>
-  </div>
-  <app-game-code *ngIf="gameInstance" [joinCode]="gameInstance?.joinCode"></app-game-code>
-  <div *ngIf="!showAddQuestion">
-    <app-menu-button (gameInfoClick)="onGameInfoClick()" (leaveClick)="onLeaveClick()"></app-menu-button>
-  </div>
-  <img src="../../assets/illustrations/never_have_I_ever_logo_text.png" class="logo">
-  <div class="center" *ngIf="!showAddQuestion && currentQuestion">
-    <div *ngIf="!(isGameLeader | async)" class="question-player">
-      <app-nhie-card [question]="currentQuestion.question"></app-nhie-card>
+  <div class="content">
+    <div class="center" *ngIf="!showAddQuestion && currentQuestion">
+      <div *ngIf="!(isGameLeader | async)" class="question-player">
+        <app-nhie-card [question]="currentQuestion.question"></app-nhie-card>
+      </div>
+      <div *ngIf="isGameLeader | async" class="question-game-leader">
+        <app-nhie-card [question]="currentQuestion.question"></app-nhie-card>
+      </div>
+      <app-default-size-button class="add-question-button" [text]="'Add Question'" [matIconName]="''" (click)="addManualQuestionClick()"></app-default-size-button>
+      <app-default-size-button class="next-question-button" [disabled]="isloadingMoreQuestions" *ngIf="isGameLeader | async" [text]="'Next Question'" [matIconName]="'chevron_right'" (click)="setNextQuestion()"></app-default-size-button>
     </div>
-    <div *ngIf="isGameLeader | async" class="question-game-leader">
-      <app-nhie-card [question]="currentQuestion.question"></app-nhie-card>
-    </div>
-    <div class="add-question-button" fxLayout="column" fxLayoutGap="12px">
-        <app-default-size-button [text]="'Add Question'" [matIconName]="''" (click)="showAddQuestion=!showAddQuestion"></app-default-size-button>
-        <app-default-size-button *ngIf="isGameLeader | async" [text]="'Next Question'" [matIconName]="'chevron_right'" (click)="setNextQuestion()"></app-default-size-button>
+    <div class="add-question-div"  [ngClass]="{'fade-in': newQuestionLoading}" *ngIf="showAddQuestion">
+      <app-add-manual-question class="fade-in" (hideAddQuestion)="showAddQuestion=!showAddQuestion"
+        (submitNewQuestion)="submitNewManualQuestion($event)">
+      </app-add-manual-question>
     </div>
   </div>
-
-  <div class="add-question-div" *ngIf="showAddQuestion">
-    <app-add-manual-question
-      (submitNewQuestion)="submitNewManualQuestion($event)">
-    </app-add-manual-question>
-  </div>
-
-  <app-footer-image></app-footer-image>
 </div>

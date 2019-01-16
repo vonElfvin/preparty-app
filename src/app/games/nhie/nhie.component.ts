@@ -1,21 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NhieGameInstanceService } from './shared/nhie-game-instance.service';
 import { NhieGameInstance } from './shared/nhie-game-instance';
 import { FeedbackService } from '../../core/feedback/feedback.service';
 import { FeedbackMessage, FeedbackType } from '../../core/feedback/feedback.model';
 import { PartyService } from '../../party/shared/party.service';
-import { Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Observable, Subscription} from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { NhieQuestion } from './shared/nhie';
 import { NhieQuestionService } from './shared/nhie-question.service';
 import { take } from 'rxjs/operators';
+import {MenuService} from '../../party/shared/menu.service';
 
 @Component({
   selector: 'app-nhie',
   templateUrl: './nhie.component.html',
   styleUrls: ['./nhie.component.scss']
 })
-export class NhieComponent implements OnInit {
+export class NhieComponent implements OnInit, OnDestroy {
 
   gameInstance: NhieGameInstance;
   currentQuestion: NhieQuestion;
@@ -24,7 +25,11 @@ export class NhieComponent implements OnInit {
 
   showAddQuestion = false;
 
-  currentPlayer: string;
+  gameSub: Subscription;
+
+  newQuestionLoading = true;
+
+  isloadingMoreQuestions = false;
 
   constructor(
     private nhieGameInstanceService: NhieGameInstanceService,
@@ -32,14 +37,15 @@ export class NhieComponent implements OnInit {
     private route: ActivatedRoute,
     private feedbackService: FeedbackService,
     private partyService: PartyService,
-    private router: Router
+    private menuService: MenuService
   ) { }
 
   ngOnInit() {
     this.isGameLeader = this.partyService.isGameLeaderObservable;
-    const joinCode = this.route.snapshot.params['joinCode'];
+    const joinCode = +this.route.snapshot.params['joinCode'];
+    this.menuService.setMenuVisibility(true);
     if (joinCode) {
-      this.nhieGameInstanceService.getGameInstanceByJoinCode(joinCode).subscribe(gameInstance => {
+      this.gameSub = this.nhieGameInstanceService.getGameInstanceByJoinCode(joinCode).subscribe(gameInstance => {
         console.log(gameInstance);
         if (gameInstance) {
           this.gameInstance = gameInstance;
@@ -51,31 +57,41 @@ export class NhieComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    if (this.gameSub) {
+      this.gameSub.unsubscribe();
+    }
+  }
+
   setNextQuestion() {
     // Select manual question with 70% probability
     if (this.gameInstance.manualQuestions.length > 0 && Math.floor(Math.random() * Math.floor(100)) <= 70) {
       this.gameInstance.currentQuestion = this.gameInstance.manualQuestions.shift();
     } else {
-      const currentQuestion: NhieQuestion = this.gameInstance.genericQuestions.shift();
-      this.gameInstance.currentQuestion = currentQuestion;
-      this.gameInstance.seenQuestions.push(currentQuestion.index);
+      if (this.gameInstance.genericQuestions.length > 0) {
+        const currentQuestion: NhieQuestion = this.gameInstance.genericQuestions.shift();
+        this.gameInstance.currentQuestion = currentQuestion;
+        this.gameInstance.seenQuestions.push(currentQuestion.index);
+      }
       if (this.gameInstance.seenQuestions.length === this.nhieQuestionService.nQuestions) {
         this.gameInstance.seenQuestions = [];
       }
     }
 
     // Add more generic if empty
-    if (this.gameInstance.genericQuestions.length === 0) {
-      this.nhieGameInstanceService.getGameInstanceQuestions(this.gameInstance.seenQuestions).pipe(
-        take(1)
-      )
-        .subscribe(questions => {
-          this.gameInstance.genericQuestions = this.gameInstance.genericQuestions.concat(questions);
-      });
+    if (this.gameInstance.genericQuestions.length <= 1) {
+      this.addQuestions();
     }
-
-    // Update the game instance in DB
     this.nhieGameInstanceService.updateGameInstance(this.gameInstance);
+  }
+
+  addQuestions() {
+    this.nhieGameInstanceService.getGameInstanceQuestions(this.gameInstance.seenQuestions).pipe(
+      take(1)
+    )
+      .subscribe(questions => {
+        this.gameInstance.genericQuestions = this.gameInstance.genericQuestions.concat(questions);
+      });
   }
 
   submitNewManualQuestion(newManualQuestion: string) {
@@ -89,11 +105,8 @@ export class NhieComponent implements OnInit {
     this.feedbackService.message(FeedbackMessage.QuestionSuccess, FeedbackType.Primary);
   }
 
-  onGameInfoClick() {
-    this.router.navigate(['game-info/nhie']);
-  }
-
-  onLeaveClick() {
-
+  addManualQuestionClick() {
+    this.showAddQuestion = !this.showAddQuestion;
+    this.menuService.setHideAll(true);
   }
 }

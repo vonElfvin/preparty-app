@@ -5,13 +5,14 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyCOoRL1ti1v6L24JcE7srjT2_GeCZhKjKE',
-    authDomain: 'preparty-app.firebaseapp.com',
-    databaseURL: 'https://preparty-app.firebaseio.com',
-    projectId: 'preparty-app',
-    storageBucket: 'preparty-app.appspot.com',
-    messagingSenderId: '415921951170'
-  }
+    apiKey: 'AIzaSyD81ePe-X4nGYJgOtqogmDGu8pGetOFMmE',
+    authDomain: 'preparty-app-test.firebaseapp.com',
+    databaseURL: 'https://preparty-app-test.firebaseio.com',
+    projectId: 'preparty-app-test',
+    storageBucket: 'preparty-app-test.appspot.com',
+    messagingSenderId: '615813977911'
+  },
+  messenger_app_id: '2240029852988441'
 };
 
 /*

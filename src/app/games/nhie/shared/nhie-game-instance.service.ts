@@ -3,7 +3,7 @@ import {Party} from '../../../party/shared/party';
 import {NhieGameInstance} from './nhie-game-instance';
 import {FirestoreService} from '../../../core/firebase/firestore/firestore.service';
 import {GameInstanceService} from '../../shared/game-instance.service';
-import { combineLatest, Observable } from 'rxjs';
+import {combineLatest, Observable, of} from 'rxjs';
 import {PartyService} from '../../../party/shared/party.service';
 import {switchMap, take, map} from 'rxjs/operators';
 import { NhieQuestionService } from './nhie-question.service';
@@ -25,19 +25,23 @@ export class NhieGameInstanceService {
     return this.nhieQuestionService.getQuestions(seenQuestions);
   }
 
-  getGameInstanceByJoinCode(joinCode: string) {
+  getGameInstanceByJoinCode(joinCode: number): Observable<NhieGameInstance> {
     return <Observable<NhieGameInstance>>this.gameInstanceService.getGameInstanceByJoinCode(joinCode);
   }
 
-  generateNewGameInstanceFromCode(joinCode: string): Promise<void> {
-    return combineLatest(this.partyService.getPartyByJoinCode(joinCode), this.getGameInstanceQuestions([]))
-      .pipe(
+  generateNewGameInstanceFromCode(joinCode: number): Promise<void> {
+    return combineLatest(
+      this.partyService.getPartyByJoinCode(joinCode),
+      this.getGameInstanceQuestions([])
+    ).pipe(
         switchMap(([party, questions]: [Party, NhieQuestion[]]) => {
+          if (!party) { return of(null); }
           const gameInstance = <NhieGameInstance>{
             partyId: party.id,
             gameId: party.selectedGame,
             gameLeader: party.leader,
             joinCode: party.joinCode,
+            created: Date.now(),
             genericQuestions: questions,
             currentQuestion: questions.shift(),
             manualQuestions: [],

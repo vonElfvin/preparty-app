@@ -1,11 +1,10 @@
 <div *ngIf="gameObservable | async as game" class="center">
-  <span *ngIf="isGameLeader !== null">
-  <app-back-button [routerLink]="'/'"></app-back-button>
-  <app-game-code [joinCode]="!isGameLeader ? joinCode : false"></app-game-code>
   <div class="content">
-    <div class="center">
-      <img [src]="game?.image_path" class="logo">
-    </div>
+    <!--<app-game-code [joinCode]="!isGameLeader ? joinCode : false"></app-game-code>
+    <div class="content">
+      <div class="center">
+        <img [src]="game?.image_path" class="logo">
+      </div>-->
     <form (ngSubmit)="setAlias()">
       <mat-form-field appearance="fill">
         <mat-label>Enter Nickname</mat-label>
@@ -19,7 +18,10 @@
     <div class="description-text">
       <p [innerHTML]="game.description"></p>
     </div>
+    <!--<app-footer-image></app-footer-image>-->
+    <!--   <div class="center" style="width: 100%">
+         <img src="../../assets/illustrations/logo.png" class="bottom-logo">
+       </div>
+     </div>-->
   </div>
-  <app-footer-image></app-footer-image>
-  </span>
 </div>

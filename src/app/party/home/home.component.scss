@@ -1,0 +1,60 @@
+.content {
+  margin-top: 24px;
+  max-width: 40vh;
+  width: 100%;
+}
+
+img {
+  width: 100%;
+}
+
+.start {
+  text-align: center;
+  color: white;
+  margin-bottom: 4px !important;
+}
+
+form {
+  margin-top: 16px;
+}
+
+.game-divider{
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+.game-image-div{
+  border-radius: 3px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 8px 0 rgba(0, 0, 0, 0.19);
+}
+
+.game-image{
+  height: 90%;
+  width: 90%;
+}
+
+.game-image:hover {
+  cursor: pointer;
+  opacity: 0.925;
+}
+
+.explanatory-text {
+  margin-top: 2vh;
+  font-size: 2vh;
+  color: white;
+  text-align: center;
+}
+
+/deep/ .mat-tab-label{
+  width: 50% !important;
+  min-width: 0 !important;
+  color: #ffffff !important;
+  padding: 3px!important;
+  margin: 3px!important;
+}
+
+/*
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: white;
+}*/
+

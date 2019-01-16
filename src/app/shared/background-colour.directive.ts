@@ -3,6 +3,7 @@ import { GameService } from '../games/shared/game.service';
 import { Game } from '../games/shared/game.model';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { SpinnerService } from '../core/spinner/spinner.service';
 
 
 @Directive({
@@ -11,12 +12,13 @@ import { Subscription } from 'rxjs';
 export class BackgroundColourDirective implements OnDestroy {
 
   accent = '#4fc3f7';
-  subscription: Subscription
+  subscription: Subscription;
 
   constructor(
     private gameService: GameService,
     el: ElementRef,
-    private router: Router) {
+    private router: Router,
+    private spinnerService: SpinnerService) {
 
     this.subscription = this.gameService.game.subscribe((game: Game) => {
       if (game) {
@@ -35,6 +37,16 @@ export class BackgroundColourDirective implements OnDestroy {
             }
           }
         });
+      }
+    });
+
+    this.spinnerService.loader.subscribe((loading: boolean) => {
+      if (loading === true) {
+        el.nativeElement.style.filter = 'brightness(50%)';
+        el.nativeElement.style.WebkitFilter = 'brightness(50%)';
+      } else {
+        el.nativeElement.style.filter = 'brightness(100%)';
+        el.nativeElement.style.WebkitFilter = 'brightness(100%)';
       }
     });
   }

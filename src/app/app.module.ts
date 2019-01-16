@@ -11,6 +11,9 @@ import { GamesModule } from './games/games.module';
 import { PartyModule } from './party/party.module';
 import { GestureConfig } from '@angular/material';
 import { DebugInfoComponent } from './debug-info/debug-info.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -22,13 +25,15 @@ import { DebugInfoComponent } from './debug-info/debug-info.component';
     AdminModule,
     CoreModule,
     SharedModule,
-    GamesModule,
     PartyModule,
+    GamesModule,
     AppRoutingModule,
 
     // Angular Imports
     BrowserModule,
     BrowserAnimationsModule,
+    ServiceWorkerModule,
+    RouterModule
   ],
   providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }],
   bootstrap: [AppComponent]

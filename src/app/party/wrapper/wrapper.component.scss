@@ -1,0 +1,37 @@
+#invite {
+  position: absolute;
+  bottom: 2vh;
+  right: 2vh;
+  color: white;
+}
+
+.logo{
+  margin-top: 10vh;
+  width: 40vh;
+}
+
+.logo-wrapper{
+  min-height: 40vh;
+}
+
+.help-button{
+  position: absolute;
+  top: 2vh;
+  left: 2vh;
+  color: white;
+}
+
+.game-code b{
+  font-size: 4vh;
+  color: white;
+}
+
+.bottom-text {
+  width: 100%;
+  font-size: 3vh;
+  font-weight: lighter;
+  text-align: center;
+  color: white;
+  position: absolute;
+  bottom: 15vh;
+}

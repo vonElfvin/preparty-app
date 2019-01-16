@@ -1,7 +1,8 @@
+<app-back-button (click)="hideQuestionClick()"></app-back-button>
 <div class="center" fxLayout="column" fxLayoutGap="12px">
     <mat-form-field appearance="fill">
       <mat-label>Never have I ever ...</mat-label>
-      <input matInput [(ngModel)]="newManualQuestion" name="manualquestion">
+      <input oninput="this.value = this.value.toLowerCase()" matInput [(ngModel)]="newManualQuestion" name="manualquestion">
     </mat-form-field>
   <div style="width: 100%">
     <app-default-size-button [text]="'Add Question'" [matIconName]="''" (click)="submitNewManualQuestionClick()"></app-default-size-button>

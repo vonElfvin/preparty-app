@@ -5,29 +5,37 @@ import {
   MatButtonModule,
   MatCardModule,
   MatDividerModule,
-  MatFormFieldModule,
+  MatFormFieldModule, MatGridListModule,
   MatIconModule,
-  MatInputModule
+  MatInputModule, MatTabsModule
 } from '@angular/material';
 import { PartyService } from './shared/party.service';
 import { AliasComponent } from './alias/alias.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { FlexLayoutModule} from '@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { GameInfoComponent } from './game-info/game-info.component';
+import { InviteComponent } from './invite/invite.component';
+import { HomeComponent } from './home/home.component';
+import { WrapperComponent } from './wrapper/wrapper.component';
 
 @NgModule({
   declarations: [
     LobbyComponent,
     AliasComponent,
-    GameInfoComponent
+    GameInfoComponent,
+    InviteComponent,
+    HomeComponent,
+    WrapperComponent
   ],
-  exports: [LobbyComponent],
+  exports: [LobbyComponent,
+    InviteComponent],
   imports: [
     CommonModule,
     FormsModule,
-
+    RouterModule,
+    FlexLayoutModule,
     // Own module
     SharedModule,
 
@@ -38,9 +46,9 @@ import { GameInfoComponent } from './game-info/game-info.component';
     MatFormFieldModule,
     MatDividerModule,
     MatIconModule,
-    RouterModule,
-    FlexLayoutModule
+    MatGridListModule,
+    MatTabsModule
   ],
-  providers: [PartyService],
+  providers: [PartyService]
 })
 export class PartyModule { }
