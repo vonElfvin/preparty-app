@@ -3,7 +3,7 @@ import {ThisOrThatGameInstance, ThisOrThatVote, ThisOrThatQuestion, VoteValue} f
 import {ThisOrThatGameInstanceService} from './shared/this-or-that-game-instance.service';
 import {PartyService} from '../../party/shared/party.service';
 import {AuthService} from '../../core/auth/auth.service';
-import {Subscription} from 'rxjs';
+import { Subscription, Observable, of } from 'rxjs';
 import {Party} from '../../party/shared/party';
 import {User} from '../../core/auth/user.model';
 
@@ -18,7 +18,7 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
   gameInstance: ThisOrThatGameInstance;
   currentQuestion: ThisOrThatQuestion;
   uid: string;
-  isGameLeader: boolean;
+  isGameLeader: Observable<boolean> = of(true);
   party: Party;
   user: User;
 
@@ -29,6 +29,8 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
   private userSub: Subscription;
 
 
+  next = false;
+
   constructor(private partyService: PartyService, private thisOrThatGameInstanceService: ThisOrThatGameInstanceService,
               private authService: AuthService) {
   }
@@ -37,13 +39,13 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
     this.userSub = this.authService.user.subscribe(user => {
       this.user = user;
       if (this.party) {
-        this.isGameLeader = this.party.leader === this.user.id;
+        // this.isGameLeader = this.party.leader === this.uid;
       }
     });
     this.partySub = this.partyService.party.subscribe(party => {
       this.party = party;
       if (party) {
-        this.isGameLeader = party.leader === this.uid;
+        // this.isGameLeader = party.leader === this.uid;
       }
     });
     this.gameInstanceSub = this.thisOrThatGameInstanceService.getGameInstance().subscribe(gameInstance => {
@@ -142,6 +144,10 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
   private setVotingResults() {
     this.votingResults = [];
 
+  }
+
+  nextQuestion() {
+    this.next = true;
   }
 
 }
