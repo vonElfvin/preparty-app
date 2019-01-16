@@ -20,7 +20,7 @@ export class FirestoreService<Item> {
     return this.doc(path, id).set(data, {merge: true});
   }
 
-  update(path: string, id: string, item: Item): Promise<void> {
+  update(path: string, id: string, item): Promise<void> {
     return this.doc(path, id).update(item);
   }
 

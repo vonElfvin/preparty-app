@@ -6,6 +6,7 @@ import {ThisOrThatGameInstance, Vote} from './thisOrThat';
 import {Observable, of} from 'rxjs';
 import {switchMap, take} from 'rxjs/operators';
 import {Party} from '../../../party/shared/party';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -56,18 +57,17 @@ export class ThisOrThatGameInstanceService {
   }
 
   sendVote(vote: Vote, gameInstanceId: string) {
-    console.log(gameInstanceId);
     return this.firestoreService.update(this.path, gameInstanceId,
-      <ThisOrThatGameInstance>{currentVotes: firebase.firestore.FieldValue.arrayUnion(vote)});
+     {currentVotes: firebase.firestore.FieldValue.arrayUnion(vote)});
   }
 
   removeVote(vote: Vote, gameInstanceId: string) {
     return this.firestoreService.update(this.path, gameInstanceId,
-      <ThisOrThatGameInstance>{currentVotes: firebase.firestore.FieldValue.arrayRemove(vote)});
+     {currentVotes: firebase.firestore.FieldValue.arrayRemove(vote)});
   }
 
   setViewing(gameInstanceId: string, value: boolean) {
     return this.firestoreService.update(this.path, gameInstanceId,
-      <ThisOrThatGameInstance>{viewResults: value});
+      {viewResults: value});
   }
 }
