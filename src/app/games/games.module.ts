@@ -17,7 +17,7 @@ import {VotingGameModule} from './voting-game/voting-game.module';
 
 @NgModule({
   declarations: [
-    GamesComponent
+    GamesComponent,
   ],
   imports: [
     CommonModule,
