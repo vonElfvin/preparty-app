@@ -23,6 +23,6 @@ export class DebugInfoComponent implements OnInit {
     });
     this.partyService.isGameLeaderObservable.subscribe((gameleader: boolean) => {
       this.gameLeader = gameleader;
-    })
+    });
   }
 }

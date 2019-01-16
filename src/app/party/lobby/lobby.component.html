@@ -8,8 +8,9 @@
       </div>
     </div>
   </div>
-    <div class="center content">
-      <app-default-size-button class="start-game-button" *ngIf="isGameLeader | async" (click)="startGame()" [text]="'Start Game!'">
+    <div class="center content"  *ngIf="gameObservable | async as game">
+      <app-default-size-button class="start-game-button" *ngIf="isGameLeader | async"
+                               (click)="startGame(game)" [text]="'Start Game!'">
       </app-default-size-button>
       <div class="bottom-text" *ngIf="!(isGameLeader | async) && isLoggedIn | async" [innerHtml]="waitingMessage"></div>
     </div>

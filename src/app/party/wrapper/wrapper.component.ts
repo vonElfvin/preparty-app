@@ -1,14 +1,12 @@
-import {AfterContentChecked, AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {Party} from '../shared/party';
 import {Game} from '../../games/shared/game.model';
 import {PartyService} from '../shared/party.service';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {GameInstanceService} from '../../games/shared/game-instance.service';
-import {NhieGameInstanceService} from '../../games/nhie/shared/nhie-game-instance.service';
 import {GameService} from '../../games/shared/game.service';
 import {AuthService} from '../../core/auth/auth.service';
-import {filter, take, tap} from 'rxjs/operators';
 import {MenuService} from '../shared/menu.service';
 import {Location} from '@angular/common';
 
@@ -48,7 +46,6 @@ export class WrapperComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.menuSub = this.menuService.getMenuVisibility().subscribe(res => {
       this.showMenu = res;
-      console.log(res);
     });
     this.linkSub = this.menuService.getRouterLinkObs().subscribe(link => {
       this.backRouterLink = link;

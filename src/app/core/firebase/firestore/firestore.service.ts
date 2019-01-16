@@ -25,7 +25,12 @@ export class FirestoreService<Item> {
   }
 
   get(path: string, id: string): Observable<Item> {
-    return this.doc(path, id).valueChanges();
+    return this.doc(path, id).valueChanges().pipe(
+      map(item => {
+        item['id'] = id;
+        return item;
+      })
+    );
   }
 
   list(path: string, queryFn?: QueryFn): Observable<Item[]> {
@@ -57,10 +62,10 @@ export class FirestoreService<Item> {
   colWithIds(path: string, queryFn?: QueryFn): Observable<Item[]> {
     return this.col(path, queryFn).snapshotChanges().pipe(
       map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as Item;
-          data['id'] = a.payload.doc.id;
-          return data;
+        return actions.map(action => {
+          const item = action.payload.doc.data() as Item;
+          item['id'] = action.payload.doc.id;
+          return item;
         });
       })
     );
