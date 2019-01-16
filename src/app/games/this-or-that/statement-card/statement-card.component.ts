@@ -13,7 +13,6 @@ export class StatementCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.text);
   }
 
 }
