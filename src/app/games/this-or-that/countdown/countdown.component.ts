@@ -10,12 +10,12 @@ import { take, map } from 'rxjs/operators';
 export class CountdownComponent implements OnInit {
 
   counter$: Observable<number>;
-  count = 3;
+  count = 4;
 
   constructor() {
     this.counter$ = timer(0, 1000).pipe(
       take(this.count),
-      map(() => --this.count)
+      map(() => (this.count !== 1) ? --this.count : this.count)
     );
    }
 
