@@ -35,6 +35,8 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
   gameInstanceSub: Subscription;
   private userSub: Subscription;
 
+  timer = 40;
+
 
   next = false;
   colordis = '#5d96c1';
