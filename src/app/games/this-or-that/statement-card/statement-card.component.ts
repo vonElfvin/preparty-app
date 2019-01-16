@@ -7,12 +7,13 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class StatementCardComponent implements OnInit {
 
-  @Input()
-  text: string;
+  @Input() text: string;
+  @Input() backgroundColor: string;
 
   constructor() { }
 
   ngOnInit() {
+    console.log(this.text);
   }
 
 }

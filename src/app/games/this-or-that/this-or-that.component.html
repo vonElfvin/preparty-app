@@ -1,11 +1,13 @@
 <div class="center">
   <div class="content">
-    <p>this-or-that</p>
-    <app-default-size-button class="next-question-button" *ngIf="isGameLeader | async" [text]="'Next Question'" [matIconName]="'chevron_right'" (click)="nextQuestion()"></app-default-size-button>
+    <app-default-size-button class="next-question-button" *ngIf="isGameLeader | async" [text]="'Next Question'"
+      [matIconName]="'chevron_right'" (click)="nextQuestion()"></app-default-size-button>
 
     <app-countdown *ngIf="next"></app-countdown>
-    <app-statement-card></app-statement-card>
-    or
-    <app-statement-card></app-statement-card>
+    <div class="statement-box">
+      <app-statement-card [text]="dis" [backgroundColor]="colordis"></app-statement-card>
+      or
+      <app-statement-card [text]="dat" [backgroundColor]="colordat"></app-statement-card>
+    </div>
   </div>
 </div>

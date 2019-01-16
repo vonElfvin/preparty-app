@@ -31,6 +31,10 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
   private data = [];
 
   next = false;
+  dis = 'dis';
+  colordis = 'red';
+  dat = 'dat';
+  colordat = 'blue';
 
   constructor(private partyService: PartyService, private thisOrThatGameInstanceService: ThisOrThatGameInstanceService,
               private authService: AuthService) {
