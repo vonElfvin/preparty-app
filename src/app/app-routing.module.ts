@@ -8,6 +8,7 @@ import { GameInfoComponent } from './party/game-info/game-info.component';
 import { HomeComponent } from './party/home/home.component';
 import { VotingGameComponent } from './games/voting-game/voting-game.component';
 import { WrapperComponent } from './party/wrapper/wrapper.component';
+import { ThisOrThatComponent } from './games/this-or-that/this-or-that.component';
 
 const routes: Routes = [
   {
@@ -26,8 +27,9 @@ const routes: Routes = [
       { path: 'game-info/:gameId', component: GameInfoComponent },
       { path: 'game/nhie/:joinCode', component: NhieComponent },
       { path: 'game/nhie', component: NhieComponent },
-      { path: 'voting/:joinCode', component: VotingGameComponent },
-      { path: 'voting', component: VotingGameComponent },
+      { path: 'game/this-or-that', component: ThisOrThatComponent },
+      { path: 'game/this-orthat', component: ThisOrThatComponent },
+
     ]
   },
   {
