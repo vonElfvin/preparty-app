@@ -28,7 +28,7 @@ const routes: Routes = [
       { path: 'game/nhie/:joinCode', component: NhieComponent },
       { path: 'game/nhie', component: NhieComponent },
       { path: 'game/this-or-that', component: ThisOrThatComponent },
-      { path: 'game/this-orthat', component: ThisOrThatComponent },
+      { path: 'game/this-or-that:joinCode', component: ThisOrThatComponent },
 
     ]
   },
