@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-statement-card',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./statement-card.component.scss']
 })
 export class StatementCardComponent implements OnInit {
+
+  @Input()
+  text: string;
 
   constructor() { }
 
