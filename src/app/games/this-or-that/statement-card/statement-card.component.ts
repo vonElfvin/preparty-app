@@ -7,13 +7,19 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class StatementCardComponent implements OnInit {
 
-  @Input() text: string;
+  @Input() option: string;
   @Input() backgroundColor: string;
   @Input() choice: boolean;
+
+  turned = false;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  turn() {
+    this.turned = !this.turned;
   }
 
 }

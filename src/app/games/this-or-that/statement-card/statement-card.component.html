@@ -1,3 +1,10 @@
-<div class="statement" [ngStyle]="{'background-color': backgroundColor}" [ngClass]="{'choice': choice}">
-  {{text}}
+<div class="scene">
+  <div class="card" (click)="turn()" [ngClass]="{'is-flipped': turned}">
+    <div class="statement card-face-front" [ngClass]="{'choice': choice}" [ngStyle]="{'background-color': backgroundColor}">
+      {{option}}
+    </div>
+    <div class="statement card-face-back" [ngClass]="{'choice': choice}" [ngStyle]="{'background-color': backgroundColor}">
+      People That Have Voted
+    </div>
+  </div>
 </div>

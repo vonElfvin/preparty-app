@@ -9,7 +9,6 @@ import {map, take} from 'rxjs/operators';
 })
 export class ClockComponent implements OnInit {
 
-  @ViewChild('circle') el: ElementRef;
 
   counter$: Observable<number>;
 
@@ -35,9 +34,6 @@ export class ClockComponent implements OnInit {
     this._count = count;
     this.countCss = '';
     this.countCss = `countdown ${this._count}s linear forwards`;
-    this.el.nativeElement.classList.remove('animation');
-    this.el.nativeElement.style.annimation = this.countCss;
-
     this.counter$ = timer(0, 1000).pipe(
       take(this._count),
       map(() => {

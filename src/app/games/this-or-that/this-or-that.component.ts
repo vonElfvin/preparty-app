@@ -176,7 +176,6 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
   }
 
   timerComplete() {
-    this.clockComponent.startCount(this.timer);
     this.thisOrThatGameInstanceService.setViewing(this.gameInstance.id, true);
   }
 
