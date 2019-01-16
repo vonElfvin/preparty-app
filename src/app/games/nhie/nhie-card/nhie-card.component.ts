@@ -7,7 +7,7 @@ import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 })
 export class NhieCardComponent {
 
-  private _question: string;
+  _question: string;
 
   @Input()
   set question(question: string) {
