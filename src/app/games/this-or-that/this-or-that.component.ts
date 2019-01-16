@@ -31,9 +31,7 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
 
 
   next = false;
-  dis = 'The quick brown fox jumps over the lazy dog';
   colordis = '#5d96c1';
-  dat = 'The quick brown fox jumps over the lazy dog';
   colordat = '#b34747';
 
   constructor(private partyService: PartyService, private thisOrThatGameInstanceService: ThisOrThatGameInstanceService,
