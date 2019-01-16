@@ -1,25 +1,31 @@
 import {GameInstance} from '../../shared/game-instance';
 
-export interface VotingGameQuestion {
+export interface ThisOrThatQuestion {
   id?: string;
-  question: string;
+  dis: string;
+  that: string;
   level?: number;
   index?: number;
 }
 
-export interface Vote {
+export enum VoteValue {
+  dis = 'dis',
+  that = 'that'
+}
+
+export interface ThisOrThatVote {
   voterId: string;
-  votedOnId: string;
+  votedOn: VoteValue;
   questionId: string;
 }
 
 export interface ThisOrThatGameInstance extends GameInstance {
-  genericQuestions: VotingGameQuestion[];
-  manualQuestions: VotingGameQuestion[];
-  currentQuestion: VotingGameQuestion;
-  currentVotes: Vote[];
+  genericQuestions: ThisOrThatQuestion[];
+  manualQuestions: ThisOrThatQuestion[];
+  currentQuestion: ThisOrThatQuestion;
+  currentVotes: ThisOrThatVote[];
 
-  oldVotes: Vote[];
+  oldVotes: ThisOrThatVote[];
   seenQuestions: number[];
   viewResults: boolean;
 }

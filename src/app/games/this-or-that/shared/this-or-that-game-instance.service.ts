@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {GameInstanceService} from '../../shared/game-instance.service';
 import {PartyService} from '../../../party/shared/party.service';
 import {FirestoreService} from '../../../core/firebase/firestore/firestore.service';
-import {ThisOrThatGameInstance, Vote} from './thisOrThat';
+import {ThisOrThatGameInstance, ThisOrThatVote} from './thisOrThat';
 import {Observable, of} from 'rxjs';
 import {switchMap, take} from 'rxjs/operators';
 import {Party} from '../../../party/shared/party';
@@ -29,13 +29,15 @@ export class ThisOrThatGameInstanceService {
   createGameInstance(): Promise<void> {
 
     return this.partyService.party.pipe(take(1), switchMap((party: Party) => {
-      const questions = [{ question: 'Who is most likely to buy a Big Mac?', id: '1', index: 1},
-        {question: 'Who is most likely to get most drunk tonight?', id: '2', index: 2},
-        {question: 'Who is the smartest?', id: '3', index: 3},
-        {question: 'Who is most likely to get kids first?', id: '4', index: 4},
-        {question: 'Whose eating skills are most impressive', id: '5', index: 5},
-        {question: 'Who would you bring to an empty island?', id: '6', index: 6},
-        {question: 'Who would you bring to På spåret?', id: '6', index: 6}];
+      const questions = [{ dis: 'Big Mac?', that: 'mcFlurry?', id: '1', index: 1},
+        { dis: 'cheese?', that: 'ham?', id: '2', index: 2},
+        { dis: 'soda', that: 'juice?', id: '3', index: 3},
+        { dis: 'dough?', that: 'freedom?', id: '4', index: 4},
+        { dis: 'rich?', that: 'handsome?', id: '5', index: 5},
+        { dis: 'hungry?', that: 'thirsty?', id: '6', index: 6},
+        { dis: 'fat?', that: 'super fat?', id: '7', index: 7},
+        { dis: 'Mc Feast?', that: 'chicken nuggets?', id: '8', index: 8}
+       ];
       if (!party) { return of(null); }
       console.log(party);
       const votingGameInstance = <ThisOrThatGameInstance> {
@@ -56,12 +58,12 @@ export class ThisOrThatGameInstanceService {
     })).toPromise();
   }
 
-  sendVote(vote: Vote, gameInstanceId: string) {
+  sendVote(vote: ThisOrThatVote, gameInstanceId: string) {
     return this.firestoreService.update(this.path, gameInstanceId,
      {currentVotes: firebase.firestore.FieldValue.arrayUnion(vote)});
   }
 
-  removeVote(vote: Vote, gameInstanceId: string) {
+  removeVote(vote: ThisOrThatVote, gameInstanceId: string) {
     return this.firestoreService.update(this.path, gameInstanceId,
      {currentVotes: firebase.firestore.FieldValue.arrayRemove(vote)});
   }

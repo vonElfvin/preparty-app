@@ -5,6 +5,7 @@ import { CountdownComponent } from './countdown/countdown.component';
 import { StatementCardComponent } from './statement-card/statement-card.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ClockComponent } from './clock/clock.component';
+import {MatCardModule} from '@angular/material';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ClockComponent } from './clock/clock.component';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    MatCardModule
 
   ]
 })
