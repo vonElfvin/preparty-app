@@ -11,8 +11,6 @@ export class NhieCardComponent {
 
   @Input()
   set question(question: string) {
-    console.log('prev value: ', this._question);
-    console.log('got name: ', question);
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;

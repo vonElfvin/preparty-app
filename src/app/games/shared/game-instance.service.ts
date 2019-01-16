@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {FirestoreService} from '../../core/firebase/firestore/firestore.service';
 import {GameInstance} from './game-instance';
 import { Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, shareReplay } from 'rxjs/operators';
 import { PartyService } from '../../party/shared/party.service';
 
 @Injectable({
@@ -28,10 +28,10 @@ export class GameInstanceService {
     return this.firestoreService.insert(this.path, gameInstance);
   }
 
-  getGameInstanceByJoinCode(joinCode: number): Observable<GameInstance> {
-    if (!joinCode) { return of(null); }
+  getGameInstanceByPartyId(partyId: string): Observable<GameInstance> {
+    if (!partyId) { return of(null); }
     return this.firestoreService.list(this.path, ref => ref
-      .where('joinCode', '==', joinCode)).pipe(
+      .where('partyId', '==', partyId)).pipe(
       map(games => games [0])
     );
   }
@@ -44,11 +44,12 @@ export class GameInstanceService {
     this.gameInstanceObservable = this.partyService.party.pipe(
       switchMap(party => {
         if (party) {
-          return this.getGameInstanceByJoinCode(party.joinCode);
+          return this.getGameInstanceByPartyId(party.id);
         } else {
           return of(null);
         }
-      })
+      }),
+      shareReplay()
     );
   }
 }

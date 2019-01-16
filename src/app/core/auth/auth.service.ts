@@ -4,7 +4,7 @@ import { FeedbackService } from '../feedback/feedback.service';
 import { FeedbackMessage, FeedbackType } from '../feedback/feedback.model';
 import { FirestoreService } from '../firebase/firestore/firestore.service';
 import { Observable, of } from 'rxjs';
-import { switchMap, map, take } from 'rxjs/operators';
+import { switchMap, map, take, shareReplay } from 'rxjs/operators';
 import { Role, User } from './user.model';
 import { Router } from '@angular/router';
 import { Party } from '../../party/shared/party';
@@ -82,11 +82,13 @@ export class AuthService {
     this.userObservable = this.fireauthService.authUser.pipe(
       switchMap(authUser => {
         if (authUser) {
+          console.log('setting user');
           return this.firestoreService.get(this.path, authUser.uid);
         } else {
           return of(null);
         }
-      })
+      }),
+      shareReplay(),
     );
   }
 

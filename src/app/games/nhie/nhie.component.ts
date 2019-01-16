@@ -42,25 +42,19 @@ export class NhieComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isGameLeader = this.partyService.isGameLeaderObservable;
-    const joinCode = +this.route.snapshot.params['joinCode'];
     this.menuService.setMenuVisibility(true);
-    if (joinCode) {
-      this.gameSub = this.nhieGameInstanceService.getGameInstanceByJoinCode(joinCode).subscribe(gameInstance => {
-        console.log(gameInstance);
-        if (gameInstance) {
-          this.gameInstance = gameInstance;
-          this.currentQuestion = gameInstance.currentQuestion;
-        } else {
-          this.nhieGameInstanceService.generateNewGameInstanceFromCode(joinCode);
-        }
-      });
-    }
+    this.gameSub = this.nhieGameInstanceService.getGameInstance().subscribe(gameInstance => {
+      if (gameInstance) {
+        this.gameInstance = gameInstance;
+        this.currentQuestion = gameInstance.currentQuestion;
+      } else {
+        this.nhieGameInstanceService.generateNewGameInstance();
+      }
+    });
   }
 
   ngOnDestroy() {
-    if (this.gameSub) {
-      this.gameSub.unsubscribe();
-    }
+    this.gameSub.unsubscribe();
   }
 
   setNextQuestion() {

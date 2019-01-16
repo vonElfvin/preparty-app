@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FirestoreService } from '../../core/firebase/firestore/firestore.service';
 import { Game } from './game.model';
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, shareReplay } from 'rxjs/operators';
 import { PartyService } from '../../party/shared/party.service';
 
 @Injectable({
@@ -36,11 +36,13 @@ export class GameService {
     this.gameObservable = this.partyService.party.pipe(
       switchMap(party => {
         if (party) {
+          console.log('setting game', party);
           return this.getGame(party.selectedGame);
         } else {
           return of(null);
         }
-      })
+      }),
+      shareReplay()
     );
   }
 }

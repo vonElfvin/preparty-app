@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FirestoreService } from '../../core/firebase/firestore/firestore.service';
 import { Party } from './party';
 import {Observable, combineLatest, of, throwError} from 'rxjs';
-import {map, switchMap, take} from 'rxjs/operators';
+import {map, switchMap, take, shareReplay} from 'rxjs/operators';
 import { Game } from '../../games/shared/game.model';
 import { AuthService } from '../../core/auth/auth.service';
 
@@ -77,6 +77,7 @@ export class PartyService {
               if (party) {
                 this._isGameLeader = user.id === party.leader;
                 party.members = users;
+                console.log('setting party', party);
                 return party;
               } else {
                 return of (null);
@@ -87,7 +88,8 @@ export class PartyService {
           this._isGameLeader = false;
           return of(null);
         }
-      })
+      }),
+      shareReplay()
     );
   }
 
