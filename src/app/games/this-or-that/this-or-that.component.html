@@ -7,15 +7,15 @@
       [matIconName]="'chevron_right'" (click)="setNextQuestion()"></app-default-size-button>
 
     <app-countdown *ngIf="next"></app-countdown>
-    <app-statement-card [text]="gameInstance?.currentQuestion.dis" [backgroundColor]="colordis" (click)="selectStatement(voteValue.dis)"
-      [choice]="selectedStatement===voteValue.dis"></app-statement-card>
 
-    <div id="or">
-      or
-    </div>
+      <app-statement-card [option]="gameInstance?.currentQuestion.dis" [backgroundColor]="colordis" (click)="selectStatement(voteValue.dis)"
+        [choice]="selectedStatement===voteValue.dis"></app-statement-card>
 
-    <app-statement-card [text]="gameInstance?.currentQuestion.that" [backgroundColor]="colordat" (click)="selectStatement(voteValue.that)"
-      [choice]="selectedStatement===voteValue.that"></app-statement-card>
+      <div id="or">
+        OR
+      </div>
 
+      <app-statement-card [option]="gameInstance?.currentQuestion.that" [backgroundColor]="colordat" (click)="selectStatement(voteValue.that)"
+        [choice]="selectedStatement===voteValue.that"></app-statement-card>
   </div>
 </div>
