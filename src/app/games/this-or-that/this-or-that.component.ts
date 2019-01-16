@@ -17,10 +17,11 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
   selectedStatement: VoteValue;
   gameInstance: ThisOrThatGameInstance;
   currentQuestion: ThisOrThatQuestion;
-  uid: string;
   isGameLeader: Observable<boolean> = of(true);
   party: Party;
   user: User;
+
+  voteValue = VoteValue;
 
   votingResults = [];
 
@@ -38,16 +39,13 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSub = this.authService.user.subscribe(user => {
       this.user = user;
-      if (this.party) {
-        // this.isGameLeader = this.party.leader === this.uid;
-      }
     });
     this.partySub = this.partyService.party.subscribe(party => {
       this.party = party;
-      if (party) {
-        // this.isGameLeader = party.leader === this.uid;
-      }
     });
+
+    this.isGameLeader = this.partyService.isGameLeaderObservable;
+
     this.gameInstanceSub = this.thisOrThatGameInstanceService.getGameInstance().subscribe(gameInstance => {
       console.log(gameInstance);
       if (gameInstance) {
@@ -67,10 +65,9 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
   }
 
   setVotedOn() {
-    console.log(this.uid);
     let voted = false;
     for (const vote of this.gameInstance.currentVotes) {
-      if (vote.voterId === this.uid) {
+      if (vote.voterId === this.user.id) {
         voted = true;
         this.selectedStatement = vote.votedOn;
       }
@@ -104,11 +101,11 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
 
   }
 
-  selectStatement(voteValue: VoteValue) {
+  selectStatement(voteValue: any) {
     const vote = <ThisOrThatVote> {
       questionId: this.gameInstance.currentQuestion.id,
       votedOn: voteValue,
-      voterId: this.uid
+      voterId: this.user.id
     };
 
     // Deselect member if pressed again
