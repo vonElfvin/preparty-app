@@ -14,10 +14,11 @@ import { VotingGameComponent } from './voting-game/voting-game.component';
 import { GamesComponent } from './games.component';
 import {PartyModule} from '../party/party.module';
 import {VotingGameModule} from './voting-game/voting-game.module';
+import { ThisOrThatModule } from './this-or-that/this-or-that.module';
 
 @NgModule({
   declarations: [
-    GamesComponent,
+    GamesComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +37,8 @@ import {VotingGameModule} from './voting-game/voting-game.module';
     PartyModule,
     // Game Modules
     NhieModule,
-    VotingGameModule
+    VotingGameModule,
+    ThisOrThatModule
   ],
   providers: [
     GameService,
