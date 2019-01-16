@@ -6,6 +6,9 @@ import {AuthService} from '../../core/auth/auth.service';
 import { Subscription, Observable, of } from 'rxjs';
 import {Party} from '../../party/shared/party';
 import {User} from '../../core/auth/user.model';
+import {GameService} from '../shared/game.service';
+import {map, take} from 'rxjs/operators';
+import {MenuService} from '../../party/shared/menu.service';
 
 @Component({
   selector: 'app-this-or-that',
@@ -18,6 +21,7 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
   gameInstance: ThisOrThatGameInstance;
   currentQuestion: ThisOrThatQuestion;
   isGameLeader: Observable<boolean> = of(true);
+  timerObs: Observable<number>;
   party: Party;
   user: User;
 
@@ -37,16 +41,18 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
   colordat = '#b34747';
 
   constructor(private partyService: PartyService, private thisOrThatGameInstanceService: ThisOrThatGameInstanceService,
-              private authService: AuthService) {
+              private authService: AuthService, private gameService: GameService, private menuService: MenuService) {
   }
 
   ngOnInit() {
+    this.menuService.setMenuVisibility(true);
     this.userSub = this.authService.user.subscribe(user => {
       this.user = user;
     });
     this.partySub = this.partyService.party.subscribe(party => {
       this.party = party;
     });
+    this.timerObs = this.gameService.game.pipe(take(1), map(game => game.timer));
 
     this.isGameLeader = this.partyService.isGameLeaderObservable;
 
@@ -113,9 +119,10 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
     };
 
     // Deselect member if pressed again
+    this.thisOrThatGameInstanceService.removeVote(vote, this.gameInstance.id);
+
     if (this.selectedStatement === voteValue) {
       this.selectedStatement = null;
-      this.thisOrThatGameInstanceService.removeVote(vote, this.gameInstance.id);
     } else {
       // Else select the clicked member
       this.selectedStatement = voteValue;

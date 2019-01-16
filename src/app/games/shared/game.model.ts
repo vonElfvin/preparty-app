@@ -6,4 +6,5 @@ export interface Game {
   urlPath: string;
   description: string;
   backgroundColor: string;
+  timer?: number;
 }
