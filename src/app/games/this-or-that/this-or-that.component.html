@@ -1,3 +1,10 @@
-<p>
-  this-or-that works!
-</p>
+<div class="center">
+  <div class="content">
+    <p>this-or-that</p>
+    <app-default-size-button class="next-question-button" *ngIf="isGameLeader | async" [text]="'Next Question'" [matIconName]="'chevron_right'" (click)="nextQuestion()"></app-default-size-button>
+
+    <app-countdown *ngIf="next"></app-countdown>
+    <app-statement-card></app-statement-card>
+    <app-statement-card></app-statement-card>
+  </div>
+</div>
