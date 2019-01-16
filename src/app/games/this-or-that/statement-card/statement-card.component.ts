@@ -9,6 +9,7 @@ export class StatementCardComponent implements OnInit {
 
   @Input() text: string;
   @Input() backgroundColor: string;
+  @Input() choice: boolean;
 
   constructor() { }
 

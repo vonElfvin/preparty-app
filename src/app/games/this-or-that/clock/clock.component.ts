@@ -10,16 +10,23 @@ import {map, take} from 'rxjs/operators';
 export class ClockComponent implements OnInit {
 
   counter$: Observable<number>;
+
+  private _count: number;
+
   @Input()
-  count = 20;
+  set count(count: number) {
+    this._count = count;
+    this.countCss = `countdown ${this._count}s linear forwards`;
+    this.counter$ = timer(0, 1000).pipe(
+      take(this._count),
+      map(() => --this._count)
+    );
+  }
+
   countCss: string;
 
   constructor() {
-    this.countCss = `countdown ${this.count}s linear forwards`;
-    this.counter$ = timer(0, 1000).pipe(
-      take(this.count),
-      map(() => --this.count)
-    );
+
   }
 
   ngOnInit() {

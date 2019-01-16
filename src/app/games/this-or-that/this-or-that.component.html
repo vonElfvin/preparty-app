@@ -5,15 +5,15 @@
     <app-default-size-button *ngIf="isGameLeader | async" [text]="'Next Question'" [matIconName]="'chevron_right'" (click)="setNextQuestion()"></app-default-size-button>
     <br><br>
     <app-countdown *ngIf="next"></app-countdown>
-    <!--<app-statement-card [text]="dis" [backgroundColor]="colordis"></app-statement-card>-->
-    <app-default-size-button [matIconName]="selectedStatement===voteValue.dis ? 'favorite' : 'favorite_border'"
-                             [text]="gameInstance?.currentQuestion.dis" (click)="selectStatement(voteValue.dis)">
-    </app-default-size-button>
-    or
-    <app-default-size-button [matIconName]="selectedStatement===voteValue.that ? 'favorite' : 'favorite_border'"
-                             [text]="gameInstance?.currentQuestion.that" (click)="selectStatement(voteValue.that)">
-    </app-default-size-button>
-    <!--<app-statement-card [text]="dat" [backgroundColor]="colordat"></app-statement-card>-->
+    <app-statement-card [text]="gameInstance?.currentQuestion.dis" [backgroundColor]="colordis" (click)="selectStatement(voteValue.dis)"
+      [choice]="selectedStatement===voteValue.dis"></app-statement-card>
+
+    <div id="or">
+      or
+    </div>
+
+    <app-statement-card [text]="gameInstance?.currentQuestion.that" [backgroundColor]="colordat" (click)="selectStatement(voteValue.that)"
+      [choice]="selectedStatement===voteValue.that"></app-statement-card>
 
   </div>
 </div>

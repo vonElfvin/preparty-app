@@ -25,6 +25,8 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
   party: Party;
   user: User;
 
+  duringVote: boolean;
+
   voteValue = VoteValue;
 
   votingResults = [];
@@ -35,9 +37,7 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
 
 
   next = false;
-  dis = 'The quick brown fox jumps over the lazy dog';
   colordis = '#5d96c1';
-  dat = 'The quick brown fox jumps over the lazy dog';
   colordat = '#b34747';
 
   constructor(private partyService: PartyService, private thisOrThatGameInstanceService: ThisOrThatGameInstanceService,
@@ -75,6 +75,7 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
   }
 
   setVotedOn() {
+    if (this.duringVote) { return; }
     let voted = false;
     for (const vote of this.gameInstance.currentVotes) {
       if (vote.voterId === this.user.id) {
@@ -119,14 +120,29 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
     };
 
     // Deselect member if pressed again
-    this.thisOrThatGameInstanceService.removeVote(vote, this.gameInstance.id);
 
     if (this.selectedStatement === voteValue) {
       this.selectedStatement = null;
+      this.thisOrThatGameInstanceService.removeVote(vote, this.gameInstance.id);
     } else {
       // Else select the clicked member
-      this.selectedStatement = voteValue;
-      this.thisOrThatGameInstanceService.sendVote(vote, this.gameInstance.id);
+      if (this.selectedStatement) {
+        const oldVote = <ThisOrThatVote> {
+          questionId: this.gameInstance.currentQuestion.id,
+          votedOn: this.selectedStatement,
+          voterId: this.user.id
+        };
+        this.selectedStatement = voteValue;
+        console.log(this.selectedStatement);
+        this.duringVote = true;
+        this.thisOrThatGameInstanceService.removeVote(oldVote, this.gameInstance.id).then(() => {
+          console.log(this.selectedStatement);
+          this.duringVote = false;
+          this.thisOrThatGameInstanceService.sendVote(vote, this.gameInstance.id);
+        });
+      } else {
+        this.thisOrThatGameInstanceService.sendVote(vote, this.gameInstance.id);
+      }
     }
   }
 
