@@ -1,15 +1,16 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ThisOrThatGameInstance, ThisOrThatVote, ThisOrThatQuestion, VoteValue} from './shared/thisOrThat';
-import {ThisOrThatGameInstanceService} from './shared/this-or-that-game-instance.service';
-import {PartyService} from '../../party/shared/party.service';
-import {AuthService} from '../../core/auth/auth.service';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ThisOrThatGameInstance, ThisOrThatVote, ThisOrThatQuestion, VoteValue } from './shared/thisOrThat';
+import { ThisOrThatGameInstanceService } from './shared/this-or-that-game-instance.service';
+import { PartyService } from '../../party/shared/party.service';
+import { AuthService } from '../../core/auth/auth.service';
 import { Subscription, Observable, of } from 'rxjs';
-import {Party} from '../../party/shared/party';
-import {User} from '../../core/auth/user.model';
-import {GameService} from '../shared/game.service';
-import {map, take} from 'rxjs/operators';
-import {MenuService} from '../../party/shared/menu.service';
-import {ClockComponent} from './clock/clock.component';
+import { Party } from '../../party/shared/party';
+import { User } from '../../core/auth/user.model';
+import { GameService } from '../shared/game.service';
+import { map, take } from 'rxjs/operators';
+import { MenuService } from '../../party/shared/menu.service';
+import { ClockComponent } from './clock/clock.component';
+import { GameInstanceService } from '../shared/game-instance.service';
 
 @Component({
   selector: 'app-this-or-that',
@@ -39,7 +40,7 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
   timer = 10;
 
   @ViewChild(ClockComponent)
-    clockComponent: ClockComponent;
+  clockComponent: ClockComponent;
 
 
   next = false;
@@ -47,7 +48,7 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
   colordat = '#b34747';
 
   constructor(private partyService: PartyService, private thisOrThatGameInstanceService: ThisOrThatGameInstanceService,
-              private authService: AuthService, private gameService: GameService, private menuService: MenuService) {
+    private authService: AuthService, private gameService: GameService, private menuService: MenuService) {
   }
 
   ngOnInit() {
@@ -104,7 +105,7 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
       this.gameInstance.currentQuestion = this.gameInstance.manualQuestions.shift();
     } else {
       let currentQuestion: ThisOrThatQuestion;
-      if  (this.gameInstance.genericQuestions.length > 0) {
+      if (this.gameInstance.genericQuestions.length > 0) {
         currentQuestion = this.gameInstance.genericQuestions.shift();
       }
       this.gameInstance.currentQuestion = currentQuestion;
@@ -116,42 +117,40 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
 
     // Stop viewing results
     this.gameInstance.viewResults = false;
+    this.setViewingFalse();
 
     this.thisOrThatGameInstanceService.updateGameInstance(this.gameInstance);
 
   }
 
   selectStatement(voteValue: any) {
-    const vote = <ThisOrThatVote> {
+
+    // Skip if results are in
+    if (this.gameInstance.viewResults) { return; }
+
+    const vote = <ThisOrThatVote>{
       questionId: this.gameInstance.currentQuestion.id,
       votedOn: voteValue,
       voterId: this.user.id
     };
 
-    // Deselect member if pressed again
-
-    if (this.selectedStatement === voteValue) {
-      this.selectedStatement = null;
-      this.thisOrThatGameInstanceService.removeVote(vote, this.gameInstance.id);
-    } else {
-      // Else select the clicked member
-      if (this.selectedStatement) {
-        const oldVote = <ThisOrThatVote> {
-          questionId: this.gameInstance.currentQuestion.id,
-          votedOn: this.selectedStatement,
-          voterId: this.user.id
-        };
-        this.selectedStatement = voteValue;
+    // Select the clicked member
+    if (this.selectedStatement) {
+      const oldVote = <ThisOrThatVote>{
+        questionId: this.gameInstance.currentQuestion.id,
+        votedOn: this.selectedStatement,
+        voterId: this.user.id
+      };
+      this.selectedStatement = voteValue;
+      console.log(this.selectedStatement);
+      this.duringVote = true;
+      this.thisOrThatGameInstanceService.removeVote(oldVote, this.gameInstance.id).then(() => {
         console.log(this.selectedStatement);
-        this.duringVote = true;
-        this.thisOrThatGameInstanceService.removeVote(oldVote, this.gameInstance.id).then(() => {
-          console.log(this.selectedStatement);
-          this.duringVote = false;
-          this.thisOrThatGameInstanceService.sendVote(vote, this.gameInstance.id);
-        });
-      } else {
+        this.duringVote = false;
         this.thisOrThatGameInstanceService.sendVote(vote, this.gameInstance.id);
-      }
+      });
+    } else {
+      this.thisOrThatGameInstanceService.sendVote(vote, this.gameInstance.id);
     }
   }
 
@@ -159,7 +158,7 @@ export class ThisOrThatComponent implements OnInit, OnDestroy {
 
 
   setViewingFalse() {
-    this.setNextQuestion();
+    this.thisOrThatGameInstanceService.setViewing(this.gameInstance.id, false);
   }
 
   setViewIngResultsTrue() {

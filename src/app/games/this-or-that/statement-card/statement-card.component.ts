@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ThisOrThatGameInstanceService } from '../shared/this-or-that-game-instance.service';
 
 @Component({
   selector: 'app-statement-card',
@@ -12,14 +13,26 @@ export class StatementCardComponent implements OnInit {
   @Input() choice: boolean;
 
   turned = false;
+  viewResults = false;
 
-  constructor() { }
+  constructor(private thisOrThatGameInstanceService: ThisOrThatGameInstanceService) { }
 
   ngOnInit() {
+
+    this.thisOrThatGameInstanceService.getGameInstance().subscribe(gameInstance => {
+      if (gameInstance) {
+        this.viewResults = gameInstance.viewResults;
+      }
+    });
+    this.thisOrThatGameInstanceService.flip.subscribe(flip => {
+      this.turned = flip;
+    }
+    );
   }
 
   turn() {
-    this.turned = !this.turned;
+    if (this.viewResults) {
+      this.turned = !this.turned;
+    }
   }
-
 }

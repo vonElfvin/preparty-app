@@ -3,10 +3,11 @@ import {GameInstanceService} from '../../shared/game-instance.service';
 import {PartyService} from '../../../party/shared/party.service';
 import {FirestoreService} from '../../../core/firebase/firestore/firestore.service';
 import {ThisOrThatGameInstance, ThisOrThatVote} from './thisOrThat';
-import {Observable, of} from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import {switchMap, take} from 'rxjs/operators';
 import {Party} from '../../../party/shared/party';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ import * as firebase from 'firebase';
 export class ThisOrThatGameInstanceService {
 
   path = 'game-instances';
+  flip: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private gameInstanceService: GameInstanceService, private partyService: PartyService,
               private firestoreService: FirestoreService<ThisOrThatGameInstance>) { }
@@ -69,6 +71,7 @@ export class ThisOrThatGameInstanceService {
   }
 
   setViewing(gameInstanceId: string, value: boolean) {
+    this.flip.next(value);
     return this.firestoreService.update(this.path, gameInstanceId,
       {viewResults: value});
   }
