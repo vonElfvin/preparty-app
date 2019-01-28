@@ -4,9 +4,9 @@
       {{gameInstance?.currentVotes?.length + '/' + party?.members?.length + ' answers'}}
       <div style="top: 0; right: 0; position: absolute">
         <app-clock *ngIf="!gameInstance?.viewResults" #totClock [count]="timer" (countdownFinished)="timerComplete()"></app-clock>
+        <app-default-size-button *ngIf="gameInstance?.viewResults && (isGameLeader | async)" [text]="'Next Question'" [matIconName]="'chevron_right'" (click)="setNextQuestion()"></app-default-size-button>
       </div>
     </div>
-    <app-default-size-button *ngIf="isGameLeader | async" [text]="'Next Question'" [matIconName]="'chevron_right'" (click)="setNextQuestion()"></app-default-size-button>
     <br><br>
     <app-countdown *ngIf="next"></app-countdown>
 
